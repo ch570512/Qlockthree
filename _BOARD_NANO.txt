@@ -1,0 +1,25 @@
+1x 529618 Platine Hartpapier                        5,45 CHF
+1x   eBay Arduino Nano V3.0                         3,00 EUR
+1x   eBay DS3231 RTC Modul                          1,00 EUR
+2x   eBay 1m Stipe 144x WS2812 RGB-LED (Neopixel)  17,00 EUR
+
+1x 145475 Fotowiderstand A9013                      1,95 CHF
+1x 405370 Kohleschicht-Widerstand 10kΩ              0,15 CHF
+
+1x Pollin DCF-Empfangsmodul DCF1                    5,90 EUR (optional)
+1x 176656 Temperatursensor LM35                     3,25 CHF (optional)
+1x 710146 Signalgeber AL-60SP12                     1,35 CHF (optional)
+1x 171085 IR-Empfaenger TSOP31240                   2,25 CHF (optional)*
+
+3x 701749 Drucktaster 24V                           0,25 CHF (optional)*
+3x 405370 Kohleschicht-Widerstand 10kΩ              0,15 CHF (optional)*
+
+1x 184900 LED gelb 5mm                              0,15 CHF (optional)
+1x 405256 Kohleschicht-Widerstand 1kΩ               0,15 CHF (optional)
+
+2x 567658 Schraubklemmblock Polzahl 4               0,60 CHF
+1x 567615 Schraubklemmblock Polzahl 3               0,45 CHF
+2x 567588 Schraubklemmblock Polzahl 2               0,30 CHF
+
+* Um eine Eingabemoeglichkeit zu haben, muss man sich zwischen Taster
+  und IR-Empfaenger entscheiden. Es funktionieren natuerlich auch beide.
