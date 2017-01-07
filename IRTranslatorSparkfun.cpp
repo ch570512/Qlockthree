@@ -1,23 +1,16 @@
 /**
- * IRTranslatorSparkfun
- * Remote-Klasse fuer die Sparkfun-Remote (COM-11759 / https://www.sparkfun.com/products/11759).
- *
- * @mc       Arduino/RBBB
- * @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
- * @version  1.1
- * @created  7.2.2015
- * @updated  16.2.2015
- *
- * Versionshistorie:
- * V 1.0:  - Erstellt.
- * V 1.1:  - Unterstuetzung fuer die alte Arduino-IDE (bis 1.0.6) entfernt.
- */
-#include "IRTranslatorSparkfun.h"
+   IRTranslatorSparkfun
+   Remote-Klasse fuer die Sparkfun-Remote (COM-11759 / https://www.sparkfun.com/products/11759).
 
-// #define DEBUG
+   @mc       Arduino/RBBB
+   @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
+   @version  1.1
+   @created  7.2.2015
+*/
+
+#include "IRTranslatorSparkfun.h"
 #include "Debug.h"
 
-// Codes, mit #debug im Hautprogrammn ausgelesen...
 #define SPARKFUN_POWER  0x10EFD827
 #define SPARKFUN_A      0x10EFF807
 #define SPARKFUN_B      0x10EF7887
@@ -29,7 +22,7 @@
 #define SPARKFUN_SELECT 0x10EF20DF
 
 void IRTranslatorSparkfun::printSignature() {
-  DEBUG_PRINTLN(F("Sparkfun COM-11759"));
+  DEBUG_PRINT(F("Sparkfun COM-11759 ,"));
 }
 
 byte IRTranslatorSparkfun::buttonForCode(unsigned long code) {

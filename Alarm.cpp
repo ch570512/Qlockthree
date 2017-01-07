@@ -1,30 +1,21 @@
 /**
- * Alarm
- * Klasse fuer die Weckfunktion.
- *
- * @mc       Arduino/RBBB
- * @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
- * @version  1.1
- * @created  22.1.2013
- * @update   16.2.2015
- *
- * Versionshistorie:
- * V 1.0:  - Erstellt.
- * V 1.1:  - Unterstuetzung fuer die alte Arduino-IDE (bis 1.0.6) entfernt.
- */
-#include "Alarm.h"
+   Alarm
+   Klasse fuer die Weckfunktion.
 
-// #define DEBUG
+   @mc       Arduino/RBBB
+   @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
+   @version  1.1
+   @created  22.1.2013
+*/
+
+#include "Alarm.h"
+#include "Configuration.h"
 #include "Debug.h"
 
-#include "Configuration.h"
-
 /**
- * Konstruktor.
- *
- * @param speakerPin Der Pin, an dem der Lautsprecher oder Buzzer haengt.
- */
-Alarm::Alarm(byte speakerPin) : TimeStamp(0, 7, 0, 0, 0, 0){
+   Konstruktor.
+*/
+Alarm::Alarm(byte speakerPin) : TimeStamp(0, 1, 0, 0, 0, 0) {
   _speakerPin = speakerPin;
   pinMode(_speakerPin, OUTPUT);
   _isActive = false;
@@ -32,15 +23,13 @@ Alarm::Alarm(byte speakerPin) : TimeStamp(0, 7, 0, 0, 0, 0){
 }
 
 /**
- * Den Weckton einschalten.
- *
- * @param: on - TRUE, der Ton wird eingeschaltet.
- *              FALSE, der Ton wird ausgeschaltet.
- */
+   Den Weckton einschalten.
+*/
 void Alarm::buzz(boolean on) {
 #ifdef SPEAKER_IS_BUZZER
   if (on) {
     digitalWrite(_speakerPin, HIGH);
+    //DEBUG_PRINTLN(F("Buzzz..."));
   } else {
     digitalWrite(_speakerPin, LOW);
   }
@@ -54,29 +43,22 @@ void Alarm::buzz(boolean on) {
 }
 
 /**
- * Die verbleibende Zeit in Sekunden bekommen, fuer die
- * die Weckzeit angezeigt werden soll.
- *
- * @return Die Zeit in Sekunden.
- */
+   Die verbleibende Zeit in Sekunden bekommen, fuer die die Weckzeit angezeigt werden soll.
+*/
 byte Alarm::getShowAlarmTimeTimer() {
   return _showAlarmTimeTimer;
 }
 
 /**
- * Die Zeit in Sekunden setzten, fuer die die
- * Weckzeit angezeigt werden soll.
- *
- * @param seconds Die Zeit in Sekunden.
- */
+   Die Zeit in Sekunden setzten, fuer die die Weckzeit angezeigt werden soll.
+*/
 void Alarm::setShowAlarmTimeTimer(byte seconds) {
   _showAlarmTimeTimer = seconds;
 }
 
 /**
- * Die Zeit, fuer die die Weckzeit angezeigt werden soll,
- * um eine Sekunde verringern.
- */
+   Die Zeit, fuer die die Weckzeit angezeigt werden soll, um eine Sekunde verringern.
+*/
 void Alarm::decShowAlarmTimeTimer() {
   if (_showAlarmTimeTimer > 0) {
     _showAlarmTimeTimer--;
@@ -84,25 +66,22 @@ void Alarm::decShowAlarmTimeTimer() {
 }
 
 /**
- * Ist der Wecker aktiv?
- *
- * @return TRUE, wenn der Wecker aktiv ist.
- *         FALSE, wenn der Wekcer ausgeschaltet ist.
- */
+   Ist der Wecker aktiv?
+*/
 boolean Alarm::isActive() {
   return _isActive;
 }
 
 /**
- * Den Wecker einschalten.
- */
+   Den Wecker einschalten.
+*/
 void Alarm::activate() {
   _isActive = true;
 }
 
 /**
- * Den Wecker ausschalten.
- */
+   Den Wecker ausschalten.
+*/
 void Alarm::deactivate() {
   _isActive = false;
   buzz(false);

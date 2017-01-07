@@ -1,27 +1,30 @@
 /**
- * Zahlen
- * Definition der Zahlen fuer die Sekundenanzeige der QLOCKTWO.
- * Die Zahlen sind wie die Woerter Bitmasken fuer die Matrix.
- *
- * @mc       Arduino/RBBB
- * @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
- * @version  1.3
- * @created  18.2.2011
- * @updated  18.1.2013
- *
- * Versionshistorie:
- * V 1.1:  - A/M fuer die Umschaltung zwischen LDR auto/manuell hinzugefuegt (Danke an Alexander).
- * V 1.2:  - Bitmaps in den PROGMEM ausgelagert.
- * V 1.3:  - Staben von V 1.1 in eigene Datei ausgelagert und das Alphabet komplettiert.
- */
+   Zahlen
+   Definition der Zahlen fuer die Sekundenanzeige der QLOCKTWO.
+   Die Zahlen sind wie die Woerter Bitmasken fuer die Matrix.
+
+   @mc       Arduino/RBBB
+   @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
+   @version  1.3
+   @created  18.2.2011
+*/
+
 #ifndef ZAHLEN_H
 #define ZAHLEN_H
 
 #include <avr/pgmspace.h>
 
-//extern const char ziffern[][7] PROGMEM;
 const char ziffern[][7] PROGMEM = {
   { // 0:0
+#ifdef NONE_TECHNICAL_ZERO
+    0b00001110,
+    0b00010001,
+    0b00010001,
+    0b00010001,
+    0b00010001,
+    0b00010001,
+    0b00001110
+#else
     0b00001110,
     0b00010001,
     0b00010011,
@@ -29,6 +32,7 @@ const char ziffern[][7] PROGMEM = {
     0b00011001,
     0b00010001,
     0b00001110
+#endif
   }
   ,
   { // 1:1
@@ -121,9 +125,10 @@ const char ziffern[][7] PROGMEM = {
     0b00001100
   }
 };
-//kleinere Zahlen f?r Eventzeitauswahl
+
+//kleinere Zahlen
 const char ziffernB[][5] PROGMEM = {
-  {0x1e, 0x12, 0x12, 0x12, 0x1e},
+  {0x0c, 0x12, 0x12, 0x12, 0x0c},
   {0x04, 0x0c, 0x04, 0x04, 0x0e},
   {0x1e, 0x02, 0x1e, 0x10, 0x1e},
   {0x1e, 0x02, 0x0e, 0x02, 0x1e},

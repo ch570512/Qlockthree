@@ -1,31 +1,32 @@
 /**
- * Woerter_FR
- * Definition der franzoesischen Woerter fuer die Zeitansage.
- * Die Woerter sind Bitmasken fuer die Matrix.
- *
- *   01234567890
- * 0 ILNESTODEUX
- * 1 QUATRETROIS
- * 2 NEUFUNESEPT
- * 3 HUITSIXCINQ
- * 4 MIDIXMINUIT
- * 5 ONZERHEURES
- * 6 MOINSOLEDIX
- * 7 ETRQUARTPMD
- * 8 VINGT-CINQU
- * 9 ETSDEMIEPAM
- *
- * @mc       Arduino/RBBB
- * @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
- * @version  1.0
- * @created  12.12.2012
- */
+   Woerter_FR
+   Definition der franzoesischen Woerter fuer die Zeitansage.
+   Die Woerter sind Bitmasken fuer die Matrix.
+
+     01234567890
+   0 ILNESTODEUX
+   1 QUATRETROIS
+   2 NEUFUNESEPT
+   3 HUITSIXCINQ
+   4 MIDIXMINUIT
+   5 ONZERHEURES
+   6 MOINSOLEDIX
+   7 ETRQUARTPMD
+   8 VINGT-CINQU
+   9 ETSDEMIEPAM
+
+   @mc       Arduino/RBBB
+   @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
+   @version  1.0
+   @created  12.12.2012
+*/
+
 #ifndef WOERTER_FR_H
 #define WOERTER_FR_H
 
 /**
- * Definition der Woerter
- */
+   Definition der Woerter
+*/
 // Trait = Bindestrich (-)
 #define FR_TRAIT        matrix[8] |= 0b0000010000000000
 #define FR_ET           matrix[7] |= 0b1100000000000000
@@ -34,6 +35,8 @@
 #define FR_ILEST        matrix[0] |= 0b1101110000000000
 #define FR_HEURE        matrix[5] |= 0b0000011111000000
 #define FR_HEURES       matrix[5] |= 0b0000011111100000
+#define FR_AM           matrix[7] |= 0b0000000001100000
+#define FR_PM           matrix[9] |= 0b0000000011000000
 
 #define FR_CINQ         matrix[8] |= 0b0000001111000000
 #define FR_DIX          matrix[6] |= 0b0000000011100000

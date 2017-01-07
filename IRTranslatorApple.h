@@ -11,12 +11,12 @@
    Versionshistorie:
    V 1.0:  - Erstellt.
 */
-#ifndef IRTRANSLATORCLT_H
-#define IRTRANSLATORCLT_H
+#ifndef IRTRANSLATORAPPLE_H
+#define IRTRANSLATORAPPLE_H
 
 #include "IRTranslator.h"
 
-class IRTranslatorCLT : public IRTranslator {
+class IRTranslatorApple : public IRTranslator {
   public:
     void printSignature();
     byte buttonForCode(unsigned long code);

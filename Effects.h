@@ -1,15 +1,11 @@
 /**
- * Effects.h
- * Masken für diverse Effekte
- *
- * @mc       Arduino/UNO
- * @autor    Manuel Bracher / manuel.bracher@gmail.com
- * @version  1.0
- * @created  02.01.15
- *
- * Versionshistorie:
- * V 1.0:  - Erstellt.
- */
+   Effects.h
+   Masken für diverse Effekte
+
+   @mc       Arduino/UNO
+   @autor    Manuel Bracher / manuel.bracher@gmail.com
+   @version  1.0
+*/
 
 #ifndef EFFECTS_H
 #define EFFECTS_H
@@ -283,9 +279,8 @@ const word bitmaps[][11] PROGMEM = {
     0b0000011100,
     0b1110001000,
     0b1000000000,
-    0b1110000000 } // I Love U
+    0b1110000000
+  } // I Love U
 };
 
-#endif //EFFECTS_H
-
-
+#endif

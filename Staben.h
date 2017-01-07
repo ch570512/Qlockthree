@@ -3,22 +3,19 @@
  * Definition der (Buch-)Staben fuer die QLOCKTWO.
  * Die Staben sind wie die Woerter Bitmasken fuer die Matrix.
  * Die Staben sind so ausgelegt, dass zwei nebeneinander passen.
- * Das ist wichtig fuewr die Konfiguration der Uhr.
+ * Das ist wichtig fuer die Konfiguration der Uhr.
  *
  * @mc       Arduino/RBBB
  * @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
  * @version  1.1
  * @created  23.1.2013
- *
- * Versionshiostorie:
- * V 1.1:  - auf 5 Pixel Hoehe geandert, damit zwei Reihen auf das Display passen.
  */
+
 #ifndef STABEN_H
 #define STABEN_H
 
 #include <avr/pgmspace.h>
 
-//extern const char staben[][6] PROGMEM;
 const char staben[][6] PROGMEM = {
   { // 0:A
     0b00001100,
@@ -85,11 +82,11 @@ const char staben[][6] PROGMEM = {
     1
   }
   , { // 8:I
-    0b00010000,
-    0b00010000,
-    0b00010000,
-    0b00010000,
-    0b00010000,
+    0b00000100,
+    0b00000100,
+    0b00000100,
+    0b00000100,
+    0b00000100,
     4
   }
   , { // 9:J
@@ -133,11 +130,11 @@ const char staben[][6] PROGMEM = {
     0
   }
   , { // 14:O
-    0b00001100,
+    0b00011110,
     0b00010010,
     0b00010010,
     0b00010010,
-    0b00001100,
+    0b00011110,
     1
   }
   , { // 15:P
@@ -229,6 +226,7 @@ const char staben[][6] PROGMEM = {
     1
   }
 };
+
 //kompletter Zeichensatz
 const char stabenBig[][8] PROGMEM = {
   {0x10, 0x10, 0x10, 0x10, 0x00, 0x00, 0x10, 4}, // ASCII-Code 0x21 => ! (33)
@@ -324,9 +322,8 @@ const char stabenBig[][8] PROGMEM = {
   {0x04, 0x08, 0x08, 0x10, 0x08, 0x08, 0x04, 2}, // ASCII-Code 0x7B => { (123)
   {0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 4}, // ASCII-Code 0x7C => | (124)
   {0x10, 0x08, 0x08, 0x04, 0x08, 0x08, 0x10, 2}, // ASCII-Code 0x7D => } (125)
-  {0x00, 0x00, 0x00, 0x19, 0x26, 0x00, 0x00, 0} // ASCII-Code 0x7E => ~ (126)
+  {0x00, 0x00, 0x00, 0x19, 0x26, 0x00, 0x00, 0}  // ASCII-Code 0x7E => ~ (126)
 };
-#endif //STABEN_H
 
-
+#endif
 

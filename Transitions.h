@@ -1,15 +1,12 @@
 /**
- * Transitions.h
- * Transitionen bei Wechsel Zeitmatrix
- *
- * @mc       Arduino/UNO
- * @autor    Manuel Bracher / manuel.bracher@gmail.com
- * @version  1.0
- * @created  19.05.15
- *
- * Versionshistorie:
- * V 1.0:  - Erstellt.
- */
+   Transitions.h
+   Transitionen bei Wechsel Zeitmatrix
+
+   @mc       Arduino/UNO
+   @autor    Manuel Bracher / manuel.bracher@gmail.com
+   @version  1.0
+   @created  19.05.15
+*/
 
 #ifndef TRANSITIONS_H
 #define TRANSITIONS_H
@@ -33,6 +30,5 @@ class Transitions {
     static boolean _ereasingDone;
     static boolean _writingDone;
 };
-
 
 #endif

@@ -1,45 +1,48 @@
 /**
- * Woerter_NL
- * Definition der niederlaendischen Woerter fuer die Zeitansage.
- * Die Woerter sind Bitmasken fuer die Matrix.
- *
- * @mc       Arduino/RBBB
- * @autor    Rudolf Klimesch (Vorlage: Christian Aschoff)
- * @version  1.01
- * @created  17.1.2013
- * @update   29.9.2014
- *
- * Historie:
- * V 1.01 - Falsches O bei ZEVEN behoben.
- *
- */
+   Woerter_NL
+   Definition der niederlaendischen Woerter fuer die Zeitansage.
+   Die Woerter sind Bitmasken fuer die Matrix.
+
+   @mc       Arduino/RBBB
+   @autor    Rudolf Klimesch (Vorlage: Christian Aschoff)
+   @version  1.01
+   @created  17.1.2013
+   @update   29.9.2014
+
+   Historie:
+   V 1.01 - Falsches O bei ZEVEN behoben.
+
+*/
+
 #ifndef WOERTER_NL_H
 #define WOERTER_NL_H
 
 /*
- * VORLAGE FUER DIE MATRIX
- *
- *  H E T K I S A V I J F     HET=ES, IS=IST, VIJF=FUNF
- *  T I E N B T Z V O O R     TIEN=ZEHN, VOOR=VOR
- *  O V E R M E K W A R T     OVER=NACH, KWART=VIERTEL
- *  H A L F S P W O V E R     HALF=HALB, OVER=NACH
- *  V O O R T H G E E N S     VOOR=VOR, EENS=EINS
- *  T W E E P V C D R I E     TWEE=ZWEI, DRIE=DREI
- *  V I E R V I J F Z E S     VIER=VIER, VIJF=FUNF, ZES=SECHS
- *  Z E V E N O N E G E N     ZEVEN=SIEBEN, NEGEN=NEUN
- *  A C H T T I E N E L F     ACHT=ACHT, TIEN=ZEHN, ELF=ELF
- *  T W A A L F B F U U R     TWAALF=ZWOLF, UUR=STUNDE
- */
+   VORLAGE FUER DIE MATRIX
+
+    H E T K I S A V I J F     HET=ES, IS=IST, VIJF=FUNF
+    T I E N B T Z V O O R     TIEN=ZEHN, VOOR=VOR
+    O V E R M E K W A R T     OVER=NACH, KWART=VIERTEL
+    H A L F S P W O V E R     HALF=HALB, OVER=NACH
+    V O O R T H G E E N S     VOOR=VOR, EENS=EINS
+    T W E E P V C D R I E     TWEE=ZWEI, DRIE=DREI
+    V I E R V I J F Z E S     VIER=VIER, VIJF=FUNF, ZES=SECHS
+    Z E V E N O N E G E N     ZEVEN=SIEBEN, NEGEN=NEUN
+    A C H T T I E N E L F     ACHT=ACHT, TIEN=ZEHN, ELF=ELF
+    T W A A L F B F U U R     TWAALF=ZWOLF, UUR=STUNDE
+*/
 
 /**
- * Definition der Woerter
- */
+   Definition der Woerter
+*/
 #define NL_VOOR         matrix[1] |= 0b0000000111100000 // VOR
 #define NL_OVER         matrix[2] |= 0b1111000000000000 // NACH
 #define NL_VOOR2        matrix[4] |= 0b1111000000000000 // VOR2
 #define NL_OVER2        matrix[3] |= 0b0000000111100000 // NACH2
 #define NL_HETIS        matrix[0] |= 0b1110110000000000 // ESIST
 #define NL_UUR          matrix[9] |= 0b0000000011100000 // UHR
+#define NL_AM           matrix[0] |= 0b1000000000000000
+#define NL_PM           matrix[0] |= 0b0100000000000000
 
 #define NL_VIJF         matrix[0] |= 0b0000000111100000 // FUENF
 #define NL_TIEN         matrix[1] |= 0b1111000000000000 // ZEHN

@@ -1,42 +1,32 @@
 /**
- * LedDriverUeberPixel
- * Implementierung auf der Basis von 4 MAX7219 wie es der Ueberpixel verwendet.
- *
- * @mc       Arduino/RBBB
- * @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
- * @version  1.4
- * @created  18.1.2013
- * @updated  16.2.2015
- *
- * Versionshistorie:
- * V 1.0:  - Erstellt.
- * V 1.1:  - printSignature() eingefuehrt.
- *         - Bennenung verbessert.
- * V 1.2:  - Anpassung auf Helligkeit 0-100%
- * V 1.3:  - Getter fuer Helligkeit nachgezogen.
- * V 1.4:  - Unterstuetzung fuer die alte Arduino-IDE (bis 1.0.6) entfernt.
- */
-#include "LedDriverUeberPixel.h"
+   LedDriverUeberPixel
+   Implementierung auf der Basis von 4 MAX7219 wie es der Ueberpixel verwendet.
 
-// #define DEBUG
+   @mc       Arduino/RBBB
+   @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
+   @version  1.4
+   @created  18.1.2013
+*/
+
+#include "LedDriverUeberPixel.h"
 #include "Debug.h"
 
 /**
- * Initialisierung.
- *
- * @param data Pin, an dem die Data-Line haengt.
- * @param clock Pin, an dem die Clock-Line haengt.
- * @param latch Pin, an dem die Latch-Line haengt.
- */
+   Initialisierung.
+
+   @param data Pin, an dem die Data-Line haengt.
+   @param clock Pin, an dem die Clock-Line haengt.
+   @param latch Pin, an dem die Latch-Line haengt.
+*/
 LedDriverUeberPixel::LedDriverUeberPixel(byte data, byte clock, byte load) {
   _ledControl = new LedControl(data, clock, load, 4);
 }
 
 /**
- * init() wird im Hauptprogramm in init() aufgerufen.
- * Hier sollten die LED-Treiber in eine definierten
- * Ausgangszustand gebracht werden.
- */
+   init() wird im Hauptprogramm in init() aufgerufen.
+   Hier sollten die LED-Treiber in eine definierten
+   Ausgangszustand gebracht werden.
+*/
 void LedDriverUeberPixel::init() {
   setBrightness(100);
   wakeUp();
@@ -51,16 +41,17 @@ void LedDriverUeberPixel::init() {
 }
 
 void LedDriverUeberPixel::printSignature() {
-  DEBUG_PRINTLN(F("UeberPixel - MAX7219"));
+  DEBUG_PRINT(F("UeberPixel - MAX7219"));
 }
 
 /**
- * Den Bildschirm-Puffer auf die LED-Matrix schreiben.
- *
- * @param onChange: TRUE, wenn es Aenderungen in dem Bildschirm-Puffer gab,
- *                  FALSE, wenn es ein Refresh-Aufruf war.
- */
+   Den Bildschirm-Puffer auf die LED-Matrix schreiben.
+
+   @param onChange: TRUE, wenn es Aenderungen in dem Bildschirm-Puffer gab,
+                    FALSE, wenn es ein Refresh-Aufruf war.
+*/
 void LedDriverUeberPixel::writeScreenBufferToMatrix(word matrix[16], boolean onChange, eColors a_color) {
+
   if (onChange) {
     for (byte y = 0; y < 10; y++) {
       for (byte x = 5; x < 16; x++) {
@@ -97,10 +88,10 @@ void LedDriverUeberPixel::writeScreenBufferToMatrix(word matrix[16], boolean onC
 }
 
 /**
- * Die Helligkeit des Displays anpassen.
- *
- * @param brightnessInPercent Die Helligkeit.
- */
+   Die Helligkeit des Displays anpassen.
+
+   @param brightnessInPercent Die Helligkeit.
+*/
 void LedDriverUeberPixel::setBrightness(byte brightnessInPercent) {
   if (_brightnessInPercent != brightnessInPercent) {
     _brightnessInPercent = brightnessInPercent;
@@ -120,24 +111,24 @@ void LedDriverUeberPixel::setBrightness(byte brightnessInPercent) {
 }
 
 /**
- * Die aktuelle Helligkeit bekommen.
- */
+   Die aktuelle Helligkeit bekommen.
+*/
 byte LedDriverUeberPixel::getBrightness() {
   return _brightnessInPercent;
 }
 
 /**
- * Anpassung der Groesse des Bildspeichers.
- *
- * @param linesToWrite Wieviel Zeilen aus dem Bildspeicher sollen
- *                     geschrieben werden?
- */
+   Anpassung der Groesse des Bildspeichers.
+
+   @param linesToWrite Wieviel Zeilen aus dem Bildspeicher sollen
+                       geschrieben werden?
+*/
 void LedDriverUeberPixel::setLinesToWrite(byte linesToWrite) {
 }
 
 /**
- * Das Display ausschalten.
- */
+   Das Display ausschalten.
+*/
 void LedDriverUeberPixel::shutDown() {
   for (byte i = 0; i < 4; i++) {
     _ledControl->shutdown(i, true);
@@ -145,8 +136,8 @@ void LedDriverUeberPixel::shutDown() {
 }
 
 /**
- * Das Display einschalten.
- */
+   Das Display einschalten.
+*/
 void LedDriverUeberPixel::wakeUp() {
   for (byte i = 0; i < 4; i++) {
     _ledControl->shutdown(i, false);
@@ -154,8 +145,8 @@ void LedDriverUeberPixel::wakeUp() {
 }
 
 /**
- * Den Dateninhalt des LED-Treibers loeschen.
- */
+   Den Dateninhalt des LED-Treibers loeschen.
+*/
 void LedDriverUeberPixel::clearData() {
   for (byte i = 0; i < 4; i++) {
     _ledControl->clearDisplay(i);
@@ -163,8 +154,8 @@ void LedDriverUeberPixel::clearData() {
 }
 
 /**
- * Einen X/Y-koordinierten Pixel in der Matrix setzen.
- */
+   Einen X/Y-koordinierten Pixel in der Matrix setzen.
+*/
 void LedDriverUeberPixel::_setPixel(byte x, byte y, boolean state) {
   // 1. MAX7219
   if ((x < 6) && (y < 5)) {

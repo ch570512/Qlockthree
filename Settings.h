@@ -7,17 +7,8 @@
    @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
    @version  1.3
    @created  23.1.2013
-   @updated  16.2.2015
-
-   Versionshistorie:
-   V 1.0:  - Erstellt.
-   V 1.1:  - LDR-Modus aufgenommen.
-   V 1.2:  - Brightness aufgenommen.
-           - EnableAlarm aufgenommen.
-           - DcfSignalIsInverted aufgenommen.
-           - TimeShift aufgenommen.
-   V 1.3:  - Unterstuetzung fuer die alte Arduino-IDE (bis 1.0.6) entfernt.
 */
+
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
@@ -32,7 +23,6 @@ class Settings {
       TRANSITION_MODE_FADE,
       TRANSITION_MODE_MATRIX,
       TRANSITION_MODE_SLIDE,
-
       TRANSITION_MODE_MAX
     };
 
@@ -81,6 +71,9 @@ class Settings {
 
     TimeStamp* getNightModeTime(bool onTime);
 
+    boolean getEsIst();
+    void toggleEsIst();
+
   private:
     byte _language;
     boolean _renderCornersCw;
@@ -96,7 +89,9 @@ class Settings {
 
     byte _jumpToNormalTimeout;
     byte _colorChangeRate;
+
+    byte _esIst;
+    
 };
 
 #endif
-

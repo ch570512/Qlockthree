@@ -1,21 +1,13 @@
 /**
- * LedDriverDefault
- * Implementierung auf der Basis 74HC595 und UDN2981A.
- *
- * @mc       Arduino/RBBB
- * @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
- * @version  1.4
- * @created  18.1.2013
- * @updated  18.1.2015
- *
- * Versionshistorie:
- * V 1.0:  - Erstellt.
- * V 1.1:  - printSignature() eingefuehrt.
- *         - Benennung verbessert.
- * V 1.2:  - Anpassung Helligkeit 0-100%
- * V 1.3:  - Getter fuer Helligkeit nachgezogen.
- * V 1.4:  - Unterstuetzung fuer die alte Arduino-IDE (bis 1.0.6) entfernt.
- */
+   LedDriverDefault
+   Implementierung auf der Basis 74HC595 und UDN2981A.
+
+   @mc       Arduino/RBBB
+   @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
+   @version  1.4
+   @created  18.1.2013
+*/
+
 #ifndef LED_DRIVER_DEFAULT_H
 #define LED_DRIVER_DEFAULT_H
 

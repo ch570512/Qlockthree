@@ -6,27 +6,17 @@
    @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
    @version  1.4
    @created  18.1.2013
-   @updated  18.1.2015
-
-   Versionshistorie:
-   V 1.0:  - Erstellt.
-   V 1.1:  - printSignature() eingefuehrt.
-           - Benennung verbessert.
-   V 1.2:  - Anpassung Helligkeit 0-100%
-   V 1.3:  - Getter fuer Helligkeit nachgezogen.
-   V 1.4:  - Unterstuetzung fuer die alte Arduino-IDE (bis 1.0.6) entfernt.
 */
+
 #include "LedDriverDefault.h"
 #include "Configuration.h"
-
-// #define DEBUG
 #include "Debug.h"
 
 // Hilfsvariable, um das Display auf den Kopf zu stellen
 #ifdef UPSIDE_DOWN
-#define DISPLAY_SHIFT  (_linesToWrite-1)-
+#define DISPLAY_SHIFT (_linesToWrite-1)-
 #else
-#define DISPLAY_SHIFT  0+
+#define DISPLAY_SHIFT 0+
 #endif
 
 /**
@@ -57,9 +47,9 @@ void LedDriverDefault::init() {
 
 void LedDriverDefault::printSignature() {
 #ifdef MOS_DRIVER
-  DEBUG_PRINTLN(F("Default - 74HC595 MOS"));
+  DEBUG_PRINT(F("Default - 74HC595 MOS"));
 #else
-  DEBUG_PRINTLN(F("Default - 74HC595"));
+  DEBUG_PRINT(F("Default - 74HC595"));
 #endif
 }
 

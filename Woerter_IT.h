@@ -1,35 +1,38 @@
 /**
- * Woerter_IT
- * Definition der italienischen Woerter fuer die Zeitansage.
- * Die Woerter sind Bitmasken fuer die Matrix.
- *
- *   01234567890
- * 0 SONORLEBORE
- * 1 ERLUNASDUEZ
- * 2 TREOTTONOVE
- * 3 DIECIUNDICI
- * 4 DODICISETTE
- * 5 QUATTROCSEI
- * 6 CINQUESMENO
- * 7 ECUNOQUARTO
- * 8 VENTICINQUE
- * 9 DIECIEMEZZA
- *
- * @mc       Arduino/RBBB
- * @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
- * @version  1.0
- * @created  17.12.2012
- */
+   Woerter_IT
+   Definition der italienischen Woerter fuer die Zeitansage.
+   Die Woerter sind Bitmasken fuer die Matrix.
+
+     01234567890
+   0 SONORLEBORE
+   1 ERLUNASDUEZ
+   2 TREOTTONOVE
+   3 DIECIUNDICI
+   4 DODICISETTE
+   5 QUATTROCSEI
+   6 CINQUESMENO
+   7 ECUNOQUARTO
+   8 VENTICINQUE
+   9 DIECIEMEZZA
+
+   @mc       Arduino/RBBB
+   @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
+   @version  1.0
+   @created  17.12.2012
+*/
+
 #ifndef WOERTER_IT_H
 #define WOERTER_IT_H
 
 /**
- * Definition der Woerter.
- */
+   Definition der Woerter.
+*/
 #define IT_SONOLE    matrix[0] |= 0b1111011000000000
 #define IT_LE        matrix[0] |= 0b0000011000000000
 #define IT_ORE       matrix[0] |= 0b0000000011100000
 #define IT_E         matrix[1] |= 0b1000000000000000
+#define IT_AM        matrix[0] |= 0b1000000000000000
+#define IT_PM        matrix[0] |= 0b0100000000000000
 
 #define IT_H_LUNA    matrix[1] |= 0b0011110000000000
 #define IT_H_DUE     matrix[1] |= 0b0000000111000000

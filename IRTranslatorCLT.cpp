@@ -1,23 +1,17 @@
 /**
- * IRTranslatorCLT
- * Remote-Klasse fuer die Lunartec-Remote (NX6612-901 / http://www.pearl.de/a-NX6612-3350.shtml?vid=901).
- *
- * @mc       Arduino/RBBB
- * @autor    Manuel Bracher / bracher _AT_ win _DOT_ com
- * @version  1.1
- * @created  5.5.2015
- * @updated  5.5.2015
- *
- * Versionshistorie:
- * V 1.0:  - Erstellt.
- */
+   IRTranslatorCLT
+   Remote-Klasse fuer die Lunartec-Remote (NX6612-901 / http://www.pearl.de/a-NX6612-3350.shtml?vid=901).
+
+   @mc       Arduino/RBBB
+   @autor    Manuel Bracher / bracher _AT_ win _DOT_ com
+   @version  1.1
+   @created  5.5.2015
+*/
+
 #include "IRTranslatorCLT.h"
 #include "Colors.h"
-
-// #define DEBUG
 #include "Debug.h"
 
-// Codes, mit #DEBUG im Hauptprogramm ausgelesen...
 #define CLT_TIME           0xFFA05F
 #define CLT_REGION         0xFF20DF
 #define CLT_SECONDS        0xFF609F
@@ -46,17 +40,15 @@
 #define CLT_DARKER         0xFF48B7
 
 #define CLT_LDR            0xFFD827
-#define CLT_SAVE           0xFFC837
+#define CLT_EXTMODE        0xFFC837
 
 void IRTranslatorCLT::printSignature() {
-  DEBUG_PRINTLN(F("CLT leuchtbildshop"));
+  DEBUG_PRINT(F("CLT Remote, "));
 }
 
 byte IRTranslatorCLT::buttonForCode(unsigned long code) {
   switch (code) {
-
     case CLT_TIME:
-      setMode(STD_MODE_NORMAL);
       return REMOTE_BUTTON_SETMODE;
     case CLT_REGION:
       return REMOTE_BUTTON_REGION;
@@ -114,7 +106,7 @@ byte IRTranslatorCLT::buttonForCode(unsigned long code) {
       return REMOTE_BUTTON_DARKER;
     case CLT_LDR:
       return REMOTE_BUTTON_LDR;
-    case CLT_SAVE:
+    case CLT_EXTMODE:
       return REMOTE_BUTTON_EXTMODE;
     default:
       return REMOTE_BUTTON_UNDEFINED;

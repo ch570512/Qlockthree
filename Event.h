@@ -6,9 +6,6 @@
  * @autor    Manuel Bracher / manuel.bracher@gmail.com
  * @version  1.0
  * @created  02.01.15
- *
- * Versionshistorie:
- * V 1.0:  - Erstellt.
  */
 
 #ifndef EVENT_H
@@ -23,9 +20,7 @@ extern Settings settings;
 
 #define DURATION_BM   15
 #define TICKER_SPEED  6
-
 #define DURATION_ANI_BM  (DURATION_BM/5)
-
 
 class Event {
   public:
@@ -47,4 +42,4 @@ class Event {
     eColors _color;
 };
 
-#endif //EVENT_H
+#endif

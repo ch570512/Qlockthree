@@ -1,36 +1,38 @@
 /**
- * Woerter_EN
- * Definition der englischen Woerter fuer die Zeitansage.
- * Die Woerter sind Bitmasken fuer die Matrix.
- *
- *   01234567890
- * 0 ITLISASTIME
- * 1 ACQUARTERDC
- * 2 TWENTYFIFEX
- * 3 HALFBTENFTO
- * 4 PASTERUNINE
- * 5 ONESIXTHREE
- * 6 FOURFIVETWO
- * 7 EIGHTELEVEN
- * 8 SEVENTWELVE
- * 9 TENSEOCLOCK
- *
- * @mc       Arduino/RBBB
- * @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
- * @version  1.0
- * @created  17.12.2012
- */
+   Woerter_EN
+   Definition der englischen Woerter fuer die Zeitansage.
+   Die Woerter sind Bitmasken fuer die Matrix.
+
+     01234567890
+   0 ITLISASTIME
+   1 ACQUARTERDC
+   2 TWENTYFIFEX
+   3 HALFBTENFTO
+   4 PASTERUNINE
+   5 ONESIXTHREE
+   6 FOURFIVETWO
+   7 EIGHTELEVEN
+   8 SEVENTWELVE
+   9 TENSEOCLOCK
+
+   @mc       Arduino/RBBB
+   @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
+   @version  1.0
+   @created  17.12.2012
+*/
+
 #ifndef WOERTER_EN_H
 #define WOERTER_EN_H
 
 /**
- * Definition der Woerter.
- */
-
+   Definition der Woerter.
+*/
 #define EN_ITIS     matrix[0] |= 0b1101100000000000
 #define EN_TIME     matrix[0] |= 0b0000000111100000
 #define EN_A        matrix[1] |= 0b1000000000000000
 #define EN_OCLOCK   matrix[9] |= 0b0000011111100000
+#define EN_AM       matrix[0] |= 0b0000000110000000
+#define EN_PM       matrix[0] |= 0b0000000001100000
 
 #define EN_QUATER   matrix[1] |= 0b0011111110000000
 #define EN_TWENTY   matrix[2] |= 0b1111110000000000

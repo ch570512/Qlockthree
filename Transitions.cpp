@@ -1,17 +1,15 @@
 /**
- * Transitions.cpp
- * Transitionen bei Wechsel Zeitmatrix
- *
- * @mc       Arduino/UNO
- * @autor    Manuel Bracher / manuel.bracher@gmail.com
- * @version  1.0
- * @created  19.05.15
- *
- * Versionshistorie:
- * V 1.0:  - Erstellt.
- */
+   Transitions.cpp
+   Transitionen bei Wechsel Zeitmatrix
+
+   @mc       Arduino/UNO
+   @autor    Manuel Bracher / manuel.bracher@gmail.com
+   @version  1.0
+   @created  19.05.15
+*/
 
 #include "Transitions.h"
+#include "Debug.h"
 
 byte Transitions::_counter;
 word Transitions::_usedColumns;
@@ -72,7 +70,7 @@ boolean Transitions::nextMatrixStep(word matrixWeak[16], word matrixTime[16], wo
     shiftDownMatrixErease(matrixMatrix, matrixWeak);
     if (random(0, 3) > 0)
     {
-      if ( (_remainingCoulumnCount < 3) && (_remainingCoulumnCount > 0))
+      if ((_remainingCoulumnCount < 3) && (_remainingCoulumnCount > 0))
       {
         matrixMatrix[0] |= ~_usedColumns;
         _usedColumns |= matrixMatrix[0];
@@ -93,9 +91,9 @@ boolean Transitions::nextMatrixStep(word matrixWeak[16], word matrixTime[16], wo
   }
   else {
     shiftDownMatrixWrite(matrixMatrix, matrixWeak);
-    if ( (random(0, 3) > 0) && (_remainingCoulumnCount > 0) )
+    if ((random(0, 3) > 0) && (_remainingCoulumnCount > 0))
     {
-      if ( _remainingCoulumnCount < 3 )
+      if (_remainingCoulumnCount < 3)
       {
         matrixMatrix[0] |= ~_usedColumns;
         _usedColumns |= matrixMatrix[0];
@@ -153,6 +151,3 @@ void Transitions::shiftDownMatrixWrite(word matrixMatrix[16], word matrixWeak[16
   matrixWeak[0] = (~matrixMatrix[1] & matrixWeak[1]) ;
   matrixMatrix[0] = 0;
 }
-
-
-

@@ -9,20 +9,9 @@
    @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
    @version  1.2
    @created  5.1.2015
-   @updated  16.2.2015
-
-   Versionshistorie:
-   V 1.0:  - Erstellt.
-   V 1.1:  - Getter fuer Helligkeit nachgezogen.
-   V 1.2:  - Unterstuetzung fuer die alte Arduino-IDE (bis 1.0.6) entfernt.
-
-   Verkabelung: Einspeisung oben links, dann schlangenfoermig runter,
-   dann Ecke unten links, oben links, oben rechts, unten rechts.
-
 */
-#include "LedDriverNeoPixel.h"
 
-// #define DEBUG
+#include "LedDriverNeoPixel.h"
 #include "Debug.h"
 
 #ifdef MATRIX_XXL
@@ -59,7 +48,7 @@ void LedDriverNeoPixel::init() {
 }
 
 void LedDriverNeoPixel::printSignature() {
-  DEBUG_PRINTLN(F("NeoPixel - WS2812B"));
+  DEBUG_PRINT(F("WS2812B (NeoPixel)"));
 }
 
 /**
@@ -69,12 +58,13 @@ void LedDriverNeoPixel::printSignature() {
                     FALSE, wenn es ein Refresh-Aufruf war.
 */
 void LedDriverNeoPixel::writeScreenBufferToMatrix(word matrix[16], boolean onChange, eColors a_color) {
+
   boolean updateWheelColor = false;
 
   byte wheelPosIncrement = 0;
-  
+
   if ((a_color == color_rgb_continuous) && _transitionCompleted) {
-    if ((millis() - _lastColorUpdate) > ((1 + (10-settings.getColorChangeRate())) * 100)) {
+    if ((millis() - _lastColorUpdate) > ((1 + (10 - settings.getColorChangeRate())) * 100)) {
       updateWheelColor = true;
       _lastColorUpdate = millis();
       wheelPosIncrement = 2;
@@ -118,6 +108,7 @@ void LedDriverNeoPixel::writeScreenBufferToMatrix(word matrix[16], boolean onCha
     **************/
 
     if (onChange || _demoTransition) {
+
       if (((helperSeconds == 0) || _demoTransition) && (mode == STD_MODE_NORMAL) && _transitionCompleted && !evtActive) {
         switch (settings.getTransitionMode()) {
           case Settings::TRANSITION_MODE_FADE:
@@ -220,7 +211,7 @@ void LedDriverNeoPixel::writeScreenBufferToMatrix(word matrix[16], boolean onCha
       colorOld = _wheel(brightnessOld, _wheelPos);
     }
 
-    if ( (settings.getTransitionMode() == Settings::TRANSITION_MODE_MATRIX) && !_transitionCompleted ) {
+    if ((settings.getTransitionMode() == Settings::TRANSITION_MODE_MATRIX) && !_transitionCompleted) {
       colorOverlay1 = _strip->Color(_brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 255), _brightnessScaleColor(_brightnessInPercent, 0));
       colorOverlay2 = _strip->Color(_brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 255 * 0.5), _brightnessScaleColor(_brightnessInPercent, 0));
       colorOld = _strip->Color(_brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 255 * 0.1), _brightnessScaleColor(_brightnessInPercent, 0));
@@ -258,14 +249,14 @@ void LedDriverNeoPixel::writeScreenBufferToMatrix(word matrix[16], boolean onCha
     // wir muessen die Eck-LEDs und die Alarm-LED umsetzen...
     byte cornerLedCount[] = {1, 0, 3, 2, 4};
     for ( byte i = 0; i < 5; i++) {
-      if ((settings.getTransitionMode() == Settings::TRANSITION_MODE_FADE) && ((_matrixOld[cornerLedCount[i]] & _matrixNew[cornerLedCount[i]] & 0b0000000000011111) > 0) ) {
+      if ((settings.getTransitionMode() == Settings::TRANSITION_MODE_FADE) && ((_matrixOld[cornerLedCount[i]] & _matrixNew[cornerLedCount[i]] & 0b0000000000011111) > 0)) {
         _setPixel(110 + i, color);
       }
       else {
-        if (((_matrixOld[cornerLedCount[i]] & 0b0000000000010000) > 0) ) {
+        if (((_matrixOld[cornerLedCount[i]] & 0b0000000000010000) > 0)) {
           _setPixel(110 + i, colorOld);
         }
-        else if (((_matrixNew[cornerLedCount[i]] & 0b0000000000010000) > 0) ) {
+        else if (((_matrixNew[cornerLedCount[i]] & 0b0000000000010000) > 0)) {
           _setPixel(110 + i, colorNew);
         }
       }
@@ -336,14 +327,14 @@ void LedDriverNeoPixel::_setPixel(byte x, byte y, uint32_t c) {
    Einen Pixel im Streifen setzten (die Eck-LEDs sind am Ende).
 */
 void LedDriverNeoPixel::_setPixel(byte num, uint32_t c) {
-  #ifdef MATRIX_XXL
+#ifdef MATRIX_XXL
   if (num < 110) {
     if ((num / 11) % 2 == 0) {
-      _strip->setPixelColor(num*2, c);
-      _strip->setPixelColor(num*2+1, c);
+      _strip->setPixelColor(num * 2, c);
+      _strip->setPixelColor(num * 2 + 1, c);
     } else {
-      _strip->setPixelColor(((num / 11) * 22) + 21 - (num % 11)*2, c);
-      _strip->setPixelColor(((num / 11) * 22) + 21 - ((num % 11)*2 + 1), c);
+      _strip->setPixelColor(((num / 11) * 22) + 21 - (num % 11) * 2, c);
+      _strip->setPixelColor(((num / 11) * 22) + 21 - ((num % 11) * 2 + 1), c);
     }
   } else {
     switch (num) {
@@ -366,7 +357,7 @@ void LedDriverNeoPixel::_setPixel(byte num, uint32_t c) {
         ;
     }
   }
-  #else
+#else
   if (num < 110) {
     if ((num / 11) % 2 == 0) {
       _strip->setPixelColor(num, c);
@@ -394,7 +385,7 @@ void LedDriverNeoPixel::_setPixel(byte num, uint32_t c) {
         ;
     }
   }
-  #endif
+#endif
 }
 
 /**

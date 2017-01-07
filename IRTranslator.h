@@ -1,17 +1,13 @@
 /**
- * IRTranslator
- * Abstrakte Klasse fuer die Umsetzung von Fernbedienungs-Codes.
- *
- * @mc       Arduino/RBBB
- * @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
- * @version  1.1
- * @created  7.2.2015
- * @updated  16.2.2015
- *
- * Versionshistorie:
- * V 1.0:  - Erstellt.
- * V 1.1:  - Unterstuetzung fuer die alte Arduino-IDE (bis 1.0.6) entfernt.
- */
+   IRTranslator
+   Abstrakte Klasse fuer die Umsetzung von Fernbedienungs-Codes.
+
+   @mc       Arduino/RBBB
+   @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
+   @version  1.1
+   @created  7.2.2015
+*/
+
 #ifndef IRTRANSLATOR_H
 #define IRTRANSLATOR_H
 
@@ -36,7 +32,6 @@
 #define REMOTE_BUTTON_START_YOUR_OWN_AT  100
 
 // für CLT Remote
-#define REMOTE_BUTTON_SAVE         100
 #define REMOTE_BUTTON_SETMODE      101
 #define REMOTE_BUTTON_REGION       102
 #define REMOTE_BUTTON_LDR          103

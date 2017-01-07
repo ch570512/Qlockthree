@@ -6,24 +6,15 @@
    @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
    @version  1.5
    @created  21.1.2013
-   @updated  16.2.2015
-
-   Versionshistorie:
-   V 1.0:  - Erstellt.
-   V 1.1:  - Spanisch hinzugefuegt.
-   V 1.2:  - setMinutes - hours auf char umgestellt, damit Zeitverschiebung geht...
-   V 1.3:  - Alle Deutsch-Varianten zusammengefasst, um Platz zu sparen.
-           - Fehler im Italienischen behoben.
-   V 1.4:  - Stundenbegrenzung (die ja wegen der Zeitverschiebungsmoeglichkeit existiert) auf den Bereich 0 <= h <= 24 ausgeweitet, dank Tipp aus dem Forum.
-   V 1.5:  - Unterstuetzung fuer die alte Arduino-IDE (bis 1.0.6) entfernt.
 */
+
 #ifndef RENDERER_H
 #define RENDERER_H
 
 #include "Arduino.h"
 #include "Configuration.h"
 
-enum eLanguage : byte{
+enum eLanguage : byte {
 #ifdef ENABLE_LANGUAGE_CH
   LANGUAGE_CH,
   LANGUAGE_CH_X,
@@ -65,19 +56,18 @@ class Renderer {
     void setMinutes(char hours, byte minutes, byte language, word matrix[16]);
     void setCorners(byte minutes, boolean cw, word matrix[16]);
     void activateAlarmLed(word matrix[16]);
-
-    void cleanWordsForAlarmSettingMode(byte language, word matrix[16]);
-
+    void clearEntryWords(byte language, word matrix[16]);
     void scrambleScreenBuffer(word matrix[16]);
     void clearScreenBuffer(word matrix[16]);
     void setAllScreenBuffer(word matrix[16]);
     void setMenuText(const char* menuText, eTextPos textPos, word matrix[16]);
+    void activateAMPM(byte hours, byte language, word matrix[16]);
 
   private:
     void setHours(byte hours, boolean glatt, byte language, word matrix[16]);
     boolean isNumber(char symbol);
 
-// Spezialfaelle
+    // Spezialfaelle
 #ifdef ENABLE_LANGUAGE_FR
     void FR_hours(byte hours, word matrix[16]);
 #endif

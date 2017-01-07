@@ -1,36 +1,40 @@
 /**
- * Woerter_ES
- * Definition der spanischen Woerter fuer die Zeitansage.
- * Die Woerter sind Bitmasken fuer die Matrix.
- *
- *   01234567890
- * 0 ESONELASUNA
- * 1 DOSITRESORE
- * 2 CUATROCINCO
- * 3 SEISASIETEN
- * 4 OCHONUEVEYO
- * 5 LADIEZSONCE
- * 6 DOCELYMENOS
- * 7 OVEINTEDIEZ
- * 8 VEINTICINCO
- * 9 MEDIACUARTO
- *
- * @mc       Arduino/RBBB
- * @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
- * @version  1.0
- * @created  17.12.2012
- * @updated  13.5.2013
- */
+   Woerter_ES
+   Definition der spanischen Woerter fuer die Zeitansage.
+   Die Woerter sind Bitmasken fuer die Matrix.
+
+     01234567890
+   0 ESONELASUNA
+   1 DOSITRESORE
+   2 CUATROCINCO
+   3 SEISASIETEN
+   4 OCHONUEVEYO
+   5 LADIEZSONCE
+   6 DOCELYMENOS
+   7 OVEINTEDIEZ
+   8 VEINTICINCO
+   9 MEDIACUARTO
+
+   @mc       Arduino/RBBB
+   @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
+   @version  1.0
+   @created  17.12.2012
+   @updated  13.5.2013
+*/
+
 #ifndef WOERTER_ES_H
 #define WOERTER_ES_H
 
 /**
- * Definition der Woerter.
- */
+   Definition der Woerter.
+*/
 //                            0       ESONELASUNA
 #define ES_SONLAS      matrix[0] |= 0b0111011100000000
 //                            0       ESONELASUNA
 #define ES_ESLA        matrix[0] |= 0b1100011000000000
+
+#define ES_AM          matrix[0] |= 0b1000000000000000
+#define ES_PM          matrix[0] |= 0b0100000000000000
 
 //                            6       DOCELYMENOS
 #define ES_Y           matrix[6] |= 0b0000010000000000

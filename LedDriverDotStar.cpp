@@ -6,20 +6,10 @@
    @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
    @version  1.1
    @created  9.2.2015
-   @updated  16.2.2015
-
-   Versionshistorie:
-   V 1.0:  - Erstellt.
-   V 1.1:  - Unterstuetzung fuer die alte Arduino-IDE (bis 1.0.6) entfernt.
-
-   Verkabelung: Einspeisung oben links, dann schlangenfoermig runter,
-   dann Ecke unten links, oben links, oben rechts, unten rechts.
-
 */
+
 #include "LedDriverDotStar.h"
 #include "Configuration.h"
-
-// #define DEBUG
 #include "Debug.h"
 
 #define NUM_PIXEL 114
@@ -52,7 +42,7 @@ void LedDriverDotStar::init() {
 }
 
 void LedDriverDotStar::printSignature() {
-  DEBUG_PRINTLN(F("DotStar - APA102"));
+  DEBUG_PRINT(F("DotStar - APA102"));
 }
 
 /**
@@ -62,6 +52,7 @@ void LedDriverDotStar::printSignature() {
                     FALSE, wenn es ein Refresh-Aufruf war.
 */
 void LedDriverDotStar::writeScreenBufferToMatrix(word matrix[16], boolean onChange, eColors a_color) {
+
   boolean updateWheelColor = false;
 
   if (((settings.getColor() == color_rgb_continuous) || (a_color == color_rgb_continuous)) && _transitionCompleted) {
@@ -191,7 +182,7 @@ void LedDriverDotStar::writeScreenBufferToMatrix(word matrix[16], boolean onChan
     {
       colorNew = _strip->Color(_brightnessScaleColor(brightnessNew, pgm_read_byte_near(&defaultColors[a_color].red)), _brightnessScaleColor(brightnessNew, pgm_read_byte_near(&defaultColors[a_color].blue)), _brightnessScaleColor(brightnessNew, pgm_read_byte_near(&defaultColors[a_color].green)));
     }
-    else if ((settings.getColor() == color_rgb_continuous) || (a_color == color_rgb_continuous) ) {
+    else if ((settings.getColor() == color_rgb_continuous) || (a_color == color_rgb_continuous)) {
       if (updateWheelColor) {
         if (_wheelPos >= 254) {
           _wheelPos = 0;
@@ -210,7 +201,7 @@ void LedDriverDotStar::writeScreenBufferToMatrix(word matrix[16], boolean onChan
       colorOld = _strip->Color(_brightnessScaleColor(brightnessOld, defaultColors[settings.getColor()].red), _brightnessScaleColor(brightnessOld, defaultColors[settings.getColor()].blue), _brightnessScaleColor(brightnessOld, defaultColors[settings.getColor()].green));
     }
 
-    if ( (settings.getTransitionMode() == Settings::TRANSITION_MODE_MATRIX) && !_transitionCompleted ) {
+    if ((settings.getTransitionMode() == Settings::TRANSITION_MODE_MATRIX) && !_transitionCompleted) {
       colorOverlay1 = _strip->Color(_brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 255));
       colorOverlay2 = _strip->Color(_brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 255 * 0.5));
       colorOld = _strip->Color(_brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 255 * 0.1));
@@ -224,7 +215,7 @@ void LedDriverDotStar::writeScreenBufferToMatrix(word matrix[16], boolean onChan
     for (byte y = 0; y < 10; y++) {
       for (byte x = 5; x < 16; x++) {
         word t = 1 << x;
-        if ((settings.getTransitionMode() == Settings::TRANSITION_MODE_FADE) && ((_matrixOld[y] & t) == t) && ((_matrixNew[y] & t) == t) ) {
+        if ((settings.getTransitionMode() == Settings::TRANSITION_MODE_FADE) && ((_matrixOld[y] & t) == t) && ((_matrixNew[y] & t) == t)) {
           _setPixel(15 - x, y, color);
         }
         else {
@@ -247,14 +238,14 @@ void LedDriverDotStar::writeScreenBufferToMatrix(word matrix[16], boolean onChan
     // wir muessen die Eck-LEDs und die Alarm-LED umsetzen...
     byte cornerLedCount[] = {1, 0, 3, 2, 4};
     for ( byte i = 0; i < 5; i++) {
-      if ((settings.getTransitionMode() == Settings::TRANSITION_MODE_FADE) && ((_matrixOld[cornerLedCount[i]] & _matrixNew[cornerLedCount[i]] & 0b0000000000011111) > 0) ) {
+      if ((settings.getTransitionMode() == Settings::TRANSITION_MODE_FADE) && ((_matrixOld[cornerLedCount[i]] & _matrixNew[cornerLedCount[i]] & 0b0000000000011111) > 0)) {
         _setPixel(110 + i, color);
       }
       else {
-        if (((_matrixOld[cornerLedCount[i]] & 0b0000000000011111) > 0) ) {
+        if (((_matrixOld[cornerLedCount[i]] & 0b0000000000011111) > 0)) {
           _setPixel(110 + i, colorOld);
         }
-        else if (((_matrixNew[cornerLedCount[i]] & 0b0000000000011111) > 0) ) {
+        else if (((_matrixNew[cornerLedCount[i]] & 0b0000000000011111) > 0)) {
           _setPixel(110 + i, colorNew);
         }
       }

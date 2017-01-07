@@ -5,16 +5,10 @@
   @mc       Arduino/UNO
   @autor    Manuel Bracher / manuel.bracher@gmail.com
   @version  1.0
-  @created  02.01.15
-
-  Versionshistorie:
-  V 1.0:  - Erstellt.
 */
 
 #include "Effects.h"
 #include "Staben.h"
-
-// #define DEBUG
 #include "Debug.h"
 
 void Effects::showTickerString(const char* str2disp, byte tickerSpeed, eColors color) {
@@ -205,7 +199,7 @@ void Effects::showAnimatedBitmap(byte animatedBitmap, byte duration, eColors col
 
 void Effects::writeToBuffer(word aMatrix[], unsigned int aDuration, eColors color)
 {
-#if defined(RGB_LEDS) || defined(RGBW_LEDS)
+#if defined(RGB_LEDS) || defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
   ledDriver.writeScreenBufferToMatrix(aMatrix, true, color);
   delay(aDuration * RGB_SPEED_CORRECTION);
 #else
