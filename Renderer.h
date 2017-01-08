@@ -40,6 +40,9 @@ enum eLanguage : byte {
 #ifdef ENABLE_LANGUAGE_ES
   LANGUAGE_ES,
 #endif
+#ifdef ENABLE_LANGUAGE_D3
+  LANGUAGE_D3,
+#endif
   LANGUAGE_COUNT,
 };
 

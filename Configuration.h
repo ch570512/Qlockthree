@@ -73,7 +73,7 @@
   BOARD_AMBBRTCAD:
   BOARD_BBRTCAD: Ein weiteres Board, für das Moodlight, von Christian.
   BOARD_CLT: Das Board der CLT2.
-  BOARD_NANO: Günstiges und einfaches selbstbau Board mit Arduino Nano, DS3231 RTC und vielen Optionen für die
+  BOARD_NANO: Guenstiges und einfaches selbstbau Board mit Arduino Nano, DS3231 RTC und vielen Optionen für die
               weitere Hardware. Dateien mit Informationen liegen im Verzeichnis.
               Der Aufbau auf einer kleinen Lochrasterplatine ist relativ einfach möglich.
               Bitte eine externe 5V Stromquelle verwenden da sonst evtl. der Arduino und/oder der USB-Port des
@@ -209,6 +209,7 @@
 
 // Supportet languages.
 #define ENABLE_LANGUAGE_DE
+#define ENABLE_LANGUAGE_D3
 #define ENABLE_LANGUAGE_CH
 //#define ENABLE_LANGUAGE_EN
 //#define ENABLE_LANGUAGE_FR

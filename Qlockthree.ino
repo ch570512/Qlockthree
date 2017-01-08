@@ -645,6 +645,12 @@ void loop() {
             DEBUG_PRINTLN(F("DE SA"));
             break;
 #endif
+#ifdef ENABLE_LANGUAGE_D3
+          case LANGUAGE_D3:
+            renderer.setMenuText("D3", Renderer::TEXT_POS_MIDDLE, matrix);
+            DEBUG_PRINTLN(F("D3"));
+            break;
+#endif
 #ifdef ENABLE_LANGUAGE_CH
           case LANGUAGE_CH:
             renderer.setMenuText("CH", Renderer::TEXT_POS_MIDDLE, matrix);
