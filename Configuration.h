@@ -177,10 +177,10 @@
 #define USE_STD_MODE_DATE
 
 // Show temperature.
-#define USE_STD_MODE_TEMP
+//#define USE_STD_MODE_TEMP
 
 // Set an alarm.
-#define USE_STD_MODE_ALARM
+//#define USE_STD_MODE_ALARM
 
 /******************************************************************************
   Extended Menu:
@@ -209,7 +209,7 @@
 
 // Supportet languages.
 #define ENABLE_LANGUAGE_DE
-//#define ENABLE_LANGUAGE_CH
+#define ENABLE_LANGUAGE_CH
 //#define ENABLE_LANGUAGE_EN
 //#define ENABLE_LANGUAGE_FR
 //#define ENABLE_LANGUAGE_IT
@@ -221,22 +221,22 @@
 ******************************************************************************/
 
 // Which Board?
-//#define BOARD_DEFAULT
+#define BOARD_DEFAULT
 //#define BOARD_AMBBRTCAD
 //#define BOARD_BBRTCAD
 //#define BOARD_CLT
-#define BOARD_NANO
+//#define BOARD_NANO
 
 // Which LED-Driver?
-//#define LED_DRIVER_DEFAULT
+#define LED_DRIVER_DEFAULT
 //#define LED_DRIVER_UEBERPIXEL
 //#define LED_DRIVER_POWER_SHIFT_REGISTER
 //#define LED_DRIVER_DOTSTAR
-#define LED_DRIVER_NEOPIXEL
+//#define LED_DRIVER_NEOPIXEL
 //#define LED_DRIVER_LPD8806
 
 // Type of LEDs? (LED_DRIVER_DOTSTAR or LED_DRIVER_NEOPIXEL or LED_DRIVER_LPD8806)
-#define RGB_LEDS
+//#define RGB_LEDS
 //#define RGBW_LEDS
 //#define RGBW_LEDS_CLT2
 
@@ -251,23 +251,23 @@
 #define ENABLE_SQW_LED
 
 // Which RTC is used?
-//#define DS1307
-#define DS3231
+#define DS1307
+//#define DS3231
 
 // DCF77 receiver present?
 #define DCF77
 
 // Which Temperature-Sensor is used?
-#define TEMP_SENS_LM35
+//#define TEMP_SENS_LM35
 //#define TEMP_SENS_LM335
 
 // Which IR-Remote is used?
-//#define REMOTE_NO_REMOTE
+#define REMOTE_NO_REMOTE
 //#define REMOTE_SPARKFUN
 //#define REMOTE_MOONCANDLES
 //#define REMOTE_LUNARTEC
 //#define REMOTE_CLT
-#define REMOTE_APPLE
+//#define REMOTE_APPLE
 
 // Use a Bluetooth-Remote?
 //#define REMOTE_BLUETOOTH
@@ -283,10 +283,10 @@
 //#define NONE_TECHNICAL_ZERO
 
 // Turn on clock after successfull DCF77-sync.
-#define AUTO_JUMP_BLANK
+//#define AUTO_JUMP_BLANK
 
 // Turn off the letter containing the IR-Sensor.
-#define IR_LETTER_OFF matrix[9] &= 0b1111111011111111
+//#define IR_LETTER_OFF matrix[9] &= 0b1111111011111111
 
 // Events:
 //#define EVENTS
@@ -338,8 +338,8 @@
   Debug to serial console. DEBUG has to be defined to use the other debugs.
 ******************************************************************************/
 
-#define DEBUG                 // Switch on debug.
-#define DEBUG_TIME            // Shows the time every secound.
+//#define DEBUG                 // Switch on debug.
+//#define DEBUG_TIME            // Shows the time every secound.
 //#define DEBUG_MATRIX          // Randers the matrix to console. German front.
 //#define DEBUG_FPS             // Shows the FPS.
 //#define DEBUG_DCF77           // Info for DCF77.
