@@ -1327,11 +1327,7 @@ void Renderer::setCorners(byte minutes, boolean cw, word matrix[16]) {
       // j: 0, 1, 2, 3
       j = i;
     }
-#ifdef USE_INDIVIDUAL_CATHODES
-    matrix[j] |= (0b0000000000010000 >> j);
-#else
     matrix[j] |= 0b0000000000011111;
-#endif
   }
 }
 
@@ -1339,11 +1335,7 @@ void Renderer::setCorners(byte minutes, boolean cw, word matrix[16]) {
    Schalte die Alarm-LED ein
 */
 void Renderer::activateAlarmLed(word matrix[16]) {
-#ifdef USE_INDIVIDUAL_CATHODES
-  matrix[4] |= 0b0000000000000001;
-#else
   matrix[4] |= 0b0000000000011111;
-#endif
 }
 
 void Renderer::setMenuText(const char* menuText, eTextPos textPos, word matrix[16]) {

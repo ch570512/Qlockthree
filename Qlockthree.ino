@@ -91,7 +91,7 @@ DCF77Helper dcf77Helper;
 #endif
 
 // Temperaturesensor.
-#ifndef TEMP_SENS_NONE
+#if defined(TEMP_SENS_LM35) || defined(TEMP_SENS_LM335)
 MyTempSens tempSens(PIN_TEMP_SENS);
 #endif
 
@@ -883,18 +883,19 @@ void loop() {
         break;
     }
 
-    //
-    // Die Matrix auf die LEDs multiplexen mit neuem Inhalt.
-    //
 #ifdef IR_LETTER_OFF
     IR_LETTER_OFF;
 #endif
-    ledDriver.writeScreenBufferToMatrix(matrix, true, settings.getColor());
 
 #ifdef DEBUG_MATRIX
     debug_matrix();
 #endif
 
+    //
+    // Die Matrix auf die LEDs multiplexen mit neuem Inhalt.
+    //
+    ledDriver.writeScreenBufferToMatrix(matrix, true, settings.getColor());
+    
   }
 
   /******************************************************************************
@@ -1820,7 +1821,7 @@ void updateFromRtc() {
       updateFallBackCounter();
     }
   }
-#ifndef TEMP_SENS_NONE
+#if defined(TEMP_SENS_LM35) || defined(TEMP_SENS_LM335)
   tempSens.takeSample();
 #endif
 }

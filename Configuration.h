@@ -12,7 +12,12 @@
   * Die Firmware der Selbstbau-QLOCKTWO.
   *********************************************************************************************************************
 
-  Je nach Schalter (USE_...) und Parameter (ABC_...) in dieser Konfiguration stehen verschiedene Funktionen der Uhr
+  Diese Firmware basiert auf dem CLT Master Branch von Manuel. Sie enthält aber auch die CLT2 und Elemente von Andreas.
+  Einher geht die Firmware mit dem "neuen" BOARD_NANO aus Arduino Nano und einem DS3231 RTC-Modul.
+  Ein Video gibt es hier: https://www.youtube.com/watch?v=X_I5B-dErzE&feature=youtu.be
+  Die Firmware gibt es hier: https://github.com/ch570512/Qlockthree
+
+  Je nach Schalter (USE_...) und Parameter (ABC_...) in der Konfiguration stehen verschiedene Funktionen der Uhr
   zur Verfuegung. Da der Speicher des Mikrocontrollers begrenzt ist, kann nicht alles gleichzeitig eingeschaltet
   werden.
 
@@ -87,8 +92,6 @@
 
   MATRIX_XXL: Verdoppelt die Grösse der Matrix. Es werden immer 4 LEDs auf dem Streifen für einen Pixel benutzt.
   MOS_DRIVER:
-  USE_INDIVIDUAL_CATHODES: Wenn man die LED-Matrix nach Christian aufgebaut hat, kann dieser Schalter eingeschaltet
-                           werden. Die Kathoden der Eck-LEDs sind einzeln an das Board angeschlossen.
   ENABLE_DCF_LED: Zeigt mit Hilfe der gelben LED auf dem Board die Funktion des DCF77 Empfängers an. Bei gutem
                   Empfang blinkt sie regelmaessig. Kann abgeschaltet werden, wenn kein DCF77 Empfaenger verbaut ist.
   ENABLE_SQW_LED: Zeigt mit Hilfe der grünen LED auf dem Board die Funktion der RTC an. Sie blinkt einmal pro
@@ -257,9 +260,6 @@
 // Are MOS-FETs used? (LED_DRIVER_DEFAULT)
 //#define MOS_DRIVER
 
-// Use individual cathodes für corner LEDs? (LED_DRIVER_DEFAULT)
-//#define USE_INDIVIDUAL_CATHODES
-
 // Which LEDs on the board should be enabled?
 #define ENABLE_DCF_LED
 #define ENABLE_SQW_LED
@@ -347,7 +347,7 @@
 //#define RENDER_CORNERS_CCW
 //#define OPTIMIZED_FOR_DARKNESS
 //#define SKIP_BLANK_LINES
-#define FIRMWARE_VERSION "yaqtfw_20170107"
+#define FIRMWARE_VERSION "yaqtfw_20170108"
 
 /******************************************************************************
   Debug to serial console. DEBUG has to be defined to use the other debugs.

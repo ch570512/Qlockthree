@@ -48,7 +48,7 @@ void LedDriverNeoPixel::init() {
 }
 
 void LedDriverNeoPixel::printSignature() {
-  DEBUG_PRINT(F("WS2812B (NeoPixel)"));
+  DEBUG_PRINT(F("WS2812B"));
 }
 
 /**

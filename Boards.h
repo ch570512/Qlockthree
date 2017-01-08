@@ -244,7 +244,6 @@ LedDriverNeoPixel ledDriver(0);
 #define PIN_MODE 5
 #define PIN_H_PLUS 6
 #define PIN_M_PLUS 7
-//#define PIN_ALARM -1
 
 #define BUTTONS_PRESSING_AGAINST LOW
 
@@ -461,3 +460,4 @@ LedDriverLPD8806 ledDriver(13, 11);
 #endif
 
 #endif
+

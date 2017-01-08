@@ -19,7 +19,7 @@
 #define APPLE_MINUS 2011246695
 
 void IRTranslatorApple::printSignature() {
-  DEBUG_PRINT(F("Apple Remote, "));
+  DEBUG_PRINT(F("Apple, "));
 }
 
 byte IRTranslatorApple::buttonForCode(unsigned long code) {
