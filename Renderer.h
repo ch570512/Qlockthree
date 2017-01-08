@@ -57,7 +57,6 @@ class Renderer {
     void setCorners(byte minutes, boolean cw, word matrix[16]);
     void activateAlarmLed(word matrix[16]);
     void clearEntryWords(byte language, word matrix[16]);
-    void scrambleScreenBuffer(word matrix[16]);
     void clearScreenBuffer(word matrix[16]);
     void setAllScreenBuffer(word matrix[16]);
     void setMenuText(const char* menuText, eTextPos textPos, word matrix[16]);

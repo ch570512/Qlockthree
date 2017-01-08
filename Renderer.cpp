@@ -24,15 +24,6 @@ Renderer::Renderer() {
 }
 
 /**
-   Ein Zufallsmuster erzeugen (zum Testen der LEDs)
-*/
-void Renderer::scrambleScreenBuffer(word matrix[16]) {
-  for (byte i = 0; i < 16; i++) {
-    matrix[i] = random(65536);
-  }
-}
-
-/**
    Die Matrix loeschen (zum Stromsparen, DCF77-Empfang
    verbessern etc.)
 */

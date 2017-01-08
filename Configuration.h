@@ -4,15 +4,15 @@
 
   @mc       Arduino/RBBB
   @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
-  @version  
+  @version
   @created  23.1.2013
 
   *********************************************************************************************************************
-  * QLOCKTHREE
-  * Die Firmware der Selbstbau-QLOCKTWO.
+    QLOCKTHREE
+    Die Firmware der Selbstbau-QLOCKTWO.
   *********************************************************************************************************************
 
-  Diese Firmware basiert auf dem CLT Master Branch von Manuel. Sie enthält aber auch die CLT2 und Elemente von Andreas.
+  Diese Firmware basiert auf dem CLT Master Branch von Manuel. Sie enthaelt aber auch die CLT2 und Elemente von Andreas.
   Einher geht die Firmware mit dem "neuen" BOARD_NANO aus Arduino Nano und einem DS3231 RTC-Modul.
   Ein Video gibt es hier: https://www.youtube.com/watch?v=X_I5B-dErzE&feature=youtu.be
   Die Firmware gibt es hier: https://github.com/ch570512/Qlockthree
@@ -21,10 +21,10 @@
   zur Verfuegung. Da der Speicher des Mikrocontrollers begrenzt ist, kann nicht alles gleichzeitig eingeschaltet
   werden.
 
-  Generell blinkt das Display bei der Möglichkeit eine Zeit einzustellen. Ausserdem wird der Vormittag durch AM, der
+  Generell blinkt das Display bei der Moeglichkeit eine Zeit einzustellen. Ausserdem wird der Vormittag durch AM, der
   Nachmittag durch PM in der originalen Front angezeigt. Bei Sprachen die AM und PM nicht enthalten, leuchtet der erste
   Buchstabe fuer AM, der zweite Buchstabe fuer PM.
-    
+
   *** Standard Modi ***
 
   Zeitanzeige: Der Standardmodus der Uhr. Er zeigt die Zeit an. :)
@@ -50,7 +50,7 @@
   Geschwindigkeit fuer Farbwechsel (CR 00...10): 00 -> langsam, 10 -> schnell.
   Haeufigkeit der Events (EV 5, 15, 30, 45, 60), Event erscheint am eingestellten Tag alle 5, 15, 30, 45, 60 Minuten.
   Sprache (CH/DE/EN/...): Die passende Sprache zur benutzten Front waehlen.
-  Ruecksprungverzoegerung (FB nn): Wie lange soll es dauern, bis z.B. aus der Sekundenanzeige wieder in den 
+  Ruecksprungverzoegerung (FB nn): Wie lange soll es dauern, bis z.B. aus der Sekundenanzeige wieder in den
                                    Zeitanzeige-Modus gewechselt wird. (0 = deaktiviert.)
   Titel TIME: H+ und M+ druecken um direkt in die nächste oder vorhergehende Kategorie zu wechseln. (USE_EXT_MODE_TITLES)
   "Es ist" anzeigen oder nicht (IT EN/DA) (USE_EXT_MODE_IT_IS)
@@ -75,7 +75,7 @@
   BOARD_CLT: Das Board der CLT2.
   BOARD_NANO: Günstiges und einfaches selbstbau Board mit Arduino Nano, DS3231 RTC und vielen Optionen für die
               weitere Hardware. Dateien mit Informationen liegen im Verzeichnis.
-              Der Aufbau auf einer kleinen Lochrasterplatine ist relativ einfach möglich sein.
+              Der Aufbau auf einer kleinen Lochrasterplatine ist relativ einfach möglich.
               Bitte eine externe 5V Stromquelle verwenden da sonst evtl. der Arduino und/oder der USB-Port des
               Computers wegen der hohen LED-Last durchbrennt.
 
@@ -98,7 +98,6 @@
                   Sekunde.
   DS1307: Real Time Clock.
   DS3231: Moderne und sehr genaue Real Time Clock. Dadurch könnte man auf den DCF77 Empfänger verzichten.
-  TEMP_SENS_NONE: Einschalten, wenn _kein_ Temperatursensor verbaut ist. Sonst abschalten.
   TEMP_SENS_LM35: Einschalten, wenn ein Temperatursensor vom Typ LM35 verbaut ist.
   TEMP_SENS_LM335: Einschalten, wenn ein Temperatursensor vom Typ LM335 verbaut ist.
   DCF77: Einschalten, wenn ein DCF77 Empfänger verbaut ist. Der PON-Pin wird von dieser Firmware geschaltet.
@@ -143,30 +142,17 @@
   DEBUG_LDR: Infos vom LDR.
   DEBUG_HALT: Hält die RTC an. Die Anzeige läuft weiter.
   DEBUG_SET_DEFAULTS: Schreibt die Default-Werte bei jedem Start in den EEPROM.
-  
+
   *** Important Info ***
 
-  In order to get the firmware to compile, you have to install the following libraries
-  using Arduino Library Manager (guide: https://www.arduino.cc/en/Guide/Libraries):
-  * [NeoPixel library](https://github.com/adafruit/Adafruit_NeoPixel)
-  * [DotStar library](https://github.com/adafruit/Adafruit_DotStar)
-  * [LPD8806 library](https://github.com/adafruit/LPD8806)
-  * [LedControl (MAX7219) library](https://github.com/wayoda/LedControl)
-  You have to install these manually to your library directory in "C:\Users\MyUserName\Documents\Arduino\libraries\":
-  * [LPD8806DBL library](https://github.com/bracci/LPD8806DBL)
-  * [LPD8806RGBW library](https://github.com/bracci/LPD8806RGBW)
-  * [LPD8806RGBW_DBL library] (https://github.com/bracci/LPD8806RGBW_DBL)
-
-  P.S.: Unfortunately the LPD8806 library from Adafruit has a bug.
-  You have to open the file "LPD8806.h" from "C:\Users\MyUserName\Documents\Arduino\libraries\LPD8806" and paste the
-  following lines following the file header:
-
-  #ifndef __LPD8806__H__
-  #define __LPD8806__H__
-
-  and at the end of the file:
-
-  #endif
+  In order to get the firmware to compile, you have to install the following libraries:
+  https://github.com/adafruit/Adafruit_NeoPixel
+  https://github.com/adafruit/Adafruit_DotStar
+  https://github.com/wayoda/LedControl
+  https://github.com/ch570512/LPD8806
+  https://github.com/ch570512/LPD8806DBL
+  https://github.com/ch570512/LPD8806RGBW
+  https://github.com/ch570512/LPD8806RGBW_DBL
 
   *********************************************************************************************************************
   *** Vielen Dank an alle, insbesondere an Christian, Manuel und Andreas, auf deren Arbeit, Zeit und
@@ -191,10 +177,10 @@
 #define USE_STD_MODE_DATE
 
 // Show temperature.
-//#define USE_STD_MODE_TEMP
+#define USE_STD_MODE_TEMP
 
 // Set an alarm.
-//#define USE_STD_MODE_ALARM
+#define USE_STD_MODE_ALARM
 
 /******************************************************************************
   Extended Menu:
@@ -223,7 +209,7 @@
 
 // Supportet languages.
 #define ENABLE_LANGUAGE_DE
-#define ENABLE_LANGUAGE_CH
+//#define ENABLE_LANGUAGE_CH
 //#define ENABLE_LANGUAGE_EN
 //#define ENABLE_LANGUAGE_FR
 //#define ENABLE_LANGUAGE_IT
@@ -235,22 +221,22 @@
 ******************************************************************************/
 
 // Which Board?
-#define BOARD_DEFAULT
+//#define BOARD_DEFAULT
 //#define BOARD_AMBBRTCAD
 //#define BOARD_BBRTCAD
 //#define BOARD_CLT
-//#define BOARD_NANO
+#define BOARD_NANO
 
 // Which LED-Driver?
-#define LED_DRIVER_DEFAULT
+//#define LED_DRIVER_DEFAULT
 //#define LED_DRIVER_UEBERPIXEL
 //#define LED_DRIVER_POWER_SHIFT_REGISTER
 //#define LED_DRIVER_DOTSTAR
-//#define LED_DRIVER_NEOPIXEL
+#define LED_DRIVER_NEOPIXEL
 //#define LED_DRIVER_LPD8806
 
 // Type of LEDs? (LED_DRIVER_DOTSTAR or LED_DRIVER_NEOPIXEL or LED_DRIVER_LPD8806)
-//#define RGB_LEDS
+#define RGB_LEDS
 //#define RGBW_LEDS
 //#define RGBW_LEDS_CLT2
 
@@ -265,24 +251,23 @@
 #define ENABLE_SQW_LED
 
 // Which RTC is used?
-#define DS1307
-//#define DS3231
+//#define DS1307
+#define DS3231
 
 // DCF77 receiver present?
 #define DCF77
 
 // Which Temperature-Sensor is used?
-#define TEMP_SENS_NONE
-//#define TEMP_SENS_LM35
+#define TEMP_SENS_LM35
 //#define TEMP_SENS_LM335
 
 // Which IR-Remote is used?
-#define REMOTE_NO_REMOTE
+//#define REMOTE_NO_REMOTE
 //#define REMOTE_SPARKFUN
 //#define REMOTE_MOONCANDLES
 //#define REMOTE_LUNARTEC
 //#define REMOTE_CLT
-//#define REMOTE_APPLE
+#define REMOTE_APPLE
 
 // Use a Bluetooth-Remote?
 //#define REMOTE_BLUETOOTH
@@ -298,10 +283,10 @@
 //#define NONE_TECHNICAL_ZERO
 
 // Turn on clock after successfull DCF77-sync.
-//#define AUTO_JUMP_BLANK
+#define AUTO_JUMP_BLANK
 
 // Turn off the letter containing the IR-Sensor.
-//#define IR_LETTER_OFF matrix[9] &= 0b1111111011111111
+#define IR_LETTER_OFF matrix[9] &= 0b1111111011111111
 
 // Events:
 //#define EVENTS
@@ -353,8 +338,8 @@
   Debug to serial console. DEBUG has to be defined to use the other debugs.
 ******************************************************************************/
 
-//#define DEBUG                 // Switch on debug.
-//#define DEBUG_TIME            // Shows the time every secound.
+#define DEBUG                 // Switch on debug.
+#define DEBUG_TIME            // Shows the time every secound.
 //#define DEBUG_MATRIX          // Randers the matrix to console. German front.
 //#define DEBUG_FPS             // Shows the FPS.
 //#define DEBUG_DCF77           // Info for DCF77.
