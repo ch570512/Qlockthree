@@ -1,2 +1,2 @@
-# Qlockthree
-Die Firmware der Selbstbau-QLOCKTWO.
+# Yet Another QLOCKTHREE Firmware
+Eine Firmware der Selbstbau-QLOCKTWO.

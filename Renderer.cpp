@@ -10,6 +10,7 @@
 
 #include "Renderer.h"
 #include "Woerter_DE.h"
+#include "Woerter_DE_MKF.h"
 #include "Woerter_CH.h"
 #include "Woerter_EN.h"
 #include "Woerter_FR.h"
@@ -43,9 +44,10 @@ void Renderer::setAllScreenBuffer(word matrix[16]) {
   }
 }
 
-/**
-   Setzt die Wortminuten, je nach hours/minutes.
-*/
+/******************************************************************************
+  Setzt die Minuten
+******************************************************************************/
+
 void Renderer::setMinutes(char hours, byte minutes, byte language, word matrix[16]) {
 
   while (hours < 0) {
@@ -58,14 +60,13 @@ void Renderer::setMinutes(char hours, byte minutes, byte language, word matrix[1
   switch (language) {
 #ifdef ENABLE_LANGUAGE_DE
     //
-    // Deutsch: Hochdeutsch
+    // Deutsch (Hochdeutsch, Schwaebisch, Bayrisch)
     //
     case LANGUAGE_DE_DE:
     case LANGUAGE_DE_SW:
     case LANGUAGE_DE_BA:
     case LANGUAGE_DE_SA:
       DE_ESIST;
-
       switch (minutes / 5) {
         case 0:
           // glatte Stunde
@@ -167,6 +168,116 @@ void Renderer::setMinutes(char hours, byte minutes, byte language, word matrix[1
       }
       break;
 #endif
+#ifdef ENABLE_LANGUAGE_DE_MKF
+    //
+    // Deutsch: MKF
+    //
+    case LANGUAGE_DE_MKF_DE:
+    case LANGUAGE_DE_MKF_SW:
+    case LANGUAGE_DE_MKF_BA:
+    case LANGUAGE_DE_MKF_SA:
+      DE_MKF_ESIST;
+      switch (minutes / 5) {
+        case 0:
+          // glatte Stunde
+          setHours(hours, true, language, matrix);
+          break;
+        case 1:
+          // 5 nach
+          DE_MKF_FUENF;
+          DE_MKF_NACH;
+          setHours(hours, false, language, matrix);
+          break;
+        case 2:
+          // 10 nach
+          DE_MKF_ZEHN;
+          DE_MKF_NACH;
+          setHours(hours, false, language, matrix);
+          break;
+        case 3:
+          // viertel nach
+          if ((language == LANGUAGE_DE_MKF_SW) || (language == LANGUAGE_DE_MKF_SA)) {
+            DE_MKF_VIERTEL;
+            setHours(hours + 1, false, language, matrix);
+          } else {
+            DE_MKF_VIERTEL;
+            DE_MKF_NACH;
+            setHours(hours, false, language, matrix);
+          }
+          break;
+        case 4:
+          // 20 nach
+          if (language == LANGUAGE_DE_MKF_SA) {
+            DE_MKF_ZEHN;
+            DE_MKF_VOR;
+            DE_MKF_HALB;
+            setHours(hours + 1, false, language, matrix);
+          } else {
+            DE_MKF_ZWANZIG;
+            DE_MKF_NACH;
+            setHours(hours, false, language, matrix);
+          }
+          break;
+        case 5:
+          // 5 vor halb
+          DE_MKF_FUENF;
+          DE_MKF_VOR;
+          DE_MKF_HALB;
+          setHours(hours + 1, false, language, matrix);
+          break;
+        case 6:
+          // halb
+          DE_MKF_HALB;
+          setHours(hours + 1, false, language, matrix);
+          break;
+        case 7:
+          // 5 nach halb
+          DE_MKF_FUENF;
+          DE_MKF_NACH;
+          DE_MKF_HALB;
+          setHours(hours + 1, false, language, matrix);
+          break;
+        case 8:
+          // 20 vor
+          if (language == LANGUAGE_DE_MKF_SA) {
+            DE_MKF_ZEHN;
+            DE_MKF_NACH;
+            DE_MKF_HALB;
+            setHours(hours + 1, false, language, matrix);
+          } else {
+            DE_MKF_ZWANZIG;
+            DE_MKF_VOR;
+            setHours(hours + 1, false, language, matrix);
+          }
+          break;
+        case 9:
+          // viertel vor
+          if ((language == LANGUAGE_DE_MKF_SW) || (language == LANGUAGE_DE_MKF_BA) || (language == LANGUAGE_DE_MKF_SA)) {
+            DE_MKF_DREIVIERTEL;
+            setHours(hours + 1, false, language, matrix);
+          } else {
+            DE_MKF_VIERTEL;
+            DE_MKF_VOR;
+            setHours(hours + 1, false, language, matrix);
+          }
+          break;
+        case 10:
+          // 10 vor
+          DE_MKF_ZEHN;
+          DE_MKF_VOR;
+          setHours(hours + 1, false, language, matrix);
+          break;
+        case 11:
+          // 5 vor
+          DE_MKF_FUENF;
+          DE_MKF_VOR;
+          setHours(hours + 1, false, language, matrix);
+          break;
+        default:
+          ;
+      }
+      break;
+#endif
 #ifdef ENABLE_LANGUAGE_CH
     //
     // Schweiz: Berner-Deutsch
@@ -177,7 +288,6 @@ void Renderer::setMinutes(char hours, byte minutes, byte language, word matrix[1
       }
     case LANGUAGE_CH:
       CH_ESISCH;
-
       switch (minutes / 5) {
         case 0:
           // glatte Stunde
@@ -261,7 +371,6 @@ void Renderer::setMinutes(char hours, byte minutes, byte language, word matrix[1
     //
     case LANGUAGE_EN:
       EN_ITIS;
-
       switch (minutes / 5) {
         case 0:
           // glatte Stunde
@@ -346,7 +455,6 @@ void Renderer::setMinutes(char hours, byte minutes, byte language, word matrix[1
     //
     case LANGUAGE_FR:
       FR_ILEST;
-
       switch (minutes / 5) {
         case 0:
           // glatte Stunde
@@ -535,7 +643,6 @@ void Renderer::setMinutes(char hours, byte minutes, byte language, word matrix[1
     //
     case LANGUAGE_NL:
       NL_HETIS;
-
       switch (minutes / 5) {
         case 0:
           // glatte Stunde
@@ -790,12 +897,10 @@ void Renderer::setMinutes(char hours, byte minutes, byte language, word matrix[1
   }
 }
 
-/**
-   Setzt die Stunden, je nach hours. 'glatt' bedeutet,
-   es ist genau diese Stunde und wir muessen 'UHR'
-   dazuschreiben und EIN statt EINS, falls es 1 ist.
-   (Zumindest im Deutschen)
-*/
+/******************************************************************************
+  Setzt die Stunden
+******************************************************************************/
+
 void Renderer::setHours(byte hours, boolean glatt, byte language, word matrix[16]) {
 
   switch (language) {
@@ -810,7 +915,6 @@ void Renderer::setHours(byte hours, boolean glatt, byte language, word matrix[16
       if (glatt) {
         DE_UHR;
       }
-
       switch (hours) {
         case 0:
         case 12:
@@ -864,6 +968,76 @@ void Renderer::setHours(byte hours, boolean glatt, byte language, word matrix[16
         case 11:
         case 23:
           DE_H_ELF;
+          break;
+        default:
+          ;
+      }
+      break;
+#endif
+#ifdef ENABLE_LANGUAGE_DE_MKF
+    //
+    // Deutsch MKF
+    //
+    case LANGUAGE_DE_MKF_DE:
+    case LANGUAGE_DE_MKF_SW:
+    case LANGUAGE_DE_MKF_BA:
+    case LANGUAGE_DE_MKF_SA:
+      if (glatt) {
+        DE_MKF_UHR;
+      }
+      switch (hours) {
+        case 0:
+        case 12:
+        case 24:
+          DE_MKF_H_ZWOELF;
+          break;
+        case 1:
+        case 13:
+          if (glatt) {
+            DE_MKF_H_EIN;
+          } else {
+            DE_MKF_H_EINS;
+          }
+          break;
+        case 2:
+        case 14:
+          DE_MKF_H_ZWEI;
+          break;
+        case 3:
+        case 15:
+          DE_MKF_H_DREI;
+          break;
+        case 4:
+        case 16:
+          DE_MKF_H_VIER;
+          break;
+        case 5:
+        case 17:
+          DE_MKF_H_FUENF;
+          break;
+        case 6:
+        case 18:
+          DE_MKF_H_SECHS;
+          break;
+        case 7:
+        case 19:
+          DE_MKF_H_SIEBEN;
+          break;
+        case 8:
+        case 20:
+          DE_MKF_H_ACHT;
+          break;
+        case 9:
+        case 21:
+          DE_MKF_H_NEUN;
+          break;
+        case 10:
+        case 22:
+          DE_MKF_H_ZEHN;
+          break;
+        case 11:
+        case 23:
+          DE_MKF_H_ELF;
           break;
         default:
           ;
@@ -939,7 +1113,6 @@ void Renderer::setHours(byte hours, boolean glatt, byte language, word matrix[16
       if (glatt) {
         EN_OCLOCK;
       }
-
       switch (hours) {
         case 0:
         case 12:
@@ -996,6 +1169,7 @@ void Renderer::setHours(byte hours, boolean glatt, byte language, word matrix[16
 #ifdef ENABLE_LANGUAGE_FR
     //
     // Franzoesisch
+    //
     case LANGUAGE_FR:
       switch (hours) {
         case 0:
@@ -1118,7 +1292,6 @@ void Renderer::setHours(byte hours, boolean glatt, byte language, word matrix[16
       if (glatt) {
         NL_UUR;
       }
-
       switch (hours) {
         case 0:
         case 12:
@@ -1303,6 +1476,14 @@ void Renderer::clearEntryWords(byte language, word matrix[16]) {
       matrix[0] &= 0b0010001111111111; // ES IST weg
       break;
 #endif
+#ifdef ENABLE_LANGUAGE_DE_MKF
+    case LANGUAGE_DE_MKF_DE:
+    case LANGUAGE_DE_MKF_SW:
+    case LANGUAGE_DE_MKF_BA:
+    case LANGUAGE_DE_MKF_SA:
+      matrix[0] &= 0b0010001111111111; // ES IST weg
+      break;
+#endif
 #ifdef ENABLE_LANGUAGE_CH
     case LANGUAGE_CH:
     case LANGUAGE_CH_X:
@@ -1357,6 +1538,18 @@ void Renderer::activateAMPM(byte hours, byte language, word matrix[16]) {
         DE_AM;
       } else {
         DE_PM;
+      }
+      break;
+#endif
+#ifdef ENABLE_LANGUAGE_DE_MKF
+    case LANGUAGE_DE_MKF_DE:
+    case LANGUAGE_DE_MKF_SW:
+    case LANGUAGE_DE_MKF_BA:
+    case LANGUAGE_DE_MKF_SA:
+      if (hours < 12) {
+        DE_MKF_AM;
+      } else {
+        DE_MKF_PM;
       }
       break;
 #endif

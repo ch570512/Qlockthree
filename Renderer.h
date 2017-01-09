@@ -15,15 +15,24 @@
 #include "Configuration.h"
 
 enum eLanguage : byte {
-#ifdef ENABLE_LANGUAGE_CH
-  LANGUAGE_CH,
-  LANGUAGE_CH_X,
-#endif
 #ifdef ENABLE_LANGUAGE_DE
   LANGUAGE_DE_DE,
   LANGUAGE_DE_SW,
   LANGUAGE_DE_BA,
   LANGUAGE_DE_SA,
+#endif
+#ifdef ENABLE_LANGUAGE_DE_MKF
+  LANGUAGE_DE_MKF_DE,
+  LANGUAGE_DE_MKF_SW,
+  LANGUAGE_DE_MKF_BA,
+  LANGUAGE_DE_MKF_SA,
+#endif
+#ifdef ENABLE_LANGUAGE_D3
+  LANGUAGE_D3,
+#endif
+#ifdef ENABLE_LANGUAGE_CH
+  LANGUAGE_CH,
+  LANGUAGE_CH_X,
 #endif
 #ifdef ENABLE_LANGUAGE_EN
   LANGUAGE_EN,
@@ -39,9 +48,6 @@ enum eLanguage : byte {
 #endif
 #ifdef ENABLE_LANGUAGE_ES
   LANGUAGE_ES,
-#endif
-#ifdef ENABLE_LANGUAGE_D3
-  LANGUAGE_D3,
 #endif
   LANGUAGE_COUNT,
 };

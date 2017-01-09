@@ -8,12 +8,12 @@
   @created  23.1.2013
 
   *********************************************************************************************************************
-    QLOCKTHREE
-    Die Firmware der Selbstbau-QLOCKTWO.
+    Yet Another QLOCKTHREE Firmware
+    Eine Firmware der Selbstbau-QLOCKTWO.
   *********************************************************************************************************************
 
-  Diese Firmware basiert auf dem CLT Master Branch von Manuel. Sie enthaelt aber auch die CLT2 und Elemente von Andreas.
-  Einher geht die Firmware mit dem "neuen" BOARD_NANO aus Arduino Nano und einem DS3231 RTC-Modul.
+  Diese Firmware basiert auf dem Master Branch von Manuel. Sie enthaelt aber auch die CLT2 und Elemente von Andreas.
+  Einher geht die Firmware mit dem "neuen" BOARD_NANO bestehend aus Arduino Nano und einem DS3231 RTC-Modul.
   Ein Video gibt es hier: https://www.youtube.com/watch?v=X_I5B-dErzE&feature=youtu.be
   Die Firmware gibt es hier: https://github.com/ch570512/Qlockthree
 
@@ -52,7 +52,7 @@
   Sprache (CH/DE/EN/...): Die passende Sprache zur benutzten Front waehlen.
   Ruecksprungverzoegerung (FB nn): Wie lange soll es dauern, bis z.B. aus der Sekundenanzeige wieder in den
                                    Zeitanzeige-Modus gewechselt wird. (0 = deaktiviert.)
-  Titel TIME: H+ und M+ druecken um direkt in die nächste oder vorhergehende Kategorie zu wechseln. (USE_EXT_MODE_TITLES)
+  Titel TIME: H+ und M+ druecken um direkt in die naechste oder vorhergehende Kategorie zu wechseln. (USE_EXT_MODE_TITLES)
   "Es ist" anzeigen oder nicht (IT EN/DA) (USE_EXT_MODE_IT_IS)
   Zeit einstellen: H+ und M+ druecken um die Zeit zu stellen. Die Sekunden springen mit jedem Druck auf Null.
   Zeitverschiebung zu DCF77, nicht Zeitzone. (USE_EXT_MODE_TIME_SHIFT)
@@ -62,7 +62,7 @@
   Nachtauschaltung (N OF): H+ und M+ druecken um die Ausschaltzeit des Displays einzustellen.
                            Durch das Abschalten des Displays verbessert sich der Empfang der DCF77-Zeit.
   Nachtwiedereinschaltung (N ON): H+ und M+ druecken um die Einschaltzeit des Displays einzustellen. Analog (N OFF).
-  Titel TEST: H+ und M+ druecken um direkt in die nächste oder vorhergehende Kategorie zu wechseln. (USE_EXT_MODE_TITLES)
+  Titel TEST: H+ und M+ druecken um direkt in die naechste oder vorhergehende Kategorie zu wechseln. (USE_EXT_MODE_TITLES)
   LED-Test: Laesst einen senkrechten Streifen ueber das Display wandern.
   Zeit in Stunden und Minuten seit der letzten erfolgreichen DCF77 Synchronisation.
   Debug DCF77: Bei gutem DEF77-Empfang leuchten die Eck-LEDs nacheinander im Sekundentakt auf.
@@ -92,7 +92,7 @@
 
   MATRIX_XXL: Verdoppelt die Grösse der Matrix. Es werden immer 4 LEDs auf dem Streifen für einen Pixel benutzt.
   MOS_DRIVER:
-  ENABLE_DCF_LED: Zeigt mit Hilfe der gelben LED auf dem Board die Funktion des DCF77 Empfängers an. Bei gutem
+  ENABLE_DCF_LED: Zeigt mit Hilfe der gelben LED auf dem Board die Funktion des DCF77 Empfaengers an. Bei gutem
                   Empfang blinkt sie regelmaessig. Kann abgeschaltet werden, wenn kein DCF77 Empfaenger verbaut ist.
   ENABLE_SQW_LED: Zeigt mit Hilfe der grünen LED auf dem Board die Funktion der RTC an. Sie blinkt einmal pro
                   Sekunde.
@@ -209,7 +209,8 @@
 
 // Supportet languages.
 #define ENABLE_LANGUAGE_DE
-#define ENABLE_LANGUAGE_D3
+//#define ENABLE_LANGUAGE_DE_MKF
+//#define ENABLE_LANGUAGE_D3
 #define ENABLE_LANGUAGE_CH
 //#define ENABLE_LANGUAGE_EN
 //#define ENABLE_LANGUAGE_FR
@@ -333,7 +334,7 @@
 //#define RENDER_CORNERS_CCW
 //#define OPTIMIZED_FOR_DARKNESS
 //#define SKIP_BLANK_LINES
-#define FIRMWARE_VERSION "yaqtfw_20170108"
+#define FIRMWARE_VERSION "yaqtfw_20170109"
 
 /******************************************************************************
   Debug to serial console. DEBUG has to be defined to use the other debugs.

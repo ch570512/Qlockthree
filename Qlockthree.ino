@@ -645,6 +645,27 @@ void loop() {
             DEBUG_PRINTLN(F("DE SA"));
             break;
 #endif
+#ifdef ENABLE_LANGUAGE_DE_MKF
+          case LANGUAGE_DE_MKF_DE:
+            renderer.setMenuText("MK", Renderer::TEXT_POS_MIDDLE, matrix);
+            DEBUG_PRINTLN(F("MK"));
+            break;
+          case LANGUAGE_DE_MKF_SW:
+            renderer.setMenuText("MK", Renderer::TEXT_POS_TOP, matrix);
+            renderer.setMenuText("SW", Renderer::TEXT_POS_BOTTOM, matrix);
+            DEBUG_PRINTLN(F("MK SW"));
+            break;
+          case LANGUAGE_DE_MKF_BA:
+            renderer.setMenuText("MK", Renderer::TEXT_POS_TOP, matrix);
+            renderer.setMenuText("BA", Renderer::TEXT_POS_BOTTOM, matrix);
+            DEBUG_PRINTLN(F("MK BA"));
+            break;
+          case LANGUAGE_DE_MKF_SA:
+            renderer.setMenuText("MK", Renderer::TEXT_POS_TOP, matrix);
+            renderer.setMenuText("SA", Renderer::TEXT_POS_BOTTOM, matrix);
+            DEBUG_PRINTLN(F("MK SA"));
+            break;
+#endif
 #ifdef ENABLE_LANGUAGE_D3
           case LANGUAGE_D3:
             renderer.setMenuText("D3", Renderer::TEXT_POS_MIDDLE, matrix);

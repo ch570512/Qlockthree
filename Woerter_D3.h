@@ -1,31 +1,31 @@
 /**
- * Woerter_D3
- * Definition der schwaebischen Woerter fuer die Zeitansage.
- * Die Woerter sind Bitmasken fuer die Matrix.
- *
- *   01234567890
- * 0 ESKISCHFUNK
- * 1 DREIVIERTLA
- * 2 ZEHNBIEFUNF
- * 3 NACHGERTVOR
- * 4 HALBXFUNFEI
- * 5 OISECHSELFE
- * 6 ZWOIEACHTED
- * 7 DREIEZWOLFE
- * 8 ZEHNEUNEUHL
- * 9 SIEBNEVIERE
- *
- * @mc       Arduino/RBBB
- * @autor    Fisch0204 & Chriophs007 (Unter Vorlage von Christian Aschoff)
- * @version  1.0
- * @created  03.03.2016
- */
+   Woerter_D3
+   Definition der schwaebischen Woerter fuer die Zeitansage.
+   Die Woerter sind Bitmasken fuer die Matrix.
+
+     01234567890
+   0 ESKISCHFUNK
+   1 DREIVIERTLA
+   2 ZEHNBIEFUNF
+   3 NACHGERTVOR
+   4 HALBXFUNFEI
+   5 OISECHSELFE
+   6 ZWOIEACHTED
+   7 DREIEZWOLFE
+   8 ZEHNEUNEUHL
+   9 SIEBNEVIERE
+
+   @mc       Arduino/RBBB
+   @autor    Fisch0204 & Chriophs007 (Unter Vorlage von Christian Aschoff)
+   @version  1.0
+   @created  03.03.2016
+*/
 #ifndef WOERTER_D3_H
 #define WOERTER_D3_H
 
 /**
- * Definition der Woerter
- */
+   Definition der Woerter
+*/
 #define D3_ESISCH       matrix[0] |= 0b1101111000000000
 #define D3_VOR          matrix[3] |= 0b0000000011100000
 #define D3_NACH         matrix[3] |= 0b1111000000000000
