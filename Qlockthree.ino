@@ -26,6 +26,7 @@
 #include "IRTranslatorLunartec.h"
 #include "IRTranslatorCLT.h"
 #include "IRTranslatorApple.h"
+#include "IRTranslatorPhilips.h"
 #include "MyIRremote.h"
 #include "MyRTC.h"
 #include "Button.h"
@@ -72,6 +73,8 @@ IRTranslatorLunartec irTranslator;
 IRTranslatorCLT irTranslator;
 #elif defined (REMOTE_APPLE)
 IRTranslatorApple irTranslator;
+#elif defined (REMOTE_PHILIPS)
+IRTranslatorPhilips irTranslator;
 #endif
 #endif
 
@@ -240,8 +243,8 @@ void setup() {
 #endif
 
 #ifdef RENDER_CORNERS_CCW
-  settings.setRenderCornersCw(false);
   DEBUG_PRINT(F("CCW, "));
+  settings.setRenderCornersCw(false);
 #else
   settings.setRenderCornersCw(true);
 #endif
@@ -270,7 +273,6 @@ void setup() {
   DEBUG_PRINTLN(F(" bytes."));
 
 #ifdef LED_TEST_INTRO
-  DEBUG_PRINTLN();
   DEBUG_PRINTLN(F("LEDs on."));
   unsigned long initMillis = millis();
   while ((millis() - initMillis) < 3000) {
@@ -585,7 +587,7 @@ void loop() {
           renderer.clearScreenBuffer(matrix);
           renderer.setMenuText("CR", Renderer::TEXT_POS_TOP, matrix);
           for (byte i = 0; i < 7; i++) {
-            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[settings.getColorChangeRate() / 10][i])) << 11;
+            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[settings.getColorChangeRate() / 10][i])) << 10;
             matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[settings.getColorChangeRate() % 10][i])) << 5;
           }
           DEBUG_PRINT(F("CR "));
@@ -721,7 +723,7 @@ void loop() {
         renderer.clearScreenBuffer(matrix);
         renderer.setMenuText("FB", Renderer::TEXT_POS_TOP, matrix);
         for (byte i = 0; i < 7; i++) {
-          matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[settings.getJumpToNormalTimeout() / 10][i])) << 11;
+          matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[settings.getJumpToNormalTimeout() / 10][i])) << 10;
           matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[settings.getJumpToNormalTimeout() % 10][i])) << 5;
         }
         DEBUG_PRINT(F("FB "));
@@ -777,8 +779,8 @@ void loop() {
         renderer.clearScreenBuffer(matrix);
         renderer.setMenuText("YY", Renderer::TEXT_POS_TOP, matrix);
         for (byte i = 0; i < 5; i++) {
-          matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getYear() % 10][i])) << 5;
           matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getYear() / 10][i])) << 10;
+          matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getYear() % 10][i])) << 5;
         }
         DEBUG_PRINT(F("YY "));
         DEBUG_PRINTLN(rtc.getYear());
@@ -788,12 +790,12 @@ void loop() {
         renderer.setMenuText("MM", Renderer::TEXT_POS_TOP, matrix);
         if (rtc.getMonth() > 9) {
           for (byte i = 0; i < 5; i++) {
-            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getMonth() % 10][i])) << 5;
             matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getMonth() / 10][i])) << 10;
+            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getMonth() % 10][i])) << 5;
           }
         } else {
           for (byte i = 0; i < 5; i++) {
-            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getMonth() % 10][i])) << 7;
+            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getMonth() % 10][i])) << 8;
           }
         }
         DEBUG_PRINT(F("MM "));
@@ -804,12 +806,12 @@ void loop() {
         renderer.setMenuText("DD", Renderer::TEXT_POS_TOP, matrix);
         if (rtc.getDate() > 9) {
           for (byte i = 0; i < 5; i++) {
-            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getDate() % 10][i])) << 5;
             matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getDate() / 10][i])) << 10;
+            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getDate() % 10][i])) << 5;
           }
         } else {
           for (byte i = 0; i < 5; i++) {
-            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getDate() % 10][i])) << 7;
+            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getDate() % 10][i])) << 8;
           }
         }
         DEBUG_PRINT(F("DD "));
@@ -1499,7 +1501,7 @@ void remoteAction(unsigned int irCode, IRTranslator * irTranslatorGeneric) {
       modePressed();
       break;
     case REMOTE_BUTTON_SECONDS:
-      if (mode < STD_MODE_BLANK - 2) {
+      if (mode < STD_MODE_BLANK) {
         modePressed();
       } else {
         setMode(STD_MODE_NORMAL);

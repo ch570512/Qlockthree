@@ -1,11 +1,5 @@
-/**
-   IRTranslatorApple
-   Remote-Klasse fuer die Apple Remote.
-
-   @mc       Arduino/RBBB
-   @autor    
-   @version  1.0
-   @created  21.12.2016
+/*
+   IRTranslator
 */
 
 #include "IRTranslatorApple.h"

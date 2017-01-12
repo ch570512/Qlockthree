@@ -2,12 +2,12 @@
    IRTranslator
 */
 
-#ifndef IRTRANSLATORAPPLE_H
-#define IRTRANSLATORAPPLE_H
+#ifndef IRTRANSLATORPHILIPS_H
+#define IRTRANSLATORPHILIPS_H
 
 #include "IRTranslator.h"
 
-class IRTranslatorApple : public IRTranslator {
+class IRTranslatorPhilips : public IRTranslator {
   public:
     void printSignature();
     byte buttonForCode(unsigned long code);

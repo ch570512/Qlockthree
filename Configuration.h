@@ -18,7 +18,7 @@
   Die Firmware gibt es hier: https://github.com/ch570512/Qlockthree
 
   Je nach Schalter (USE_...) und Parameter (ABC_...) in der Konfiguration stehen verschiedene Funktionen der Uhr
-  zur Verfuegung. Da der Speicher des Mikrocontrollers begrenzt ist, kann nicht alles gleichzeitig eingeschaltet
+  zur Verfuegung. Da der Speicher des Microcontrollers begrenzt ist, kann nicht alles gleichzeitig eingeschaltet
   werden.
 
   Generell blinkt das Display bei der Moeglichkeit eine Zeit einzustellen. Ausserdem wird der Vormittag durch AM, der
@@ -32,7 +32,7 @@
   Sekunden: Anzeige der Sekunden. (USE_STD_MODE_SECONDS)
   Datum: Anzeige des aktuellen Tages und Monats. (USE_STD_MODE_DATE)
   Temperatur: Anzeige der gemessenen Temperatur. (USE_STD_MODE_TEMP)
-  Alarm: H+ und M+ druecken um den Alarm (in 5 Minuten-Schritten) für die nächsten 24 Stunden zu stellen. Der Alarm
+  Alarm: H+ und M+ druecken um den Alarm (in 5 Minuten-Schritten) fuer die naechsten 24 Stunden zu stellen. Der Alarm
          schaltet sich nach Ablauf der Fallback-Time automatisch ein. Er wird durch Druecken der Mode-Taste deaktiviert.
          Fuer Alarm muss ein Lautsprecher oder Buzzer an den entsprechenden Ausgang des Controllers (D11 beim BOARD_NANO)
          und GND und optional eine weitere "Eck-LED" an die 5te Reihe der Matrix bzw. eine weitere LED am Streifen
@@ -71,11 +71,11 @@
 
   BOARD_DEFAULT: Der 3-Platinen-Aufbau oder das Nachbau-Board mit Schieberegistern von Christian.
   BOARD_AMBBRTCAD:
-  BOARD_BBRTCAD: Ein weiteres Board, für das Moodlight, von Christian.
+  BOARD_BBRTCAD: Ein weiteres Board, fuer das Moodlight, von Christian.
   BOARD_CLT: Das Board der CLT2.
-  BOARD_NANO: Guenstiges und einfaches selbstbau Board mit Arduino Nano, DS3231 RTC und vielen Optionen für die
+  BOARD_NANO: Guenstiges und einfaches selbstbau Board mit Arduino Nano, DS3231 RTC und vielen Optionen fuer die
               weitere Hardware. Dateien mit Informationen liegen im Verzeichnis.
-              Der Aufbau auf einer kleinen Lochrasterplatine ist relativ einfach möglich.
+              Der Aufbau auf einer kleinen Lochrasterplatine ist relativ einfach moeglich.
               Bitte eine externe 5V Stromquelle verwenden da sonst evtl. der Arduino und/oder der USB-Port des
               Computers wegen der hohen LED-Last durchbrennt.
 
@@ -90,26 +90,27 @@
   RGBW_LEDS: RGBW-LEDs mit waagerechtem Streifen-Layout wie dem Moodlight von Christian.
   RGBW_LEDS_CLT2: RGBW-LEDs mit senkrechtem Streifen-Layout der CLT2.
 
-  MATRIX_XXL: Verdoppelt die Grösse der Matrix. Es werden immer 4 LEDs auf dem Streifen für einen Pixel benutzt.
+  MATRIX_XXL: Verdoppelt die Groesse der Matrix. Es werden immer 4 LEDs auf dem Streifen fuer einen Pixel benutzt.
   MOS_DRIVER:
   ENABLE_DCF_LED: Zeigt mit Hilfe der gelben LED auf dem Board die Funktion des DCF77 Empfaengers an. Bei gutem
                   Empfang blinkt sie regelmaessig. Kann abgeschaltet werden, wenn kein DCF77 Empfaenger verbaut ist.
-  ENABLE_SQW_LED: Zeigt mit Hilfe der grünen LED auf dem Board die Funktion der RTC an. Sie blinkt einmal pro
+  ENABLE_SQW_LED: Zeigt mit Hilfe der gruenen LED auf dem Board die Funktion der RTC an. Sie blinkt einmal pro
                   Sekunde.
   DS1307: Real Time Clock.
-  DS3231: Moderne und sehr genaue Real Time Clock. Dadurch könnte man auf den DCF77 Empfänger verzichten.
+  DS3231: Moderne und sehr genaue Real Time Clock. Dadurch koennte man auf den DCF77 Empfaenger verzichten.
   TEMP_SENS_LM35: Einschalten, wenn ein Temperatursensor vom Typ LM35 verbaut ist.
   TEMP_SENS_LM335: Einschalten, wenn ein Temperatursensor vom Typ LM335 verbaut ist.
-  DCF77: Einschalten, wenn ein DCF77 Empfänger verbaut ist. Der PON-Pin wird von dieser Firmware geschaltet.
+  DCF77: Einschalten, wenn ein DCF77 Empfaenger verbaut ist. Der PON-Pin wird von dieser Firmware geschaltet.
 
   REMOTE_NO_REMOTE: Einschalten, wenn _kein_ IR-Sensor verbaut ist.
   REMOTE_SPARKFUN: Fernbedienung von Sparkfun.
   REMOTE_MOONCANDLES: Fernbedienung von Mooncandles.
   REMOTE_LUNARTEC: Fernbedienung von Linartec.
   REMOTE_CLT: Fernbedienung der CLT2.
-  REMOTE_APPLE: Alte kleine weisse Fernbedienung für iPod von Apple. Play: Standard Modi, Menu: Erweiterte Modi,
+  REMOTE_APPLE: Alte kleine weisse Fernbedienung fuer iPod von Apple. Play: Standard Modi, Menu: Erweiterte Modi,
                 Back: Zeitanzeige, FF: Display aus, +: Stunde+, -: Minute+
-  REMOTE_BLUETOOTH: Bluetooth App für Android oder iPhone. (Kostenpflichtig.)
+  REMOTE_PHILIPS: Universal Fernbedienung von Philips mit dem Geraetecode 0815.
+  REMOTE_BLUETOOTH: Bluetooth App fuer Android oder iPhone. (Kostenpflichtig.)
 
   LED_TEST_INTRO: Laesst alle LEDs nach dem Start der Uhr fuer 3 Sekunden leuchten.
   NONE_TECHNICAL_ZERO: Zeigt die Null ohne den diagonalen Strich.
@@ -122,25 +123,25 @@
   MAX_BUZZ_TIME_IN_MINUTES 2
   SPEAKER_IS_BUZZER
   SPEAKER_FREQUENCY 200000
-  MYDCF77_SIGNAL_IS_INVERTED: Invertiert das DCF77-Empfänger-Signal.
-  SERIAL_SPEED: Geschwindigkeit der seriellen Schnittstelle für die Debugging Konsole und dem Bluetooth-Modul.
+  MYDCF77_SIGNAL_IS_INVERTED: Invertiert das DCF77-Empfaenger-Signal.
+  SERIAL_SPEED: Geschwindigkeit der seriellen Schnittstelle fuer die Debugging Konsole und dem Bluetooth-Modul.
   BUTTON_TRESHOLD:
   PWM_DURATION:
   SHIFTREGISTER_TURBO:
   UPSIDE_DOWN: Dreht die Ausgabe der Uhr auf den Kopf wenn man die Anoden falsch herum angeschlossen hat.
   RENDER_CORNERS_CCW: Laufrichtung der Eck-LEDs umderehen wenn man sie falsch herum angeschlossen hat.
   OPTIMIZED_FOR_DARKNESS:
-  SKIP_BLANK_LINES: Überspringt Zeilen, welche nichts anzeigen. Das Display wird heller aber schwankt in der
+  SKIP_BLANK_LINES: Ueberspringt Zeilen, welche nichts anzeigen. Das Display wird heller aber schwankt in der
                     Helligkeit.
 
   DEBUG: Gibt viele Informationen in der seriellen Konsole aus. Muss fuer die Benutzung der weiteren DEBUGs
          eingeschaltet sein.
   DEBUG_TIME: Zeigt die RTC-Zeit an.
-  DEBUG_MATRIX: Rendert die Ausgabe der Matrix für die deutsche Front in der seriellen Konsole.
+  DEBUG_MATRIX: Rendert die Ausgabe der Matrix fuer die deutsche Front in der seriellen Konsole.
   DEBUG_FPS: Zeigt die FPS.
-  DEBUG_DCF77: Infos vom DCF77-Empfänger.
+  DEBUG_DCF77: Infos vom DCF77-Empfaenger.
   DEBUG_LDR: Infos vom LDR.
-  DEBUG_HALT: Hält die RTC an. Die Anzeige läuft weiter.
+  DEBUG_HALT: Haelt die RTC an. Die Anzeige laeuft weiter.
   DEBUG_SET_DEFAULTS: Schreibt die Default-Werte bei jedem Start in den EEPROM.
 
   *** Important Info ***
@@ -164,72 +165,72 @@
 #define CONFIGURATION_H
 
 /******************************************************************************
-  Standard Menu:
+  Standard Menu
 ******************************************************************************/
 
-// Show AM/PM.
+// Show AM/PM
 #define USE_STD_MODE_AMPM
 
-// Show seconds.
+// Show seconds
 #define USE_STD_MODE_SECONDS
 
-// Show date.
+// Show date
 #define USE_STD_MODE_DATE
 
-// Show temperature.
+// Show temperature
 //#define USE_STD_MODE_TEMP
 
-// Set an alarm.
+// Set an alarm
 //#define USE_STD_MODE_ALARM
 
 /******************************************************************************
-  Extended Menu:
+  Extended Menu
 ******************************************************************************/
 
 // Show MAIN/TIME/TEST
 #define USE_EXT_MODE_TITLES
 
-// Show setup for date.
+// Show setup for date
 #define USE_EXT_MODE_DATE_MANUALLY
 
-// Show setup to disable "It is".
+// Show setup to disable "It is"
 #define USE_EXT_MODE_IT_IS
 
 // Show setup for timeshift to DCF77 signal.
 #define USE_EXT_MODE_TIME_SHIFT
 
-// Show time since last sync with DCF77.
+// Show time since last sync with DCF77
 #define USE_EXT_MODE_DCF_SYNC
 
-// Show DCF77 debug.
+// Show DCF77 debug
 #define USE_EXT_MODE_DCF_DEBUG
 
-// Show LED test.
+// Show LED test
 #define USE_EXT_MODE_TEST
 
-// Supportet languages.
+// Supportet Fronts
 #define ENABLE_LANGUAGE_DE
-//#define ENABLE_LANGUAGE_DE_MKF
-//#define ENABLE_LANGUAGE_D3
+#define ENABLE_LANGUAGE_DE_MKF
+#define ENABLE_LANGUAGE_D3
 #define ENABLE_LANGUAGE_CH
-//#define ENABLE_LANGUAGE_EN
+#define ENABLE_LANGUAGE_EN
 //#define ENABLE_LANGUAGE_FR
 //#define ENABLE_LANGUAGE_IT
 //#define ENABLE_LANGUAGE_NL
 //#define ENABLE_LANGUAGE_ES
 
 /******************************************************************************
-  Hardware settings:
+  Hardware settings
 ******************************************************************************/
 
-// Which Board?
+// Board
 #define BOARD_DEFAULT
 //#define BOARD_AMBBRTCAD
 //#define BOARD_BBRTCAD
 //#define BOARD_CLT
 //#define BOARD_NANO
 
-// Which LED-Driver?
+// LED-Driver
 #define LED_DRIVER_DEFAULT
 //#define LED_DRIVER_UEBERPIXEL
 //#define LED_DRIVER_POWER_SHIFT_REGISTER
@@ -237,72 +238,73 @@
 //#define LED_DRIVER_NEOPIXEL
 //#define LED_DRIVER_LPD8806
 
-// Type of LEDs? (LED_DRIVER_DOTSTAR or LED_DRIVER_NEOPIXEL or LED_DRIVER_LPD8806)
+// Type of LEDs (LED_DRIVER_DOTSTAR or LED_DRIVER_NEOPIXEL or LED_DRIVER_LPD8806)
 //#define RGB_LEDS
 //#define RGBW_LEDS
 //#define RGBW_LEDS_CLT2
 
-// Double the clocksize? (LED_DRIVER_NEOPIXEL or LED_DRIVER_LPD8806) (not working right now.)
+// Double the clocksize (LED_DRIVER_NEOPIXEL or LED_DRIVER_LPD8806) (not working right now.)
 //#define MATRIX_XXL
 
-// Are MOS-FETs used? (LED_DRIVER_DEFAULT)
+// MOS-FETs (LED_DRIVER_DEFAULT)
 //#define MOS_DRIVER
 
-// Which LEDs on the board should be enabled?
+// LEDs on board
 #define ENABLE_DCF_LED
 #define ENABLE_SQW_LED
 
-// Which RTC is used?
+// RTC
 #define DS1307
 //#define DS3231
 
-// DCF77 receiver present?
+// DCF77
 #define DCF77
 
-// Which Temperature-Sensor is used?
+// Temperature-Sensor
 //#define TEMP_SENS_LM35
 //#define TEMP_SENS_LM335
 
-// Which IR-Remote is used?
-#define REMOTE_NO_REMOTE
+// IR-Remote
+//#define REMOTE_NO_REMOTE
 //#define REMOTE_SPARKFUN
 //#define REMOTE_MOONCANDLES
 //#define REMOTE_LUNARTEC
 //#define REMOTE_CLT
-//#define REMOTE_APPLE
+//#define REMOTE_APPLE // Apple Remote Control for iPod
+//#define REMOTE_PHILIPS // Philips SRP1101/10 - Code 0815
 
-// Use a Bluetooth-Remote?
+// Bluetooth-Remote
 //#define REMOTE_BLUETOOTH
 
 /******************************************************************************
-  Software settings:
+  Software settings
 ******************************************************************************/
 
-// Turn on all LEDs for 3s on power-up.
+// Turn on all LEDs for 3s on power-up
 #define LED_TEST_INTRO
 
-// Show none technical zero.
+// None technical zero
 //#define NONE_TECHNICAL_ZERO
 
-// Turn on clock after successfull DCF77-sync.
-//#define AUTO_JUMP_BLANK
+// Turn on clock after successfull DCF77-sync
+#define AUTO_JUMP_BLANK
 
-// Turn off the letter containing the IR-Sensor.
+// Turn off the letter containing the IR-Sensor
 //#define IR_LETTER_OFF matrix[9] &= 0b1111111011111111
 
-// Events:
+// Events
 //#define EVENTS
 
-// Temperature:
+// Temperature
 #define TEMP_OFFSET -2
 #define NO_OF_SAMPLES 5
 
-// Alarm:
+// Alarm
 #define MAX_BUZZ_TIME_IN_MINUTES 5
 #define SPEAKER_IS_BUZZER
 #define SPEAKER_FREQUENCY 200000
 
-// DCF77:
+// DCF77
 #define DCF77HELPER_MAX_SAMPLES 3
 //#define MYDCF77_SIGNAL_IS_INVERTED
 //#define MYDCF77_SIGNAL_IS_ANALOG
@@ -312,7 +314,7 @@
 #define MYDCF77_DRIFT_CORRECTION_TIME 30
 #define MYDCF77_MEANSTARTVALUE 450
 
-// LDR:
+// LDR
 #define LDR_AUTOSCALE
 #define LDR_MANUAL_MIN 0
 #define LDR_MANUAL_MAX 1023
@@ -325,8 +327,8 @@
   #define LDR_CHECK_RATE 10
 #endif
 
-// misc:
-#define SERIAL_SPEED 57600 // Set speed for debuging console and bluetooth remote.
+// misc
+#define SERIAL_SPEED 57600 // Set speed for debuging console and bluetooth remote
 #define BUTTON_TRESHOLD 300
 #define PWM_DURATION 8
 #define SHIFTREGISTER_TURBO
@@ -334,19 +336,19 @@
 //#define RENDER_CORNERS_CCW
 //#define OPTIMIZED_FOR_DARKNESS
 //#define SKIP_BLANK_LINES
-#define FIRMWARE_VERSION "yaqtfw_20170109"
+#define FIRMWARE_VERSION "yaqtfw_20170112"
 
 /******************************************************************************
   Debug to serial console. DEBUG has to be defined to use the other debugs.
 ******************************************************************************/
 
-//#define DEBUG                 // Switch on debug.
-//#define DEBUG_TIME            // Shows the time every secound.
-//#define DEBUG_MATRIX          // Randers the matrix to console. German front.
-//#define DEBUG_FPS             // Shows the FPS.
-//#define DEBUG_DCF77           // Info for DCF77.
-//#define DEBUG_LDR             // Info for LDR.
-//#define DEBUG_HALT            // Stops the RTC.
-//#define DEBUG_SET_DEFAULTS    // Sets the EEPROM to defauls on startup.
+//#define DEBUG                 // Switch on debug
+//#define DEBUG_TIME            // Shows the time every secound
+//#define DEBUG_MATRIX          // Randers the matrix to console - German front
+//#define DEBUG_FPS             // Shows the FPS
+//#define DEBUG_DCF77           // Info for DCF77
+//#define DEBUG_LDR             // Info for LDR
+//#define DEBUG_HALT            // Stops the RTC
+//#define DEBUG_SET_DEFAULTS    // Sets the EEPROM to defauls on startup
 
 #endif
