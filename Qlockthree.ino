@@ -1,6 +1,6 @@
 /**
-   QLOCKTHREE
-   Die Firmware der Selbstbau-QLOCKTWO.
+   Yet Another QLOCKTHREE Firmware
+   Eine Firmware der Selbstbau-QLOCKTWO.
 
    @mc       Arduino/RBBB (ATMEGA328)
    @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
@@ -41,10 +41,8 @@
 #include "MyTempSens.h"
 #include "Debug.h"
 #include "Boards.h"
-#ifdef DCF77
 #include "MyDCF77.h"
 #include "DCF77Helper.h"
-#endif
 #ifdef EVENTS
 #include "Events.h"
 #endif
@@ -292,8 +290,8 @@ void loop() {
 #ifdef DEBUG_FPS
   frames++;
   if (millis() - lastFpsCheck > 1000) {
-    DEBUG_PRINT("FPS: ");
-    DEBUG_PRINTLN(frames);
+    Serial.print("FPS: ");
+    Serial.println(frames);
     lastFpsCheck = millis();
     frames = 0;
   }
@@ -358,13 +356,6 @@ void loop() {
                 }
                 break;
               case 3:
-                while (!(rtc.getMinutes() % 45)) {
-                  evtActive = true;
-                  events[evtID].show();
-                  rtc.readTime();
-                }
-                break;
-              case 4:
                 while (!(rtc.getMinutes() % 60)) {
                   evtActive = true;
                   events[evtID].show();
@@ -388,11 +379,11 @@ void loop() {
         }
 #endif
 #ifdef DEBUG_TIME
-        DEBUG_PRINT(rtc.getHours() + settings.getTimeShift());
-        DEBUG_PRINT(F(":"));
-        DEBUG_PRINT(rtc.getMinutes());
-        DEBUG_PRINT(F(":"));
-        DEBUG_PRINTLN(helperSeconds);
+        Serial.print(rtc.getHours() + settings.getTimeShift());
+        Serial.print(F(":"));
+        Serial.print(rtc.getMinutes());
+        Serial.print(F(":"));
+        Serial.println(helperSeconds);
 #endif
         break;
       case EXT_MODE_TIMESET:
@@ -405,13 +396,11 @@ void loop() {
           renderer.clearEntryWords(settings.getLanguage(), matrix);
           renderer.activateAMPM(rtc.getHours() + settings.getTimeShift(), settings.getLanguage(), matrix);
         }
-#ifdef DEBUG_TIME
         DEBUG_PRINT(rtc.getHours() + settings.getTimeShift());
         DEBUG_PRINT(F(":"));
         DEBUG_PRINT(rtc.getMinutes());
         DEBUG_PRINT(F(":"));
         DEBUG_PRINTLN(helperSeconds);
-#endif
         break;
 #ifdef USE_STD_MODE_AMPM
       case STD_MODE_AMPM:
@@ -478,13 +467,11 @@ void loop() {
           }
 #endif
           renderer.activateAlarmLed(matrix); // Alarm-LED
-#ifdef DEBUG_TIME
           DEBUG_PRINT(rtc.getHours() + settings.getTimeShift());
           DEBUG_PRINT(F(":"));
           DEBUG_PRINT(rtc.getMinutes());
           DEBUG_PRINT(F(":"));
           DEBUG_PRINTLN(helperSeconds);
-#endif
         } else {
           // Alarmzeit blinken lassen
           if (alarm.getShowAlarmTimeTimer() % 2 == 0) {
@@ -613,10 +600,6 @@ void loop() {
             DEBUG_PRINTLN(F("EV 30"));
             break;
           case 3:
-            renderer.setMenuText("45", Renderer::TEXT_POS_BOTTOM, matrix);
-            DEBUG_PRINTLN(F("EV 45"));
-            break;
-          case 4:
             renderer.setMenuText("60", Renderer::TEXT_POS_BOTTOM, matrix);
             DEBUG_PRINTLN(F("EV 60"));
             break;
@@ -917,14 +900,14 @@ void loop() {
 #endif
 
 #ifdef DEBUG_MATRIX
-    debug_matrix();
+    debug_matrix(matrix);
 #endif
 
     //
     // Die Matrix auf die LEDs multiplexen mit neuem Inhalt.
     //
     ledDriver.writeScreenBufferToMatrix(matrix, true, settings.getColor());
-    
+
   }
 
   /******************************************************************************
@@ -1270,7 +1253,7 @@ void hourPlusPressed() {
     // Eventwiederholungszeit Auswahl
     case EXT_MODE_EVENT:
       settings.setEvent(settings.getEvent() + 1);
-      if (settings.getEvent() > 4) {
+      if (settings.getEvent() > 3) {
         settings.setEvent(0);
       }
       break;
@@ -1401,7 +1384,7 @@ void minutePlusPressed() {
     // Eventwiederholungszeit Auswahl
     case EXT_MODE_EVENT:
       if (settings.getEvent() == 0) {
-        settings.setEvent(4);
+        settings.setEvent(3);
       } else {
         settings.setEvent(settings.getEvent() - 1);
       }
@@ -1519,22 +1502,30 @@ void remoteAction(unsigned int irCode, IRTranslator * irTranslatorGeneric) {
       case REMOTE_BUTTON_HOUR_PLUS:
         hourPlusPressed();
         break;
-      case REMOTE_BUTTON_BRIGHTER:
-        if (!settings.getUseLdr()) {
-          if (STD_MODE_BRIGHTNESS == mode) {
-            setDisplayBrighter();
-          } else {
-            setMode(STD_MODE_BRIGHTNESS);
+      case REMOTE_BUTTON_LDR:
+        if (EXT_MODE_LDR_MODE == mode) {
+          settings.setUseLdr(!settings.getUseLdr());
+          if (!settings.getUseLdr()) {
+            settings.setBrightness(ledDriver.getBrightness());
           }
+        } else {
+          setMode(EXT_MODE_LDR_MODE);
+        }
+        break;
+      case REMOTE_BUTTON_BRIGHTER:
+        settings.setUseLdr(false);
+        if (STD_MODE_BRIGHTNESS == mode) {
+          setDisplayBrighter();
+        } else {
+          setMode(STD_MODE_BRIGHTNESS);
         }
         break;
       case REMOTE_BUTTON_DARKER:
-        if (!settings.getUseLdr()) {
-          if (STD_MODE_BRIGHTNESS == mode) {
-            setDisplayDarker();
-          } else {
-            setMode(STD_MODE_BRIGHTNESS);
-          }
+        settings.setUseLdr(false);
+        if (STD_MODE_BRIGHTNESS == mode) {
+          setDisplayDarker();
+        } else {
+          setMode(STD_MODE_BRIGHTNESS);
         }
         break;
       case REMOTE_BUTTON_EXTMODE:
@@ -1565,16 +1556,6 @@ void remoteAction(unsigned int irCode, IRTranslator * irTranslatorGeneric) {
           hourPlusPressed();
         } else {
           setMode(EXT_MODE_LANGUAGE);
-        }
-        break;
-      case REMOTE_BUTTON_LDR:
-        if (EXT_MODE_LDR_MODE == mode) {
-          settings.setUseLdr(!settings.getUseLdr());
-          if (!settings.getUseLdr()) {
-            settings.setBrightness(ledDriver.getBrightness());
-          }
-        } else {
-          setMode(EXT_MODE_LDR_MODE);
         }
         break;
       case REMOTE_BUTTON_TIME_H_PLUS:
@@ -1664,12 +1645,12 @@ void remoteAction(unsigned int irCode, IRTranslator * irTranslatorGeneric) {
 void enableDcf(boolean enable) {
   if (enable) {
 #ifdef DEBUG_DCF77
-    DEBUG_PRINTLN(F("DCF77: on"));
+    Serial.println(F("DCF77: on"));
 #endif
     digitalWrite(PIN_DCF77_PON, LOW);
   } else {
 #ifdef DEBUG_DCF77
-    DEBUG_PRINTLN(F("DCF77: off"));
+    Serial.println(F("DCF77: off"));
 #endif
     digitalWrite(PIN_DCF77_PON, HIGH);
   }
@@ -1872,7 +1853,7 @@ int freeRam() {
 ******************************************************************************/
 
 void factoryReset() {
-  DEBUG_PRINTLN(F("*** Set all defaults! *** "));
+  Serial.println(F("*** Set all defaults! *** "));
   settings.resetToDefault();
   settings.saveToEEPROM();
 }
@@ -1882,7 +1863,7 @@ void factoryReset() {
 ******************************************************************************/
 
 #ifdef DEBUG_MATRIX
-void debug_matrix() {
+void debug_matrix(word debugMatrix[]) {
   const char buchstabensalat[][12] PROGMEM = {
     {'E', 'S', 'K', 'I', 'S', 'T', 'A', 'F', 'U', 'N', 'F', '2'},
     {'Z', 'E', 'H', 'N', 'Z', 'W', 'A', 'N', 'Z', 'I', 'G', '1'},
@@ -1895,22 +1876,23 @@ void debug_matrix() {
     {'S', 'I', 'E', 'B', 'E', 'N', 'Z', 'W', 'O', 'L', 'F', '_'},
     {'Z', 'E', 'H', 'N', 'E', 'U', 'N', 'K', 'U', 'H', 'R', '_'}
   };
-  DEBUG_PRINTLN(F(" -----------"));
+  Serial.println(F("\033[0;0H")); // Set cursor to 0, 0 position in console.
+  Serial.println(F(" -----------"));
   for (byte zeile = 0; zeile < 10; zeile++) {
-    word leds = matrix[zeile];
+    word leds = debugMatrix[zeile];
     char spalte[16];
     for (int i = 15; i >= 0; i--) {
       spalte[i] = ((leds & 1) ? buchstabensalat[zeile][i] : ' ');
       leds = leds >> 1;
     }
-    DEBUG_PRINT('|');
+    Serial.print('|');
     for (byte i = 0; i < 11; i++) {
-      DEBUG_PRINT(spalte[i]);
+      Serial.print(spalte[i]);
     }
-    DEBUG_PRINT('|');
-    DEBUG_PRINTLN(spalte[11]); // Corner LEDs
+    Serial.print('|');
+    Serial.println(spalte[11]); // Corner LEDs
   }
-  DEBUG_PRINTLN(F(" -----------"));
+  Serial.println(F(" -----------"));
 }
 #endif
 

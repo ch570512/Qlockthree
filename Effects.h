@@ -79,6 +79,10 @@ class Effects {
     static void showBitmap(byte bitmapIdx, byte duration, eColors color);
     static void showAnimatedBitmap(byte animatedBitmap, byte duration, eColors color);
     static void writeToBuffer(word aMatrix[], unsigned int aDuration, eColors color);
+
+#ifdef DEBUG_EVENT_MATRIX
+    static void debug_matrix(word aMatrix[]);
+#endif
 };
 
 const word effectMasksHeart[][10] PROGMEM = {

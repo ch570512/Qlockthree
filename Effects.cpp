@@ -202,11 +202,37 @@ void Effects::writeToBuffer(word aMatrix[], unsigned int aDuration, eColors colo
 #if defined(RGB_LEDS) || defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
   ledDriver.writeScreenBufferToMatrix(aMatrix, true, color);
   delay(aDuration * RGB_SPEED_CORRECTION);
+#ifdef DEBUG_EVENT_MATRIX
+  debug_matrix(aMatrix);
+#endif
 #else
   for (int i = 0; i < aDuration; i++) {
     ledDriver.writeScreenBufferToMatrix(aMatrix, true, color);
+#ifdef DEBUG_EVENT_MATRIX
+    debug_matrix(aMatrix);
+#endif
   }
 #endif
 }
 
+#ifdef DEBUG_EVENT_MATRIX
+void Effects::debug_matrix(word debugMatrix[]) {
+  Serial.println(F("\033[0;0H")); // Set cursor to 0, 0 position in console.
+  Serial.println(F(" -----------"));
+  for (byte zeile = 0; zeile < 10; zeile++) {
+    word leds = debugMatrix[zeile];
+    char spalte[16];
+    for (int i = 15; i >= 0; i--) {
+      spalte[i] = ((leds & 1) ? '#' : ' ');
+      leds = leds >> 1;
+    }
+    Serial.print('|');
+    for (byte i = 0; i < 11; i++) {
+      Serial.print(spalte[i]);
+    }
+    Serial.println('|');
+  }
+  Serial.println(F(" -----------"));
+}
+#endif
 

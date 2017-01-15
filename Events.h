@@ -17,29 +17,23 @@
 #include "Event.h"
 #include "Colors.h"
 
-const char* eventText[] = {
-  //  "Happy Valentine's Day",
-  //  "Happy New Year",
-  //  "Merry Christmas",
-  "Happy Birthday",
-  //  "Happy bra-G Day",
-  //  "Testevent"
-};
 /**************************************************************************************************************
   Instanzierung und Initialisierung jährlicher Events. Ein Event enthält eine Laufschrift, gefolgt
-  von einem Bildeffekt (Herz, Feuerwerk, etc.). Diese werden am definierten Jahrestag jeweils zur vollen Stunde
-  während einer definierten Dauer nonstop angezeigt. Soll nur eine Laufschrift (ohne Bildeffekt) angezeigt werden,
+  von einem Bildeffekt (Herz, Feuerwerk, etc.). Diese werden am definierten Jahrestag angezeigt.
+  Soll nur eine Laufschrift (ohne Bildeffekt) angezeigt werden,
   ist als Effekt-Input NO_EFFECT zu wählen. Soll nur ein Bildeffekt (ohne Laufschrift) gezeigt werden, ist als
   Text-Input "" zu definieren. (Monat, Tag, Text, Effekt, Effektfarbe) Das Event-Array kann "beliebig" ergänzt
   werden.
 **************************************************************************************************************/
+
+const char* eventText[] = {
+  "Happy Birthday",
+  "Testevent"  // letzter Eintrag ohne Komma.
+};
+
 Event events[] = {
-  //  Event(7, 16, eventText[0], Effects::EFFECT_HEART, color_red),
-  //  Event(1, 1, eventText[1], Effects::EFFECT_FIREWORK, color_rgb_continuous),
   Event(7, 16, eventText[0], Effects::EFFECT_CANDLE, color_orange1),
-  //  Event(7, 30, eventText[3], Effects::EFFECT_FIREWORK, color_rgb_continuous),
-  //  Event(7, 29, eventText[4], Effects::ANI_BITMAP_SMILEY_WINK, color_yellow),
-  //  Event(1, 16, eventText[5], Effects::ANI_BITMAP_SMILEY_WINK, color_orange2),
+  Event(1, 14, eventText[1], Effects::ANI_BITMAP_SMILEY_WINK, color_yellow)  // letzter Eintrag ohne Komma.
 };
 
 //NO_EFFECT = 255,
@@ -66,9 +60,30 @@ Event events[] = {
 //ANI_BITMAP_CHRISTTREE,
 //ANI_BITMAP_SMILEY_WINK,
 
+//color_white,
+//color_red,
+//color_green,
+//color_darkBlue,
+//color_brightBlue,
+//color_pink,
+//color_yellow,
+//color_orange1,
+//color_orange2,
+//color_orange3,
+//color_orange4,
+//color_turquois1,
+//color_turquois2,
+//color_turquois3,
+//color_turquois4,
+//color_purple1,
+//color_purple2,
+//color_purple3,
+//color_purple4,
+//
+//color_rgb_continuous,
+//color_rgb_step,
+//color_none
 
-/**************************************************************************************************************
-   Anzahl definierter Events
- **************************************************************************************************************/
 int nbrOfEvts = sizeof(events) / sizeof(Event);
+
 #endif

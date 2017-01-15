@@ -12,7 +12,7 @@
     Eine Firmware der Selbstbau-QLOCKTWO.
   *********************************************************************************************************************
 
-  Diese Firmware basiert auf dem Master Branch von Manuel. Sie enthaelt aber auch die CLT2 und Elemente von Andreas.
+  Diese Firmware basiert auf dem Master-Branch von Manuel. Sie enthaelt aber auch die CLT2 und Elemente von Andreas.
   Einher geht die Firmware mit dem "neuen" BOARD_NANO bestehend aus Arduino Nano und einem DS3231 RTC-Modul.
   Ein Video gibt es hier: https://www.youtube.com/watch?v=X_I5B-dErzE&feature=youtu.be
   Die Firmware gibt es hier: https://github.com/ch570512/Qlockthree
@@ -47,37 +47,41 @@
   Automatische Helligkeitsregelung ein/aus (A/M)
   Effekt beim Zeitwechsel (TR NO/FD/SD/MX): kein Effekt, Fading, Sliding, Matrix (nur mit Farb-LEDs)
   Farbe (C 0..18) oder Farbwechsel (CC 01/02): CC 01 siehe unten, CC 02 wechselt die Farbe im 5 Minutentakt.
-  Geschwindigkeit fuer Farbwechsel (CR 00...10): 00 -> langsam, 10 -> schnell.
-  Haeufigkeit der Events (EV 5, 15, 30, 45, 60), Event erscheint am eingestellten Tag alle 5, 15, 30, 45, 60 Minuten.
-  Sprache (CH/DE/EN/...): Die passende Sprache zur benutzten Front waehlen.
-  Ruecksprungverzoegerung (FB nn): Wie lange soll es dauern, bis z.B. aus der Sekundenanzeige wieder in den
-                                   Zeitanzeige-Modus gewechselt wird. (0 = deaktiviert.)
+  Geschwindigkeit fuer fortdauernden Farbwechselmodus CC 01 (CR 00...10): 00 -> langsam, 10 -> schnell.
+  Events (EV 5, 15, 30, 60): Event erscheint am eingestellten Tag alle 5, 15, 30 oder 60 Minuten fuer 1 Minute.
+                             Ein Event enthaelt eine Laufschrift, gefolgt von einem Bildeffekt (Herz, Feuerwerk, etc.).
+                             Konfiguration in Events.h (EVENTS)
+  Sprache (DE/CH/EN/...): Die passende Sprache zur benutzten Front waehlen.
+  Ruecksprungverzoegerung (FB nn): Wie lange soll es dauern, bis z.B. aus der Sekundenanzeige wieder zurück in die
+                                   Zeitanzeige gewechselt wird. (0 = deaktiviert.)
+                                   
   Titel TIME: H+ und M+ druecken um direkt in die naechste oder vorhergehende Kategorie zu wechseln. (USE_EXT_MODE_TITLES)
   "Es ist" anzeigen oder nicht (IT EN/DA) (USE_EXT_MODE_IT_IS)
   Zeit einstellen: H+ und M+ druecken um die Zeit zu stellen. Die Sekunden springen mit jedem Druck auf Null.
   Zeitverschiebung zu DCF77, nicht Zeitzone. (USE_EXT_MODE_TIME_SHIFT)
-  Tag einstellen (DD nn): H+ und M+ druecken um den aktuellen Tag einzustellen. (USE_EXT_MODE_DATE_MANUALLY)
+  Tag einstellen   (DD nn): H+ und M+ druecken um den aktuellen Tag einzustellen. (USE_EXT_MODE_DATE_MANUALLY)
   Monat einstellen (MM nn): H+ und M+ druecken um den aktuellen Monat einzustellen.
-  Jahr einstellen (YY nn): H+ und M+ druecken um das aktuelle Jahr einzustellen.
-  Nachtauschaltung (N OF): H+ und M+ druecken um die Ausschaltzeit des Displays einzustellen.
-                           Durch das Abschalten des Displays verbessert sich der Empfang der DCF77-Zeit.
+  Jahr einstellen  (YY nn): H+ und M+ druecken um das aktuelle Jahr einzustellen.
+  Nachtauschaltung        (N OF): H+ und M+ druecken um die Ausschaltzeit des Displays einzustellen.
   Nachtwiedereinschaltung (N ON): H+ und M+ druecken um die Einschaltzeit des Displays einzustellen. Analog (N OFF).
+                                  Durch das Abschalten des Displays verbessert sich der Empfang der DCF77-Zeit.
+                                  
   Titel TEST: H+ und M+ druecken um direkt in die naechste oder vorhergehende Kategorie zu wechseln. (USE_EXT_MODE_TITLES)
-  LED-Test: Laesst einen senkrechten Streifen ueber das Display wandern.
-  Zeit in Stunden und Minuten seit der letzten erfolgreichen DCF77 Synchronisation.
-  Debug DCF77: Bei gutem DEF77-Empfang leuchten die Eck-LEDs nacheinander im Sekundentakt auf.
+  LED-Test: Laesst einen senkrechten Streifen ueber das Display wandern. (USE_EXT_MODE_TEST)
+  Zeit in Stunden und Minuten seit der letzten erfolgreichen DCF77 Synchronisation. (USE_EXT_MODE_DCF_SYNC)
+  Debug DCF77: Bei gutem DEF77-Empfang leuchten die Eck-LEDs nacheinander im Sekundentakt auf. (USE_EXT_MODE_DCF_DEBUG)
 
   *** sonstige Schalter und Parameter ***
 
-  BOARD_DEFAULT: Der 3-Platinen-Aufbau oder das Nachbau-Board mit Schieberegistern von Christian.
+  BOARD_DEFAULT:      Der 3-Platinen-Aufbau oder das Nachbau-Board mit Schieberegistern von Christian.
   BOARD_AMBBRTCAD:
-  BOARD_BBRTCAD: Ein weiteres Board, fuer das Moodlight, von Christian.
-  BOARD_CLT: Das Board der CLT2.
-  BOARD_NANO: Guenstiges und einfaches selbstbau Board mit Arduino Nano, DS3231 RTC und vielen Optionen fuer die
-              weitere Hardware. Dateien mit Informationen liegen im Verzeichnis.
-              Der Aufbau auf einer kleinen Lochrasterplatine ist relativ einfach moeglich.
-              Bitte eine externe 5V Stromquelle verwenden da sonst evtl. der Arduino und/oder der USB-Port des
-              Computers wegen der hohen LED-Last durchbrennt.
+  BOARD_BBRTCAD:      Ein weiteres Board, fuer das Moodlight, von Christian.
+  BOARD_CLT:          Das Board der CLT2.
+  BOARD_NANO:         Guenstiges und einfaches selbstbau Board mit Arduino Nano, DS3231 RTC und vielen Optionen fuer die
+                      weitere Hardware. Dateien mit Informationen liegen im Verzeichnis.
+                      Der Aufbau auf einer kleinen Lochrasterplatine ist relativ einfach moeglich.
+                      Bitte eine externe 5V Stromquelle verwenden da sonst evtl. der Arduino und/oder der USB-Port des
+                      Computers wegen der hohen LED-Last durchbrennt.
 
   LED_DRIVER_DEFAULT: LED-Matrix nach Christian.
   LED_DRIVER_UEBERPIXEL:
@@ -86,62 +90,78 @@
   LED_DRIVER_NEOPIXEL: WS2812B-RGB-LED-Streifen.
   LED_DRIVER_LPD8806: LPD8806-RGBW-LED-Streifen.
 
-  RGB_LEDS: RGB-LEDs mit waagerechtem Streifen-Layout wie dem Moodlight von Christian.
-  RGBW_LEDS: RGBW-LEDs mit waagerechtem Streifen-Layout wie dem Moodlight von Christian.
-  RGBW_LEDS_CLT2: RGBW-LEDs mit senkrechtem Streifen-Layout der CLT2.
+  RGB_LEDS:           RGB-LEDs mit waagerechtem Streifen-Layout wie dem Moodlight von Christian.
+  RGBW_LEDS:          RGBW-LEDs mit waagerechtem Streifen-Layout wie dem Moodlight von Christian.
+  RGBW_LEDS_CLT2:     RGBW-LEDs mit senkrechtem Streifen-Layout der CLT2.
 
-  MATRIX_XXL: Verdoppelt die Groesse der Matrix. Es werden immer 4 LEDs auf dem Streifen fuer einen Pixel benutzt.
+  MATRIX_XXL:         Verdoppelt die Groesse der Matrix. Es werden immer 4 LEDs auf dem Streifen fuer einen Pixel benutzt.
   MOS_DRIVER:
-  ENABLE_DCF_LED: Zeigt mit Hilfe der gelben LED auf dem Board die Funktion des DCF77 Empfaengers an. Bei gutem
-                  Empfang blinkt sie regelmaessig. Kann abgeschaltet werden, wenn kein DCF77 Empfaenger verbaut ist.
-  ENABLE_SQW_LED: Zeigt mit Hilfe der gruenen LED auf dem Board die Funktion der RTC an. Sie blinkt einmal pro
-                  Sekunde.
-  DS1307: Real Time Clock.
-  DS3231: Moderne und sehr genaue Real Time Clock. Dadurch koennte man auf den DCF77 Empfaenger verzichten.
-  TEMP_SENS_LM35: Einschalten, wenn ein Temperatursensor vom Typ LM35 verbaut ist.
-  TEMP_SENS_LM335: Einschalten, wenn ein Temperatursensor vom Typ LM335 verbaut ist.
-  DCF77: Einschalten, wenn ein DCF77 Empfaenger verbaut ist. Der PON-Pin wird von dieser Firmware geschaltet.
+  ENABLE_DCF_LED:     Zeigt mit Hilfe der gelben LED auf dem Board die Funktion des DCF77 Empfaengers an. Bei gutem
+                      Empfang blinkt sie regelmaessig. Kann abgeschaltet werden, wenn kein DCF77 Empfaenger verbaut ist.
+  ENABLE_SQW_LED:     Zeigt mit Hilfe der gruenen LED auf dem Board die Funktion der RTC an. Sie blinkt einmal pro
+                      Sekunde.
+  DS1307:             Real Time Clock.
+  DS3231:             Moderne und sehr genaue Real Time Clock. Dadurch koennte man auf den DCF77 Empfaenger verzichten.
+  TEMP_SENS_LM35:     Einschalten, wenn ein Temperatursensor vom Typ LM35 verbaut ist.
+  TEMP_SENS_LM335:    Einschalten, wenn ein Temperatursensor vom Typ LM335 verbaut ist.
+  DCF77:              Einschalten, wenn ein DCF77 Empfaenger verbaut ist. Der PON-Pin wird von dieser Firmware geschaltet.
 
-  REMOTE_NO_REMOTE: Einschalten, wenn _kein_ IR-Sensor verbaut ist.
-  REMOTE_SPARKFUN: Fernbedienung von Sparkfun.
+  REMOTE_NO_REMOTE:   Einschalten, wenn _kein_ IR-Sensor verbaut ist.
+  REMOTE_SPARKFUN:    Fernbedienung von Sparkfun.
   REMOTE_MOONCANDLES: Fernbedienung von Mooncandles.
-  REMOTE_LUNARTEC: Fernbedienung von Linartec.
-  REMOTE_CLT: Fernbedienung der CLT2.
-  REMOTE_APPLE: Alte kleine weisse Fernbedienung fuer iPod von Apple. Play: Standard Modi, Menu: Erweiterte Modi,
-                Back: Zeitanzeige, FF: Display aus, +: Stunde+, -: Minute+
-  REMOTE_PHILIPS: Universal Fernbedienung von Philips mit dem Geraetecode 0815.
-  REMOTE_BLUETOOTH: Bluetooth App fuer Android oder iPhone. (Kostenpflichtig.)
+  REMOTE_LUNARTEC:    Fernbedienung von Lunartec.
+  REMOTE_CLT:         Fernbedienung der CLT2.
+  REMOTE_APPLE:       Alte kleine weisse Fernbedienung fuer iPod von Apple:
+                      Play: Standard Modi
+                      Menu: Erweiterte Modi
+                      Back: Ruecksprung zur Zeitanzeige
+                      FF:   Display ein/aus
+                      +:    Stunde+
+                      -:    Minute+
+  REMOTE_PHILIPS:     Universal Fernbedienung Philips SRP1 101/10 mit dem Geraetecode 0815:
+                      PROG+: Standard Modi
+                      PROG-: Erweiterte Modi
+                      POWER: Display ein/aus
+                      MUTE:  Ruecksprung zur Zeitanzeige
+                      VOL+:  Stunde+
+                      VOL-:  Minute+
+                      1-8:   Farben
+                      9:     automatischer Farbwechsel
+                      A/V:   Helligkeit-
+                      -/--:  Helligkeit+
+                      0:     LDR ein/aus
+  REMOTE_BLUETOOTH:   Bluetooth App fuer Android oder iPhone. (Kostenpflichtig.)
 
-  LED_TEST_INTRO: Laesst alle LEDs nach dem Start der Uhr fuer 3 Sekunden leuchten.
+  LED_TEST_INTRO:     Laesst alle LEDs nach dem Start der Uhr fuer 3 Sekunden leuchten.
   NONE_TECHNICAL_ZERO: Zeigt die Null ohne den diagonalen Strich.
-  AUTO_JUMP_BLANK: Nach einem erfolgreichen DCF77 Sync bei ausgeschalteter Anzeige, geht sie automatisch wieder an.
-  IR_LETTER_OFF: Schaltet die LED hinter dem IR-Sensor dauerhaft ab. Das verbessert den IR-Empfang.
-                 Hier das K vor Uhr: letzte Zeile (matrix[9]), achter Buchstabe (0b1111111011111111).
-  EVENTS:
-  TEMP_OFFSET: Gibt an, um wieviel Grad die gemessene Temperatur (+ oder -) korrigiert werden soll.
-  NO_OF_SAMPLES: Gibt an, wie oft zur Ermittlung der Temperatur gemessen werden soll.
-  MAX_BUZZ_TIME_IN_MINUTES 2
-  SPEAKER_IS_BUZZER
-  SPEAKER_FREQUENCY 200000
+  AUTO_JUMP_BLANK:    Nach einem erfolgreichen DCF77 Sync bei ausgeschalteter Anzeige, geht sie automatisch wieder an.
+  IR_LETTER_OFF:      Schaltet die LED hinter dem IR-Sensor dauerhaft ab. Das verbessert den IR-Empfang.
+                      Hier das K vor Uhr: letzte Zeile (matrix[9]), achter Buchstabe (0b1111111011111111).
+  TEMP_OFFSET:        Gibt an, um wieviel Grad die gemessene Temperatur (+ oder -) korrigiert werden soll.
+  NO_OF_SAMPLES:      Gibt an, wie oft zur Ermittlung der Temperatur gemessen werden soll.
+  MAX_BUZZ_TIME_IN_MINUTES: Wie lange soll der Alarm laufen wenn er nicht abgeschaltet wird.
+  SPEAKER_IS_BUZZER:  Setzen, wenn ein Buzzer statt eines Lautsprechers verbaut ist.
+  SPEAKER_FREQUENCY:  Frequenz des Wechtons fuer einen Lautsprecher.
   MYDCF77_SIGNAL_IS_INVERTED: Invertiert das DCF77-Empfaenger-Signal.
-  SERIAL_SPEED: Geschwindigkeit der seriellen Schnittstelle fuer die Debugging Konsole und dem Bluetooth-Modul.
+  SERIAL_SPEED:       Geschwindigkeit der seriellen Schnittstelle fuer die Debugging Konsole und dem Bluetooth-Modul.
   BUTTON_TRESHOLD:
   PWM_DURATION:
   SHIFTREGISTER_TURBO:
-  UPSIDE_DOWN: Dreht die Ausgabe der Uhr auf den Kopf wenn man die Anoden falsch herum angeschlossen hat.
+  UPSIDE_DOWN:        Dreht die Ausgabe der Uhr auf den Kopf wenn man die Anoden falsch herum angeschlossen hat.
   RENDER_CORNERS_CCW: Laufrichtung der Eck-LEDs umderehen wenn man sie falsch herum angeschlossen hat.
   OPTIMIZED_FOR_DARKNESS:
-  SKIP_BLANK_LINES: Ueberspringt Zeilen, welche nichts anzeigen. Das Display wird heller aber schwankt in der
-                    Helligkeit.
+  SKIP_BLANK_LINES:   Ueberspringt Zeilen, welche nichts anzeigen. Das Display wird heller aber schwankt in der
+                      Helligkeit.
 
-  DEBUG: Gibt viele Informationen in der seriellen Konsole aus. Muss fuer die Benutzung der weiteren DEBUGs
-         eingeschaltet sein.
-  DEBUG_TIME: Zeigt die RTC-Zeit an.
-  DEBUG_MATRIX: Rendert die Ausgabe der Matrix fuer die deutsche Front in der seriellen Konsole.
-  DEBUG_FPS: Zeigt die FPS.
-  DEBUG_DCF77: Infos vom DCF77-Empfaenger.
-  DEBUG_LDR: Infos vom LDR.
-  DEBUG_HALT: Haelt die RTC an. Die Anzeige laeuft weiter.
+  DEBUG:              Gibt viele Informationen in der seriellen Konsole aus.
+  DEBUG_TIME:         Zeigt die RTC-Zeit an.
+  DEBUG_MATRIX:       Rendert die Ausgabe der Matrix fuer die deutsche Front in der seriellen Konsole.
+  DEBUG_EVENT_MATRIX: Rendert die Ausgabe der Matrix bei Events in der seriellen Konsole. Funktioniert am Besten
+                      mit Putty.
+  DEBUG_FPS:          Zeigt die FPS.
+  DEBUG_DCF77:        Infos vom DCF77-Empfaenger.
+  DEBUG_LDR:          Infos vom LDR.
+  DEBUG_HALT:         Haelt die RTC an. Die Anzeige laeuft weiter.
   DEBUG_SET_DEFAULTS: Schreibt die Default-Werte bei jedem Start in den EEPROM.
 
   *** Important Info ***
@@ -190,8 +210,19 @@
 // Show MAIN/TIME/TEST
 #define USE_EXT_MODE_TITLES
 
-// Show setup for date
-#define USE_EXT_MODE_DATE_MANUALLY
+// Set events time
+//#define EVENTS
+
+// Supportet languages
+#define ENABLE_LANGUAGE_DE
+//#define ENABLE_LANGUAGE_DE_MKF
+//#define ENABLE_LANGUAGE_D3
+#define ENABLE_LANGUAGE_CH
+#define ENABLE_LANGUAGE_EN
+//#define ENABLE_LANGUAGE_FR
+//#define ENABLE_LANGUAGE_IT
+//#define ENABLE_LANGUAGE_NL
+//#define ENABLE_LANGUAGE_ES
 
 // Show setup to disable "It is"
 #define USE_EXT_MODE_IT_IS
@@ -199,25 +230,17 @@
 // Show setup for timeshift to DCF77 signal.
 #define USE_EXT_MODE_TIME_SHIFT
 
+// Show setup for date
+#define USE_EXT_MODE_DATE_MANUALLY
+
+// Show LED test
+#define USE_EXT_MODE_TEST
+
 // Show time since last sync with DCF77
 #define USE_EXT_MODE_DCF_SYNC
 
 // Show DCF77 debug
 #define USE_EXT_MODE_DCF_DEBUG
-
-// Show LED test
-#define USE_EXT_MODE_TEST
-
-// Supportet Fronts
-#define ENABLE_LANGUAGE_DE
-#define ENABLE_LANGUAGE_DE_MKF
-#define ENABLE_LANGUAGE_D3
-#define ENABLE_LANGUAGE_CH
-#define ENABLE_LANGUAGE_EN
-//#define ENABLE_LANGUAGE_FR
-//#define ENABLE_LANGUAGE_IT
-//#define ENABLE_LANGUAGE_NL
-//#define ENABLE_LANGUAGE_ES
 
 /******************************************************************************
   Hardware settings
@@ -265,13 +288,13 @@
 //#define TEMP_SENS_LM335
 
 // IR-Remote
-//#define REMOTE_NO_REMOTE
+#define REMOTE_NO_REMOTE
 //#define REMOTE_SPARKFUN
 //#define REMOTE_MOONCANDLES
 //#define REMOTE_LUNARTEC
 //#define REMOTE_CLT
 //#define REMOTE_APPLE // Apple Remote Control for iPod
-//#define REMOTE_PHILIPS // Philips SRP1101/10 - Code 0815
+//#define REMOTE_PHILIPS // Philips SRP1 101/10 - Code 0815
 
 // Bluetooth-Remote
 //#define REMOTE_BLUETOOTH
@@ -287,13 +310,10 @@
 //#define NONE_TECHNICAL_ZERO
 
 // Turn on clock after successfull DCF77-sync
-#define AUTO_JUMP_BLANK
+//#define AUTO_JUMP_BLANK
 
-// Turn off the letter containing the IR-Sensor
+// Turn off the letter containing the IR-Sensor (here: 10, 8)
 //#define IR_LETTER_OFF matrix[9] &= 0b1111111011111111
-
-// Events
-//#define EVENTS
 
 // Temperature
 #define TEMP_OFFSET -2
@@ -336,19 +356,20 @@
 //#define RENDER_CORNERS_CCW
 //#define OPTIMIZED_FOR_DARKNESS
 //#define SKIP_BLANK_LINES
-#define FIRMWARE_VERSION "yaqtfw_20170112"
+#define FIRMWARE_VERSION "yaqtfw_20170115"
 
 /******************************************************************************
-  Debug to serial console. DEBUG has to be defined to use the other debugs.
+  Debug to serial console.
 ******************************************************************************/
 
 //#define DEBUG                 // Switch on debug
 //#define DEBUG_TIME            // Shows the time every secound
-//#define DEBUG_MATRIX          // Randers the matrix to console - German front
+//#define DEBUG_MATRIX          // Renders the matrix to console - German front - Works best with Putty
+//#define DEBUG_EVENT_MATRIX    // Renders events to console - Works best with Putty
 //#define DEBUG_FPS             // Shows the FPS
 //#define DEBUG_DCF77           // Info for DCF77
 //#define DEBUG_LDR             // Info for LDR
 //#define DEBUG_HALT            // Stops the RTC
-//#define DEBUG_SET_DEFAULTS    // Sets the EEPROM to defauls on startup
+//#define DEBUG_SET_DEFAULTS    // Sets the EEPROM to defauls on every startup
 
 #endif

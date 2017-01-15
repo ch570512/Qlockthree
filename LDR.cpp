@@ -65,16 +65,16 @@ byte LDR::value() {
     _outputValue = mapVal;
 
 #ifdef DEBUG_LDR
-    DEBUG_PRINT(F("rawVal: "));
-    DEBUG_PRINT(rawVal);
-    DEBUG_PRINT(F(" val: "));
-    DEBUG_PRINT(val);
-    DEBUG_PRINT(F(" _min: "));
-    DEBUG_PRINT(_min);
-    DEBUG_PRINT(F(" _max: "));
-    DEBUG_PRINT(_max);
-    DEBUG_PRINT(F(" mapValue: "));
-    DEBUG_PRINTLN(mapVal);
+    Serial.print(F("rawVal: "));
+    Serial.print(rawVal);
+    Serial.print(F(" val: "));
+    Serial.print(val);
+    Serial.print(F(" _min: "));
+    Serial.print(_min);
+    Serial.print(F(" _max: "));
+    Serial.print(_max);
+    Serial.print(F(" mapValue: "));
+    Serial.println(mapVal);
 #endif
 
   }

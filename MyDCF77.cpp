@@ -147,7 +147,7 @@ void MyDCF77::newCycle() {
       _bits[_bitsPointer] = 0;
     }
 
-#if defined(DEBUG) && defined(DEBUG_DCF77)
+#if defined(DEBUG_DCF77)
     OutputSignal(average, imax, isum);
 #endif
 
@@ -197,34 +197,33 @@ void MyDCF77::OutputSignal(unsigned int average, unsigned int imax, unsigned int
   float t1 = imax / DEBUG_SIGNAL_VIS_HEIGHT;
   for (byte i = 0; i < MYDCF77_SIGNAL_BINS; i++) {
     if (i < 10) {
-      DEBUG_PRINT(F("0"));
+      Serial.print(F("0"));
     }
-    DEBUG_PRINT(i);
-    DEBUG_PRINT(F(" "));
+    Serial.print(i);
+    Serial.print(F(" "));
     for (byte j = 0; j < DEBUG_SIGNAL_VIS_HEIGHT; j++) {
       if ((_bins[i] / t1) > j) {
-        DEBUG_PRINT("-");
+        Serial.print("-");
       }
     }
-    DEBUG_PRINTLN();
+    Serial.println();
   }
-  DEBUG_PRINT(F("Drift: "));
-  DEBUG_PRINT(_binsOffset);
-  DEBUG_PRINT(F(" Average: "));
-  DEBUG_PRINT(average);
-  DEBUG_PRINT(F(" Highcount: "));
-  DEBUG_PRINTLN(isum);
+  Serial.print(F("Drift: "));
+  Serial.print(_binsOffset);
+  Serial.print(F(" Average: "));
+  Serial.print(average);
+  Serial.print(F(" Highcount: "));
+  Serial.println(isum);
   for (byte i = 0; i < MYDCF77_TELEGRAMMLAENGE; i++) {
-    DEBUG_PRINT(F(" "));
-    DEBUG_PRINT(_bits[i]);
+    Serial.print(F(" "));
+    Serial.print(_bits[i]);
     if (i == _bitsPointer) {
-      DEBUG_PRINT(".");
+      Serial.print(".");
     }
   }
-  DEBUG_PRINT(" ");
-  DEBUG_PRINTLN(_bitsPointer);
-  DEBUG_PRINTLN();
-  DEBUG_FLUSH();
+  Serial.print(" ");
+  Serial.println(_bitsPointer);
+  Serial.println();
 }
 
 /**
