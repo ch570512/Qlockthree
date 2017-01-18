@@ -29,7 +29,7 @@
 
   Zeitanzeige: Der Standardmodus der Uhr. Er zeigt die Zeit an. :)
   Anzeige AM/PM: Zeigt an, ob es vormittags (AM) oder nachmittags (PM) ist. (USE_STD_MODE_AMPM)
-  Sekunden: Anzeige der Sekunden. (USE_STD_MODE_SECONDS)
+  Sekunden: Anzeige der Sekunden. Hier H+ und M+ zusammen druecken zeigt die Demoevents. (USE_STD_MODE_SECONDS)
   Datum: Anzeige des aktuellen Tages und Monats. (USE_STD_MODE_DATE)
   Temperatur: Anzeige der gemessenen Temperatur. (USE_STD_MODE_TEMP)
   Alarm: H+ und M+ druecken um den Alarm (in 5 Minuten-Schritten) fuer die naechsten 24 Stunden zu stellen. Der Alarm
@@ -62,7 +62,7 @@
   Tag einstellen   (DD nn): H+ und M+ druecken um den aktuellen Tag einzustellen. (USE_EXT_MODE_DATE_MANUALLY)
   Monat einstellen (MM nn): H+ und M+ druecken um den aktuellen Monat einzustellen.
   Jahr einstellen  (YY nn): H+ und M+ druecken um das aktuelle Jahr einzustellen.
-  Nachtauschaltung        (N OF): H+ und M+ druecken um die Ausschaltzeit des Displays einzustellen.
+  Nachtauschaltung        (N OF): H+ und M+ druecken um die Ausschaltzeit des Displays einzustellen. (USE_EXT_MODE_NIGHT_OFF)
   Nachtwiedereinschaltung (N ON): H+ und M+ druecken um die Einschaltzeit des Displays einzustellen. Analog (N OFF).
                                   Durch das Abschalten des Displays verbessert sich der Empfang der DCF77-Zeit.
                                   
@@ -207,7 +207,7 @@
   Extended Menu
 ******************************************************************************/
 
-// Show MAIN/TIME/TEST
+// Show MAIN/TIME/TEST titles
 #define USE_EXT_MODE_TITLES
 
 // Set events time
@@ -218,7 +218,7 @@
 //#define ENABLE_LANGUAGE_DE_MKF
 //#define ENABLE_LANGUAGE_D3
 #define ENABLE_LANGUAGE_CH
-#define ENABLE_LANGUAGE_EN
+//#define ENABLE_LANGUAGE_EN
 //#define ENABLE_LANGUAGE_FR
 //#define ENABLE_LANGUAGE_IT
 //#define ENABLE_LANGUAGE_NL
@@ -227,11 +227,14 @@
 // Show setup to disable "It is"
 #define USE_EXT_MODE_IT_IS
 
-// Show setup for timeshift to DCF77 signal.
+// Show setup for timeshift to DCF77 signal
 #define USE_EXT_MODE_TIME_SHIFT
 
 // Show setup for date
 #define USE_EXT_MODE_DATE_MANUALLY
+
+// Show setup for night on/off
+#define USE_EXT_MODE_NIGHT_OFF
 
 // Show LED test
 #define USE_EXT_MODE_TEST
@@ -310,7 +313,7 @@
 //#define NONE_TECHNICAL_ZERO
 
 // Turn on clock after successfull DCF77-sync
-//#define AUTO_JUMP_BLANK
+#define AUTO_JUMP_BLANK
 
 // Turn off the letter containing the IR-Sensor (here: 10, 8)
 //#define IR_LETTER_OFF matrix[9] &= 0b1111111011111111
@@ -356,7 +359,7 @@
 //#define RENDER_CORNERS_CCW
 //#define OPTIMIZED_FOR_DARKNESS
 //#define SKIP_BLANK_LINES
-#define FIRMWARE_VERSION "yaqtfw_20170115"
+#define FIRMWARE_VERSION "yaqtfw_20170118"
 
 /******************************************************************************
   Debug to serial console.

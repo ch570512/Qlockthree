@@ -80,8 +80,10 @@ typedef enum eMode : byte
   EXT_MODE_MONTHSET,
   EXT_MODE_YEARSET,
 #endif
+#ifdef USE_EXT_MODE_NIGHT_OFF
   EXT_MODE_NIGHT_OFF,
   EXT_MODE_NIGHT_ON,
+#endif
 #ifdef USE_EXT_MODE_TITLES
   EXT_MODE_TEXT_TEST,
 #endif

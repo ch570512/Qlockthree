@@ -801,6 +801,7 @@ void loop() {
         DEBUG_PRINTLN(rtc.getDate());
         break;
 #endif
+#ifdef USE_EXT_MODE_NIGHT_OFF
       case EXT_MODE_NIGHT_OFF:
         renderer.clearScreenBuffer(matrix);
         if (!fallBackCounter) {
@@ -843,6 +844,7 @@ void loop() {
           DEBUG_PRINTLN(settings.getNightModeTime(true)->getMinutes());
         }
         break;
+#endif
 #ifdef USE_EXT_MODE_TITLES
       case EXT_MODE_TEXT_TEST:
         renderer.clearScreenBuffer(matrix);
@@ -984,17 +986,17 @@ void loop() {
      misc in loop()
   ******************************************************************************/
 
+#ifdef USE_EXT_MODE_NIGHT_OFF
   // Display zeitgesteuert abschalten.
-  if ((settings.getNightModeTime(true)->getMinutesOfDay(0) != 0) && (settings.getNightModeTime(false)->getMinutesOfDay(0) != 0)) {
-    if ((mode < EXT_MODE_START) && (mode != STD_MODE_NIGHT) && (settings.getNightModeTime(false)->getMinutesOfDay(0) == rtc.getMinutesOfDay(0)) && (helperSeconds == 0)) {
-      mode = STD_MODE_NIGHT;
-      ledDriver.shutDown();
-    }
-    if ((mode == STD_MODE_NIGHT) && (settings.getNightModeTime(true)->getMinutesOfDay(0) == rtc.getMinutesOfDay(0)) && (helperSeconds == 0)) {
-      mode = lastMode;
-      ledDriver.wakeUp();
-    }
+  if ((mode < EXT_MODE_START) && (mode != STD_MODE_NIGHT) && (settings.getNightModeTime(false)->getMinutesOfDay(0) == rtc.getMinutesOfDay(0)) && (helperSeconds == 0)) {
+    mode = STD_MODE_NIGHT; // hier nicht setMode() verwenden
+    ledDriver.shutDown();
   }
+  if ((mode == STD_MODE_NIGHT) && (settings.getNightModeTime(true)->getMinutesOfDay(0) == rtc.getMinutesOfDay(0)) && (helperSeconds == 0)) {
+    mode = lastMode;
+    ledDriver.wakeUp();
+  }
+#endif
 
 #ifdef USE_STD_MODE_ALARM
   // Alarm.
@@ -1292,6 +1294,7 @@ void hourPlusPressed() {
         settings.setJumpToNormalTimeout(settings.getJumpToNormalTimeout() + 1);
       }
       break;
+#ifdef USE_EXT_MODE_NIGHT_OFF
     case EXT_MODE_NIGHT_OFF:
       if (fallBackCounter > 0) {
         settings.getNightModeTime(false)->incHours();
@@ -1304,6 +1307,7 @@ void hourPlusPressed() {
       }
       enableFallBackCounter(settings.getJumpToNormalTimeout());
       break;
+#endif
     case EXT_MODE_LANGUAGE:
       settings.setLanguage(settings.getLanguage() + 1);
       if (settings.getLanguage() >= LANGUAGE_COUNT) {
@@ -1422,6 +1426,7 @@ void minutePlusPressed() {
         settings.setJumpToNormalTimeout(settings.getJumpToNormalTimeout() - 1);
       }
       break;
+#ifdef USE_EXT_MODE_NIGHT_OFF
     case EXT_MODE_NIGHT_OFF:
       if (fallBackCounter > 0) {
         settings.getNightModeTime(false)->incFiveMinutes();
@@ -1434,6 +1439,7 @@ void minutePlusPressed() {
       }
       enableFallBackCounter(settings.getJumpToNormalTimeout());
       break;
+#endif
     case EXT_MODE_LANGUAGE:
       if (settings.getLanguage() == 0) {
         settings.setLanguage(LANGUAGE_COUNT - 1);
@@ -1745,16 +1751,20 @@ void enableFallBackCounter(byte timeoutSec) {
   fallBackCounter = timeoutSec;
 }
 
-void disableFallBackCounter(void) {
+void disableFallBackCounter() {
   fallBackCounter = 0;
 }
 
-void updateFallBackCounter(void) {
+void updateFallBackCounter() {
   fallBackCounter--;
   if (!fallBackCounter) {
+#ifdef USE_EXT_MODE_NIGHT_OFF
     if ((mode != EXT_MODE_NIGHT_OFF) && (mode != EXT_MODE_NIGHT_ON)) {
       setMode(STD_MODE_NORMAL);
     }
+#else
+    setMode(STD_MODE_NORMAL);
+#endif
   }
 }
 
