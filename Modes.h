@@ -36,7 +36,7 @@ typedef enum eMode : byte
 #endif
   STD_MODE_BRIGHTNESS,
   STD_MODE_BLANK,
-  STD_MODE_COUNT, // letzter STD_MODE - Rücksprung zur Zeit.
+  STD_MODE_COUNT, // letzter STD_MODE
   STD_MODE_NIGHT, // nicht manuell zu erreichender Modus...
 
   /**
@@ -59,12 +59,6 @@ typedef enum eMode : byte
 #endif
   EXT_MODE_LANGUAGE,
   EXT_MODE_JUMP_TIMEOUT,
-#ifdef USE_EXT_MODE_CORNERS
-  EXT_MODE_CORNERS,
-#endif
-#if defined(USE_EXT_MODE_DCF_INVERTED) && defined(DCF77)
-  EXT_MODE_DCF_IS_INVERTED,
-#endif
 #ifdef USE_EXT_MODE_TITLES
   EXT_MODE_TEXT_TIME,
 #endif
@@ -96,7 +90,7 @@ typedef enum eMode : byte
 #if defined(USE_EXT_MODE_DCF_DEBUG) && defined(DCF77)
   EXT_MODE_DCF_DEBUG,
 #endif
-  EXT_MODE_COUNT // letzter EXT_MODE - Rücksprung zur Zeit.
+  EXT_MODE_COUNT // letzter EXT_MODE
 } Mode;
 
 // Overload the ControlType++ operator

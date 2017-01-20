@@ -22,6 +22,7 @@ class MyRTC : public TimeStamp {
 
     void readTime();
     void writeTime();
+    int8_t getTemperature();
 
     void enableSQWOnDS1307();
     void enableSQWOnDS3231();

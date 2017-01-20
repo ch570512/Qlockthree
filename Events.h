@@ -26,14 +26,9 @@
   werden.
 **************************************************************************************************************/
 
-const char* eventText[] = {
-  "Happy Birthday",
-  "Testevent"  // letzter Eintrag ohne Komma.
-};
-
 Event events[] = {
-  Event(7, 16, eventText[0], Effects::EFFECT_CANDLE, color_orange1),
-  Event(1, 14, eventText[1], Effects::ANI_BITMAP_SMILEY_WINK, color_yellow)  // letzter Eintrag ohne Komma.
+  Event(7, 16, "Th0rsten hat Gebutstag.", Effects::EFFECT_CANDLE, color_orange1),
+  Event(1, 1, "Happy New Year!", Effects::ANI_BITMAP_CHAMPGLASS, color_yellow)  // letzter Eintrag ohne Komma.
 };
 
 //NO_EFFECT = 255,

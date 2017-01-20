@@ -76,6 +76,7 @@
   BOARD_DEFAULT:      Der 3-Platinen-Aufbau oder das Nachbau-Board mit Schieberegistern von Christian.
   BOARD_AMBBRTCAD:
   BOARD_BBRTCAD:      Ein weiteres Board, fuer das Moodlight, von Christian.
+  BOARD_303UNIVERSAL:
   BOARD_CLT:          Das Board der CLT2.
   BOARD_NANO:         Guenstiges und einfaches selbstbau Board mit Arduino Nano, DS3231 RTC und vielen Optionen fuer die
                       weitere Hardware. Dateien mit Informationen liegen im Verzeichnis.
@@ -104,6 +105,8 @@
   DS3231:             Moderne und sehr genaue Real Time Clock. Dadurch koennte man auf den DCF77 Empfaenger verzichten.
   TEMP_SENS_LM35:     Einschalten, wenn ein Temperatursensor vom Typ LM35 verbaut ist.
   TEMP_SENS_LM335:    Einschalten, wenn ein Temperatursensor vom Typ LM335 verbaut ist.
+  TEMP_SENS_DS3231:   Nutzt den eingebauten Temperatursensor der DS3231 RTC.
+  TEMP_OFFSET:        Gibt an, um wieviel Grad die gemessene Temperatur (+ oder -) korrigiert werden soll.
   DCF77:              Einschalten, wenn ein DCF77 Empfaenger verbaut ist. Der PON-Pin wird von dieser Firmware geschaltet.
 
   REMOTE_NO_REMOTE:   Einschalten, wenn _kein_ IR-Sensor verbaut ist.
@@ -137,8 +140,6 @@
   AUTO_JUMP_BLANK:    Nach einem erfolgreichen DCF77 Sync bei ausgeschalteter Anzeige, geht sie automatisch wieder an.
   IR_LETTER_OFF:      Schaltet die LED hinter dem IR-Sensor dauerhaft ab. Das verbessert den IR-Empfang.
                       Hier das K vor Uhr: letzte Zeile (matrix[9]), achter Buchstabe (0b1111111011111111).
-  TEMP_OFFSET:        Gibt an, um wieviel Grad die gemessene Temperatur (+ oder -) korrigiert werden soll.
-  NO_OF_SAMPLES:      Gibt an, wie oft zur Ermittlung der Temperatur gemessen werden soll.
   MAX_BUZZ_TIME_IN_MINUTES: Wie lange soll der Alarm laufen wenn er nicht abgeschaltet wird.
   SPEAKER_IS_BUZZER:  Setzen, wenn ein Buzzer statt eines Lautsprechers verbaut ist.
   SPEAKER_FREQUENCY:  Frequenz des Wechtons fuer einen Lautsprecher.
@@ -253,7 +254,8 @@
 #define BOARD_DEFAULT
 //#define BOARD_AMBBRTCAD
 //#define BOARD_BBRTCAD
-//#define BOARD_CLT
+//#define BOARD_303UNIVERSAL
+//#define BOARD_CLT2
 //#define BOARD_NANO
 
 // LED-Driver
@@ -268,6 +270,10 @@
 //#define RGB_LEDS
 //#define RGBW_LEDS
 //#define RGBW_LEDS_CLT2
+
+// LED layout (not working right now.)
+//#define LED_LAYOUT_DEFAULT
+//#define LED_LAYOUT_CLT2
 
 // Double the clocksize (LED_DRIVER_NEOPIXEL or LED_DRIVER_LPD8806) (not working right now.)
 //#define MATRIX_XXL
@@ -289,6 +295,8 @@
 // Temperature-Sensor
 //#define TEMP_SENS_LM35
 //#define TEMP_SENS_LM335
+//#define TEMP_SENS_DS3231
+#define TEMP_OFFSET 5
 
 // IR-Remote
 #define REMOTE_NO_REMOTE
@@ -317,10 +325,6 @@
 
 // Turn off the letter containing the IR-Sensor (here: 10, 8)
 //#define IR_LETTER_OFF matrix[9] &= 0b1111111011111111
-
-// Temperature
-#define TEMP_OFFSET -2
-#define NO_OF_SAMPLES 5
 
 // Alarm
 #define MAX_BUZZ_TIME_IN_MINUTES 5
@@ -359,7 +363,7 @@
 //#define RENDER_CORNERS_CCW
 //#define OPTIMIZED_FOR_DARKNESS
 //#define SKIP_BLANK_LINES
-#define FIRMWARE_VERSION "yaqtfw_20170118"
+#define FIRMWARE_VERSION "yaqtfw_20170120"
 
 /******************************************************************************
   Debug to serial console.

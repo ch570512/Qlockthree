@@ -166,3 +166,14 @@ void MyRTC::setSeconds(byte seconds) {
 byte MyRTC::getSeconds() {
   return _seconds;
 }
+
+/**
+   Temperatur aus DS3231 lesen.
+*/
+int8_t MyRTC::getTemperature() {
+  Wire.beginTransmission(_address);
+  Wire.write(0x11);
+  Wire.endTransmission();
+  Wire.requestFrom(_address, 2);
+  return Wire.read();
+}

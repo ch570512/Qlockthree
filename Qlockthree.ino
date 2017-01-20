@@ -38,7 +38,6 @@
 #include "Settings.h"
 #include "Zahlen.h"
 #include "Modes.h"
-#include "MyTempSens.h"
 #include "Debug.h"
 #include "Boards.h"
 #include "MyDCF77.h"
@@ -91,11 +90,6 @@ MyDCF77 dcf77(PIN_DCF77_SIGNAL, PIN_DCF77_LED);
 DCF77Helper dcf77Helper;
 #endif
 
-// Temperaturesensor.
-#if defined(TEMP_SENS_LM35) || defined(TEMP_SENS_LM335)
-MyTempSens tempSens(PIN_TEMP_SENS);
-#endif
-
 #ifdef USE_STD_MODE_ALARM
 Alarm alarm(PIN_SPEAKER);
 #endif
@@ -142,6 +136,9 @@ byte fallBackCounter = 0;
 
 // Event active?
 bool evtActive = false;
+
+// Temperatur
+uint8_t temperature = 0;
 
 /******************************************************************************
    Initialisierung. setup() wird einmal zu Beginn aufgerufen.
@@ -224,15 +221,6 @@ void setup() {
 #endif
     delay(100);
   }
-
-  // Temperatursensor initialisieren.
-#ifdef TEMP_SENS_LM35
-  DEBUG_PRINT(F("LM35, "));
-  tempSens.initLM35();
-#elif defined TEMP_SENS_LM335
-  DEBUG_PRINT(F("LM335, "));
-  tempSens.initLM335();
-#endif
 
   // IR-sensor initialisieren.
 #ifndef REMOTE_NO_REMOTE
@@ -386,22 +374,6 @@ void loop() {
         Serial.println(helperSeconds);
 #endif
         break;
-      case EXT_MODE_TIMESET:
-        if (helperSeconds % 2 == 0) {
-          renderer.clearScreenBuffer(matrix);
-        } else {
-          renderer.clearScreenBuffer(matrix);
-          renderer.setMinutes(rtc.getHours() + settings.getTimeShift(), rtc.getMinutes(), settings.getLanguage(), matrix);
-          renderer.setCorners(rtc.getMinutes(), settings.getRenderCornersCw(), matrix);
-          renderer.clearEntryWords(settings.getLanguage(), matrix);
-          renderer.activateAMPM(rtc.getHours() + settings.getTimeShift(), settings.getLanguage(), matrix);
-        }
-        DEBUG_PRINT(rtc.getHours() + settings.getTimeShift());
-        DEBUG_PRINT(F(":"));
-        DEBUG_PRINT(rtc.getMinutes());
-        DEBUG_PRINT(F(":"));
-        DEBUG_PRINTLN(helperSeconds);
-        break;
 #ifdef USE_STD_MODE_AMPM
       case STD_MODE_AMPM:
         renderer.clearScreenBuffer(matrix);
@@ -445,13 +417,23 @@ void loop() {
 #endif
 #ifdef USE_STD_MODE_TEMP
       case STD_MODE_TEMP:
+        temperature = 0;
+#ifdef TEMP_SENS_LM35
+        for (uint8_t i = 0; i < 4; i++) temperature += analogRead(PIN_TEMP_SENS) / 2 + TEMP_OFFSET;
+#endif
+#ifdef TEMP_SENS_LM335
+        for (uint8_t i = 0; i < 4; i++) temperature += analogRead(PIN_TEMP_SENS) / 2 + TEMP_OFFSET - 273;
+#endif
+#ifdef TEMP_SENS_DS3231
+        for (uint8_t i = 0; i < 4; i++) temperature += rtc.getTemperature() + TEMP_OFFSET;
+#endif
         renderer.clearScreenBuffer(matrix);
         for (byte i = 0; i < 7; i++) {
-          matrix[1 + i] |= pgm_read_byte_near(&(ziffern[tempSens.getTempC() / 10][i])) << 11;
-          matrix[1 + i] |= pgm_read_byte_near(&(ziffern[tempSens.getTempC() % 10][i])) << 5;
+          matrix[1 + i] |= pgm_read_byte_near(&(ziffern[(temperature / 5) / 10][i])) << 11;
+          matrix[1 + i] |= pgm_read_byte_near(&(ziffern[(temperature / 5) % 10][i])) << 5;
         }
         matrix[0] |= 0b0000000000011111; // LED rechts oben setzen als "Grad".
-        DEBUG_PRINTLN(tempSens.getTempC());
+        DEBUG_PRINTLN(temperature);
         break;
 #endif
 #ifdef USE_STD_MODE_ALARM
@@ -733,6 +715,22 @@ void loop() {
         }
         break;
 #endif
+      case EXT_MODE_TIMESET:
+        if (helperSeconds % 2 == 0) {
+          renderer.clearScreenBuffer(matrix);
+        } else {
+          renderer.clearScreenBuffer(matrix);
+          renderer.setMinutes(rtc.getHours() + settings.getTimeShift(), rtc.getMinutes(), settings.getLanguage(), matrix);
+          renderer.setCorners(rtc.getMinutes(), settings.getRenderCornersCw(), matrix);
+          renderer.clearEntryWords(settings.getLanguage(), matrix);
+          renderer.activateAMPM(rtc.getHours() + settings.getTimeShift(), settings.getLanguage(), matrix);
+        }
+        DEBUG_PRINT(rtc.getHours() + settings.getTimeShift());
+        DEBUG_PRINT(F(":"));
+        DEBUG_PRINT(rtc.getMinutes());
+        DEBUG_PRINT(F(":"));
+        DEBUG_PRINTLN(helperSeconds);
+        break;
 #ifdef USE_EXT_MODE_TIME_SHIFT
       case EXT_MODE_TIME_SHIFT:
         renderer.clearScreenBuffer(matrix);
@@ -1841,9 +1839,6 @@ void updateFromRtc() {
       updateFallBackCounter();
     }
   }
-#if defined(TEMP_SENS_LM35) || defined(TEMP_SENS_LM335)
-  tempSens.takeSample();
-#endif
 }
 
 /******************************************************************************
