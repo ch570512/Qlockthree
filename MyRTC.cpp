@@ -91,7 +91,6 @@ void MyRTC::readTime() {
   DEBUG_PRINT(getMinutes());
   DEBUG_PRINT(F(":"));
   DEBUG_PRINTLN(getSeconds());
-  DEBUG_FLUSH();
 }
 
 /**

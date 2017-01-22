@@ -288,6 +288,7 @@ LedDriverLPD8806 ledDriver(13, 11);
    LED-Treiber: DotStars
    A4 = I2C SDA
    A5 = I2C SCL
+   D2 = SQW Interrupt
    D6 = Data
    D5 = Clock
 ******************************************************************************/
@@ -315,6 +316,7 @@ LedDriverDotStar ledDriver(6, 5);
    LED-Treiber: WS2812B
    A4 = I2C SDA
    A5 = I2C SCL
+   D2 = SQW Interrupt
    D6 = Data
 ******************************************************************************/
 
@@ -341,6 +343,7 @@ LedDriverNeoPixel ledDriver(6);
    LED-Treiber: LPD8806
    A4 = I2C SDA
    A5 = I2C SCL
+   D2 = SQW Interrupt
    D6 = Data
    D5 = Clock
 ******************************************************************************/

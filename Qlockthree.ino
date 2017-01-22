@@ -1,4 +1,4 @@
-/**
+/******************************************************************************
    Yet Another QLOCKTHREE Firmware
    Eine Firmware der Selbstbau-QLOCKTWO.
 
@@ -6,7 +6,7 @@
    @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
    @version
    @created  1.11.2011
-*/
+******************************************************************************/
 
 #include <Wire.h>
 #include <avr/pgmspace.h>
@@ -138,7 +138,7 @@ byte fallBackCounter = 0;
 bool evtActive = false;
 
 // Temperatur
-uint8_t temperature = 0;
+unsigned long temperature = 0;
 
 /******************************************************************************
    Initialisierung. setup() wird einmal zu Beginn aufgerufen.
@@ -250,6 +250,7 @@ void setup() {
   renderer.clearScreenBuffer(matrix);
 
   // Den Interrupt konfigurieren. FALLING signalisiert den Sekundenwechsel.
+  // Number 0 (for digital pin 2) interrupt.
 #ifndef DEBUG_HALT
   attachInterrupt(0, updateFromRtc, FALLING);
 #endif
@@ -419,13 +420,13 @@ void loop() {
       case STD_MODE_TEMP:
         temperature = 0;
 #ifdef TEMP_SENS_LM35
-        for (uint8_t i = 0; i < 4; i++) temperature += analogRead(PIN_TEMP_SENS) / 2 + TEMP_OFFSET;
+        for (byte i = 0; i < 4; i++) temperature += analogRead(PIN_TEMP_SENS) / 2 + TEMP_OFFSET;
 #endif
 #ifdef TEMP_SENS_LM335
-        for (uint8_t i = 0; i < 4; i++) temperature += analogRead(PIN_TEMP_SENS) / 2 + TEMP_OFFSET - 273;
+        for (byte i = 0; i < 4; i++) temperature += analogRead(PIN_TEMP_SENS) / 2 + TEMP_OFFSET - 273;
 #endif
 #ifdef TEMP_SENS_DS3231
-        for (uint8_t i = 0; i < 4; i++) temperature += rtc.getTemperature() + TEMP_OFFSET;
+        for (byte i = 0; i < 4; i++) temperature += rtc.getTemperature() + TEMP_OFFSET;
 #endif
         renderer.clearScreenBuffer(matrix);
         for (byte i = 0; i < 7; i++) {
@@ -973,7 +974,7 @@ void loop() {
     lastIrCodeBT = irTranslatorBT.buttonForCode(Serial.parseInt());
     Serial.read();
     DEBUG_PRINT("Bluetooth signal received: ");
-    DEBUG_PRINTLN(Serial.parseInt());
+    DEBUG_PRINTLN(lastIrCodeBT);
   }
   if (lastIrCodeBT != 0) {
     remoteAction(lastIrCodeBT, &irTranslatorBT);
@@ -1250,7 +1251,6 @@ void hourPlusPressed() {
       }
       break;
 #ifdef EVENTS
-    // Eventwiederholungszeit Auswahl
     case EXT_MODE_EVENT:
       settings.setEvent(settings.getEvent() + 1);
       if (settings.getEvent() > 3) {
@@ -1383,7 +1383,6 @@ void minutePlusPressed() {
       }
       break;
 #ifdef EVENTS
-    // Eventwiederholungszeit Auswahl
     case EXT_MODE_EVENT:
       if (settings.getEvent() == 0) {
         settings.setEvent(3);
@@ -1828,7 +1827,6 @@ bool isCurrentTimeInNightRange() {
    der Real-Time-Clock gesetzt wird. Da die Wire-Bibliothek benutzt wird, kann man
    den Interrupt nicht direkt benutzen, sondern muss eine Hilfsvariable setzen, die
    dann in loop() ausgewertet wird.
-   Holt auch gleich noch die Temperatur vom Sensor.
 ******************************************************************************/
 
 void updateFromRtc() {

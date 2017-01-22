@@ -54,7 +54,7 @@ byte LDR::value() {
       _min = val;
     }
     if (val > _max) {
-      _max = val;
+      _max = val + 1;
     }
 #else
     val = constrain(val, _min, _max);

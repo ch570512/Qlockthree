@@ -1,6 +1,5 @@
 /**
-   IRTranslator
-   Abstrakte Klasse fuer die Umsetzung von Fernbedienungs-Codes.
+   Colors.h
 
    @mc       Arduino/RBBB
    @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
