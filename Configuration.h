@@ -95,7 +95,6 @@
   RGBW_LEDS:          RGBW-LEDs mit waagerechtem Streifen-Layout wie dem Moodlight von Christian.
   RGBW_LEDS_CLT2:     RGBW-LEDs mit senkrechtem Streifen-Layout der CLT2.
 
-  MATRIX_XXL:         Verdoppelt die Groesse der Matrix. Es werden immer 4 LEDs auf dem Streifen fuer einen Pixel benutzt.
   MOS_DRIVER:
   ENABLE_DCF_LED:     Zeigt mit Hilfe der gelben LED auf dem Board die Funktion des DCF77 Empfaengers an. Bei gutem
                       Empfang blinkt sie regelmaessig. Kann abgeschaltet werden, wenn kein DCF77 Empfaenger verbaut ist.
@@ -128,7 +127,14 @@
                       MUTE:  Ruecksprung zur Zeitanzeige
                       VOL+:  Stunde+
                       VOL-:  Minute+
-                      1-8:   Farben
+                      1:     Uebergang Fade
+                      2:     Uebergang Matrix
+                      3:     Uebergang Slide
+                      4:     Farbe weiss
+                      5:     Farbe rot
+                      6:     Farbe gruen
+                      7:     Farbe dunkelblau
+                      8:     Farbe gelb
                       9:     automatischer Farbwechsel
                       A/V:   Helligkeit-
                       -/--:  Helligkeit+
@@ -168,13 +174,11 @@
   *** Important Info ***
 
   In order to get the firmware to compile, you have to install the following libraries:
+  https://github.com/wayoda/LedControl
   https://github.com/adafruit/Adafruit_NeoPixel
   https://github.com/adafruit/Adafruit_DotStar
-  https://github.com/wayoda/LedControl
   https://github.com/ch570512/LPD8806
-  https://github.com/ch570512/LPD8806DBL
   https://github.com/ch570512/LPD8806RGBW
-  https://github.com/ch570512/LPD8806RGBW_DBL
 
   *********************************************************************************************************************
   *** Vielen Dank an alle, insbesondere an Christian, Manuel und Andreas, auf deren Arbeit, Zeit und
@@ -271,13 +275,6 @@
 //#define RGBW_LEDS
 //#define RGBW_LEDS_CLT2
 
-// LED layout (not working right now.)
-//#define LED_LAYOUT_DEFAULT
-//#define LED_LAYOUT_CLT2
-
-// Double the clocksize (LED_DRIVER_NEOPIXEL or LED_DRIVER_LPD8806) (not working right now.)
-//#define MATRIX_XXL
-
 // MOS-FETs (LED_DRIVER_DEFAULT)
 //#define MOS_DRIVER
 
@@ -363,7 +360,7 @@
 //#define RENDER_CORNERS_CCW
 //#define OPTIMIZED_FOR_DARKNESS
 //#define SKIP_BLANK_LINES
-#define FIRMWARE_VERSION "yaqtfw_20170120"
+#define FIRMWARE_VERSION "yaqtfw_20170123"
 
 /******************************************************************************
   Debug to serial console.

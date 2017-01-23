@@ -434,7 +434,7 @@ void loop() {
           matrix[1 + i] |= pgm_read_byte_near(&(ziffern[(temperature / 5) % 10][i])) << 5;
         }
         matrix[0] |= 0b0000000000011111; // LED rechts oben setzen als "Grad".
-        DEBUG_PRINTLN(temperature);
+        DEBUG_PRINTLN(temperature / 5);
         break;
 #endif
 #ifdef USE_STD_MODE_ALARM

@@ -13,10 +13,11 @@
 
 #if defined(RGB_LEDS) || defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
 
-// eigentlich haben wir ja 115 LEDs, aber LPD8806 sind ja immer zweier...
-#if defined(MATRIX_XXL) || defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
+#if defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
 #define NUM_PIXEL 115
-#else
+#endif
+
+#ifdef RGB_LEDS
 #define NUM_PIXEL 130
 #endif
 
@@ -24,13 +25,6 @@
    Initialisierung.
 */
 LedDriverLPD8806::LedDriverLPD8806(byte dataPin, byte clockPin) {
-#ifdef MATRIX_XXL
-#ifdef RGBW_LEDS
-  _strip = new LPD8806RGBW_DBL(NUM_PIXEL, dataPin, clockPin);
-#else
-  _strip = new LPD8806DBL(NUM_PIXEL, dataPin, clockPin);
-#endif
-#endif
 #ifdef RGBW_LEDS
   _strip = new LPD8806RGBW(NUM_PIXEL, dataPin, clockPin);
 #endif

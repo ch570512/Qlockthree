@@ -44,28 +44,28 @@ byte IRTranslatorPhilips::buttonForCode(unsigned long code) {
     case PHILIPS_MUTE:
       return REMOTE_BUTTON_SETMODE;
     case PHILIPS_1:
+      setTransition(Settings::TRANSITION_MODE_FADE);
+      return REMOTE_BUTTON_TRANSITION;
+    case PHILIPS_2:
+      setTransition(Settings::TRANSITION_MODE_MATRIX);
+      return REMOTE_BUTTON_TRANSITION;
+    case PHILIPS_3:
+      setTransition(Settings::TRANSITION_MODE_SLIDE);
+      return REMOTE_BUTTON_TRANSITION;
+    case PHILIPS_4:
       setColor(color_white);
       return REMOTE_BUTTON_SETCOLOR;
-    case PHILIPS_2:
+    case PHILIPS_5:
       setColor(color_red);
       return REMOTE_BUTTON_SETCOLOR;
-    case PHILIPS_3:
+    case PHILIPS_6:
       setColor(color_green);
       return REMOTE_BUTTON_SETCOLOR;
-    case PHILIPS_4:
+    case PHILIPS_7:
       setColor(color_darkBlue);
       return REMOTE_BUTTON_SETCOLOR;
-    case PHILIPS_5:
-      setColor(color_brightBlue);
-      return REMOTE_BUTTON_SETCOLOR;
-    case PHILIPS_6:
-      setColor(color_pink);
-      return REMOTE_BUTTON_SETCOLOR;
-    case PHILIPS_7:
-      setColor(color_yellow);
-      return REMOTE_BUTTON_SETCOLOR;
     case PHILIPS_8:
-      setColor(color_orange1);
+      setColor(color_yellow);
       return REMOTE_BUTTON_SETCOLOR;
     case PHILIPS_9:
       setColor(color_rgb_continuous);
