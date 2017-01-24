@@ -153,7 +153,7 @@ LedDriverDotStar ledDriver(6, 7);
 
 /******************************************************************************
    Board: BBRTCAD
-   LED-Treiber: WS2812B
+   LED-Treiber: NEOPIXEL
    A4 = I2C SDA
    A5 = I2C SCL
    D6 = Data
@@ -233,7 +233,7 @@ LedDriverLPD8806 ledDriver(6, 7);
 
 /******************************************************************************
    Board: 303UNIVERSAL
-   LED-Treiber: WS2812B
+   LED-Treiber: NEOPIXEL
    A4 = I2C SDA
    A5 = I2C SCL
    D10 = Data
@@ -286,7 +286,7 @@ LedDriverDotStar ledDriver(13, 11);
 
 /******************************************************************************
    Board: CLT2
-   LED-Treiber: WS2812B
+   LED-Treiber: NEOPIXEL
    A4 = I2C SDA
    A5 = I2C SCL
    D13 = Data
@@ -394,7 +394,7 @@ LedDriverDotStar ledDriver(6, 5);
 
 /******************************************************************************
    Board: NANO
-   LED-Treiber: WS2812B
+   LED-Treiber: NEOPIXEL
    A4 = I2C SDA
    A5 = I2C SCL
    D2 = SQW Interrupt

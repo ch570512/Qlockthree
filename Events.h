@@ -1,4 +1,4 @@
-/**
+/*
    Events.h
    Instanzierung jährlicher Events
 
@@ -6,9 +6,6 @@
    @autor    Manuel Bracher / manuel.bracher@gmail.com
    @version  1.0
    @created  02.01.15
-
-   Versionshistorie:
-   V 1.0:  - Erstellt.
 */
 
 #ifndef EVENTS_H

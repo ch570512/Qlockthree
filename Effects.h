@@ -1,4 +1,4 @@
-/**
+/*
    Effects.h
    Masken für diverse Effekte
 

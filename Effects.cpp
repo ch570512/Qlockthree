@@ -1,10 +1,10 @@
-/**
-  Effects.cpp
-  Klasse für diverse Effekte
+/*
+   Effects.cpp
+   Klasse für diverse Effekte
 
-  @mc       Arduino/UNO
-  @autor    Manuel Bracher / manuel.bracher@gmail.com
-  @version  1.0
+   @mc       Arduino/UNO
+   @autor    Manuel Bracher / manuel.bracher@gmail.com
+   @version  1.0
 */
 
 #include "Effects.h"

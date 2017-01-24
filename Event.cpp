@@ -1,11 +1,11 @@
-/**
-* Event.cpp
-* Klasse für ein jährliches Event
-*
-* @mc       Arduino/UNO
-* @autor    Manuel Bracher / manuel.bracher@gmail.com
-* @version  1.0
-* @created  02.01.15
+/*
+   Event.cpp
+   Klasse für ein jährliches Event
+
+   @mc       Arduino/UNO
+   @autor    Manuel Bracher / manuel.bracher@gmail.com
+   @version  1.0
+   @created  02.01.15
 */
 
 #include "Event.h"

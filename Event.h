@@ -1,12 +1,12 @@
-/**
- * Event.h
- * Klasse für ein jährliches Event
- *
- * @mc       Arduino/UNO
- * @autor    Manuel Bracher / manuel.bracher@gmail.com
- * @version  1.0
- * @created  02.01.15
- */
+/*
+   Event.h
+   Klasse für ein jährliches Event
+
+   @mc       Arduino/UNO
+   @autor    Manuel Bracher / manuel.bracher@gmail.com
+   @version  1.0
+   @created  02.01.15
+*/
 
 #ifndef EVENT_H
 #define EVENT_H

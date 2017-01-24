@@ -21,6 +21,10 @@
   zur Verfuegung. Da der Speicher des Microcontrollers begrenzt ist, kann nicht alles gleichzeitig eingeschaltet
   werden.
 
+  Bei LED-Streifen wird grundsaetzlich vom Moodlight-LED-Layout ausgegangen. Die Eck-LEDs also am Ende des Stripe.
+  Der LED-Typ wird durch den Treiber selber bestimmt.
+  Die Ausnahme ist der LED_DRIVER_LPD8806. Hier muss man LED-Layout und LED-Typ entsprechend waehlen.
+
   Generell blinkt das Display bei der Moeglichkeit eine Zeit einzustellen. Ausserdem wird der Vormittag durch AM, der
   Nachmittag durch PM in der originalen Front angezeigt. Bei Sprachen die AM und PM nicht enthalten, leuchtet der erste
   Buchstabe fuer AM, der zweite Buchstabe fuer PM.
@@ -93,8 +97,8 @@
   LED_DRIVER_WS2801:  WS2801-RGB-LED-Streifen. Nicht 100% unterstuetzt da in der Adafroit Library Funktionen fehlen.
                       Color und clear().
 
-  RGB_LEDS:           RGB-LEDs mit waagerechtem Streifen-Layout wie dem Moodlight von Christian.
-  RGBW_LEDS:          RGBW-LEDs mit waagerechtem Streifen-Layout wie dem Moodlight von Christian.
+  RGB_LEDS:           RGB-LED mit LPD8806
+  RGBW_LEDS:          RGBW-LEDs mit LPD8806
   RGBW_LEDS_CLT2:     RGBW-LEDs mit senkrechtem Streifen-Layout der CLT2.
 
   MOS_DRIVER:
@@ -274,10 +278,10 @@
 //#define LED_DRIVER_LPD8806
 //#define LED_DRIVER_WS2801
 
-// Type of LEDs
-//#define RGB_LEDS       // LED_DRIVER_DOTSTAR, LED_DRIVER_NEOPIXEL, LED_DRIVER_LPD8806, LED_DRIVER_WS2801
-//#define RGBW_LEDS      // LED_DRIVER_LPD8806
-//#define RGBW_LEDS_CLT2 // LED_DRIVER_LPD8806
+// Type and layout of LEDs (LED_DRIVER_LPD8806)
+//#define RGB_LEDS
+//#define RGBW_LEDS
+//#define RGBW_LEDS_CLT2
 
 // MOS-FETs (LED_DRIVER_DEFAULT)
 //#define MOS_DRIVER
