@@ -90,7 +90,8 @@
   LED_DRIVER_DOTSTAR: RGB-LED-Streifen.
   LED_DRIVER_NEOPIXEL: WS2812B-RGB-LED-Streifen.
   LED_DRIVER_LPD8806: LPD8806-RGBW-LED-Streifen.
-  LED_DRIVER_WS2801:  WS2801-RGB-LED-Streifen. Nicht wirklich unterstuetzt da in der Adafroit Library Funktionen fehlen. Color und clear().
+  LED_DRIVER_WS2801:  WS2801-RGB-LED-Streifen. Nicht 100% unterstuetzt da in der Adafroit Library Funktionen fehlen.
+                      Color und clear().
 
   RGB_LEDS:           RGB-LEDs mit waagerechtem Streifen-Layout wie dem Moodlight von Christian.
   RGBW_LEDS:          RGBW-LEDs mit waagerechtem Streifen-Layout wie dem Moodlight von Christian.
@@ -273,10 +274,10 @@
 //#define LED_DRIVER_LPD8806
 //#define LED_DRIVER_WS2801
 
-// Type of LEDs (LED_DRIVER_DOTSTAR or LED_DRIVER_NEOPIXEL or LED_DRIVER_LPD8806)
-//#define RGB_LEDS
-//#define RGBW_LEDS
-//#define RGBW_LEDS_CLT2
+// Type of LEDs
+//#define RGB_LEDS       // LED_DRIVER_DOTSTAR, LED_DRIVER_NEOPIXEL, LED_DRIVER_LPD8806, LED_DRIVER_WS2801
+//#define RGBW_LEDS      // LED_DRIVER_LPD8806
+//#define RGBW_LEDS_CLT2 // LED_DRIVER_LPD8806
 
 // MOS-FETs (LED_DRIVER_DEFAULT)
 //#define MOS_DRIVER

@@ -14,13 +14,6 @@
 #include "Arduino.h"
 #include "LedDriver.h"
 
-#ifdef MATRIX_XXL
-#ifdef RGBW_LEDS
-#include <LPD8806RGBW_DBL.h>
-#else
-#include <LPD8806DBL.h>
-#endif
-#endif
 #ifdef RGBW_LEDS
 #include <LPD8806RGBW.h>
 #endif

@@ -125,32 +125,6 @@ LedDriverNeoPixel ledDriver(0);
 #endif
 
 /******************************************************************************
-   Board: AMBBRTCB
-   LED-Treiber: WS2801
-   A4 = I2C SDA
-   A5 = I2C SCL
-   D0 = Data
-******************************************************************************/
-
-#if defined (LED_DRIVER_WS2801) && defined(BOARD_AMBBRTCAD)
-LedDriverWS2801 ledDriver(0);
-#define PIN_MODE 5
-#define PIN_H_PLUS 6
-#define PIN_M_PLUS 7
-#define BUTTONS_PRESSING_AGAINST LOW
-#define PIN_IR_RECEIVER A1
-#define PIN_LDR A0
-#define IS_INVERTED false
-#define PIN_SQW_SIGNAL 10
-#define PIN_DCF77_SIGNAL 3
-#define PIN_DCF77_PON -1
-#define PIN_SQW_LED 1
-#define PIN_DCF77_LED 2
-#define PIN_SPEAKER -1
-#define PIN_TEMP_SENS -1
-#endif
-
-/******************************************************************************
    Board: BBRTCAD
    LED-Treiber: DotStars
    A4 = I2C SDA
@@ -209,10 +183,11 @@ LedDriverNeoPixel ledDriver(6);
    A4 = I2C SDA
    A5 = I2C SCL
    D6 = Data
+   D7 = Clock
 ******************************************************************************/
 
 #if defined (LED_DRIVER_WS2801) && defined(BOARD_BBRTCAD)
-LedDriverWS2801 ledDriver(6);
+LedDriverWS2801 ledDriver(6, 7);
 #define PIN_MODE 11
 #define PIN_H_PLUS 12
 #define PIN_M_PLUS 13
@@ -284,6 +259,33 @@ LedDriverNeoPixel ledDriver(10);
 
 /******************************************************************************
    Board: CLT2
+   LED-Treiber: DotStars
+   A4 = I2C SDA
+   A5 = I2C SCL
+   D13 = Data
+   D11 = Clock
+******************************************************************************/
+
+#if defined (LED_DRIVER_DOTSTAR) && defined(BOARD_CLT2)
+LedDriverDotStar ledDriver(13, 11);
+#define PIN_MODE 7
+#define PIN_H_PLUS 6
+#define PIN_M_PLUS 5
+#define BUTTONS_PRESSING_AGAINST HIGH
+#define PIN_IR_RECEIVER 10
+#define PIN_LDR A3
+#define IS_INVERTED true
+#define PIN_SQW_SIGNAL 2
+#define PIN_DCF77_SIGNAL 9
+#define PIN_DCF77_PON -1
+#define PIN_SQW_LED 4
+#define PIN_DCF77_LED 8
+#define PIN_SPEAKER -1
+#define PIN_TEMP_SENS A0
+#endif
+
+/******************************************************************************
+   Board: CLT2
    LED-Treiber: WS2812B
    A4 = I2C SDA
    A5 = I2C SCL
@@ -314,10 +316,11 @@ LedDriverNeoPixel ledDriver(13);
    A4 = I2C SDA
    A5 = I2C SCL
    D13 = Data
+   D11 = Clock
 ******************************************************************************/
 
 #if defined (LED_DRIVER_WS2801) && defined(BOARD_CLT2)
-LedDriverWS2801 ledDriver(13);
+LedDriverWS2801 ledDriver(13, 11);
 #define PIN_MODE 7
 #define PIN_H_PLUS 6
 #define PIN_M_PLUS 5

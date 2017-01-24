@@ -1,11 +1,5 @@
 /**
    LedDriverLPD8806
-   Implementierung auf der Basis von LPD8806-Streifen.
-
-   @mc       Arduino/RBBB
-   @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
-   @version  1.1
-   @created  9.2.2015
 */
 
 #include "LedDriverLPD8806.h"
@@ -13,13 +7,7 @@
 
 #if defined(RGB_LEDS) || defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
 
-#if defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
 #define NUM_PIXEL 115
-#endif
-
-#ifdef RGB_LEDS
-#define NUM_PIXEL 130
-#endif
 
 /**
    Initialisierung.
@@ -28,13 +16,9 @@ LedDriverLPD8806::LedDriverLPD8806(byte dataPin, byte clockPin) {
 #ifdef RGB_LEDS
   _strip = new LPD8806(NUM_PIXEL, dataPin, clockPin);
 #endif
-#ifdef RGBW_LEDS
+#if defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
   _strip = new LPD8806RGBW(NUM_PIXEL, dataPin, clockPin);
 #endif
-#ifdef RGBW_LEDS_CLT2
-  _strip = new LPD8806RGBW(NUM_PIXEL, dataPin, clockPin);
-#endif
-
   _strip->begin();
   _wheelPos = 0;
   _transitionCounter = 0;

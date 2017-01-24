@@ -9,11 +9,9 @@
 
 /**
    Initialisierung.
-
-   @param data Pin, an dem die Data-Line haengt.
 */
-LedDriverWS2801::LedDriverWS2801(byte dataPin) {
-  _strip = new Adafruit_WS2801(NUM_PIXEL, dataPin);
+LedDriverWS2801::LedDriverWS2801(byte dataPin, byte clockPin) {
+  _strip = new Adafruit_WS2801(NUM_PIXEL, dataPin, clockPin, WS2801_RGB);
   _strip->begin();
   _wheelPos = 0;
   _transitionCounter = 0;

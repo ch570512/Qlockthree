@@ -17,26 +17,43 @@
 
 extern Renderer renderer;
 
-#if defined (LED_DRIVER_DEFAULT)
+#ifdef LED_DRIVER_DEFAULT
 #include "LedDriverDefault.h"
 extern LedDriverDefault ledDriver;
-#elif defined(LED_DRIVER_UEBERPIXEL)
+#endif
+
+#ifdef LED_DRIVER_UEBERPIXEL
 #include "LedDriverUeberPixel.h"
 extern LedDriverUeberPixel ledDriver;
-#elif defined(LED_DRIVER_POWER_SHIFT_REGISTER)
+#endif 
+
+#ifdef LED_DRIVER_POWER_SHIFT_REGISTER
 #include "LedDriverPowerShiftRegister.h"
 extern LedDriverPowerShiftRegister ledDriver;
-#elif defined(LED_DRIVER_NEOPIXEL)
+#endif
+
+#ifdef LED_DRIVER_NEOPIXEL
 #include "LedDriverNeoPixel.h"
 extern LedDriverNeoPixel ledDriver;
 #define RGB_SPEED_CORRECTION 13
-#elif defined(LED_DRIVER_DOTSTAR)
+#endif
+
+#ifdef LED_DRIVER_DOTSTAR
 #include "LedDriverDotStar.h"
 extern LedDriverDotStar ledDriver;
-#elif defined(LED_DRIVER_LPD8806)
+#define RGB_SPEED_CORRECTION 13
+#endif
+
+#ifdef LED_DRIVER_LPD8806
 #include "LedDriverLPD8806.h"
 extern LedDriverLPD8806 ledDriver;
 #define RGB_SPEED_CORRECTION 11
+#endif
+
+#ifdef LED_DRIVER_WS2801
+#include "LedDriverWS2801.h"
+extern LedDriverWS2801 ledDriver;
+#define RGB_SPEED_CORRECTION 13
 #endif
 
 class Effects {

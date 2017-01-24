@@ -11,7 +11,7 @@
 
 class LedDriverWS2801 : public LedDriver {
   public:
-    LedDriverWS2801(byte dataPin);
+    LedDriverWS2801(byte dataPin, byte clockPin);
 
     void init();
 
