@@ -14,11 +14,7 @@
 #include "LedDriverNeoPixel.h"
 #include "Debug.h"
 
-#ifdef MATRIX_XXL
-#define NUM_PIXEL 225
-#else
 #define NUM_PIXEL 115
-#endif
 
 /**
    Initialisierung.
@@ -327,37 +323,6 @@ void LedDriverNeoPixel::_setPixel(byte x, byte y, uint32_t c) {
    Einen Pixel im Streifen setzten (die Eck-LEDs sind am Ende).
 */
 void LedDriverNeoPixel::_setPixel(byte num, uint32_t c) {
-#ifdef MATRIX_XXL
-  if (num < 110) {
-    if ((num / 11) % 2 == 0) {
-      _strip->setPixelColor(num * 2, c);
-      _strip->setPixelColor(num * 2 + 1, c);
-    } else {
-      _strip->setPixelColor(((num / 11) * 22) + 21 - (num % 11) * 2, c);
-      _strip->setPixelColor(((num / 11) * 22) + 21 - ((num % 11) * 2 + 1), c);
-    }
-  } else {
-    switch (num) {
-      case 110:
-        _strip->setPixelColor(221, c);
-        break;
-      case 111:
-        _strip->setPixelColor(222, c);
-        break;
-      case 112:
-        _strip->setPixelColor(223, c);
-        break;
-      case 113:
-        _strip->setPixelColor(220, c);
-        break;
-      case 114:                         // die Alarm-LED
-        _strip->setPixelColor(224, c);
-        break;
-      default:
-        ;
-    }
-  }
-#else
   if (num < 110) {
     if ((num / 11) % 2 == 0) {
       _strip->setPixelColor(num, c);
@@ -385,7 +350,6 @@ void LedDriverNeoPixel::_setPixel(byte num, uint32_t c) {
         ;
     }
   }
-#endif
 }
 
 /**

@@ -1,40 +1,19 @@
-/**
-   LedDriverLPD8806
-   Implementierung auf der Basis von LPD8806-Streifen.
-
-   @mc       Arduino/RBBB
-   @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
-   @version  1.1
-   @created  9.2.2015
+/*
+   LedDriverWS2801
 */
 
-#include "LedDriverLPD8806.h"
+#include "LedDriverWS2801.h"
 #include "Debug.h"
 
-#if defined(RGB_LEDS) || defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
-
-#if defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
 #define NUM_PIXEL 115
-#endif
-
-#ifdef RGB_LEDS
-#define NUM_PIXEL 130
-#endif
 
 /**
    Initialisierung.
-*/
-LedDriverLPD8806::LedDriverLPD8806(byte dataPin, byte clockPin) {
-#ifdef RGB_LEDS
-  _strip = new LPD8806(NUM_PIXEL, dataPin, clockPin);
-#endif
-#ifdef RGBW_LEDS
-  _strip = new LPD8806RGBW(NUM_PIXEL, dataPin, clockPin);
-#endif
-#ifdef RGBW_LEDS_CLT2
-  _strip = new LPD8806RGBW(NUM_PIXEL, dataPin, clockPin);
-#endif
 
+   @param data Pin, an dem die Data-Line haengt.
+*/
+LedDriverWS2801::LedDriverWS2801(byte dataPin) {
+  _strip = new Adafruit_WS2801(NUM_PIXEL, dataPin);
   _strip->begin();
   _wheelPos = 0;
   _transitionCounter = 0;
@@ -42,7 +21,6 @@ LedDriverLPD8806::LedDriverLPD8806(byte dataPin, byte clockPin) {
   _lastColorUpdate = millis();
   _dirty = false;
   _demoTransition = false;
-  _lastLEDsOn = 0;
 }
 
 /**
@@ -50,14 +28,14 @@ LedDriverLPD8806::LedDriverLPD8806(byte dataPin, byte clockPin) {
    Hier sollten die LED-Treiber in eine definierten
    Ausgangszustand gebracht werden.
 */
-void LedDriverLPD8806::init() {
+void LedDriverWS2801::init() {
   setBrightness(50);
   clearData();
   wakeUp();
 }
 
-void LedDriverLPD8806::printSignature() {
-  DEBUG_PRINT(F("LPD8806"));
+void LedDriverWS2801::printSignature() {
+  DEBUG_PRINT(F("WS2801"));
 }
 
 /**
@@ -66,9 +44,10 @@ void LedDriverLPD8806::printSignature() {
    @param onChange: TRUE, wenn es Aenderungen in dem Bildschirm-Puffer gab,
                     FALSE, wenn es ein Refresh-Aufruf war.
 */
-void LedDriverLPD8806::writeScreenBufferToMatrix(word matrix[16], boolean onChange, eColors a_color) {
+void LedDriverWS2801::writeScreenBufferToMatrix(word matrix[16], boolean onChange, eColors a_color) {
 
   boolean updateWheelColor = false;
+
   byte wheelPosIncrement = 0;
 
   if ((a_color == color_rgb_continuous) && _transitionCompleted) {
@@ -96,7 +75,6 @@ void LedDriverLPD8806::writeScreenBufferToMatrix(word matrix[16], boolean onChan
   }
 
   if (onChange || _dirty || _demoTransition || updateWheelColor || (((_transitionCounter == 0) || (Settings::TRANSITION_MODE_FADE == settings.getTransitionMode())) && !_transitionCompleted)) {
-
     uint32_t color = 0;
     uint32_t colorNew = 0;
     uint32_t colorOld = 0;
@@ -158,21 +136,21 @@ void LedDriverLPD8806::writeScreenBufferToMatrix(word matrix[16], boolean onChan
             ;
         }
       }
-    }
-
-    if (_transitionCompleted) {
-      for (byte i = 0; i < 11; i++) {
-        _matrixOld[i] = 0;
-        _matrixNew[i] = matrix[i];
-        _matrixOverlay[i] = 0;
+      if (_transitionCompleted) {
+        for (byte i = 0; i < 11; i++) {
+          _matrixOld[i] = 0;
+          _matrixNew[i] = matrix[i];
+          _matrixOverlay[i] = 0;
+        }
       }
     }
+
     _demoTransition = false;
 
     if ((_transitionCounter == 0) && !_transitionCompleted) {
       switch (settings.getTransitionMode()) {
         case Settings::TRANSITION_MODE_MATRIX:
-          _transitionCounter = map(_lastLEDsOn, 0, 110, MATRIXCOUNTERLOAD, MATRIXCOUNTERLOAD * 0.4);
+          _transitionCounter = MATRIXCOUNTERLOAD;
           _transitionCompleted = Transitions::nextMatrixStep(_matrixOld, _matrixNew, _matrixOverlay, matrix);
           break;
         case Settings::TRANSITION_MODE_SLIDE:
@@ -207,9 +185,9 @@ void LedDriverLPD8806::writeScreenBufferToMatrix(word matrix[16], boolean onChan
     **************/
     if (a_color <= color_single_max)
     {
-      color = _strip->Color(_brightnessScaleColor(_brightnessInPercent, pgm_read_byte_near(&defaultColors[a_color].red)), _brightnessScaleColor(_brightnessInPercent, pgm_read_byte_near(&defaultColors[a_color].blue)), _brightnessScaleColor(_brightnessInPercent, pgm_read_byte_near(&defaultColors[a_color].green)));
-      colorNew = _strip->Color(_brightnessScaleColor(brightnessNew, pgm_read_byte_near(&defaultColors[a_color].red)), _brightnessScaleColor(brightnessNew, pgm_read_byte_near(&defaultColors[a_color].blue)), _brightnessScaleColor(brightnessNew, pgm_read_byte_near(&defaultColors[a_color].green)));
-      colorOld = _strip->Color(_brightnessScaleColor(brightnessOld, pgm_read_byte_near(&defaultColors[a_color].red)), _brightnessScaleColor(brightnessOld, pgm_read_byte_near(&defaultColors[a_color].blue)), _brightnessScaleColor(brightnessOld, pgm_read_byte_near(&defaultColors[a_color].green)));
+//      color = _strip->Color(_brightnessScaleColor(_brightnessInPercent, pgm_read_byte_near(&defaultColors[a_color].red)), _brightnessScaleColor(_brightnessInPercent, pgm_read_byte_near(&defaultColors[a_color].green)), _brightnessScaleColor(_brightnessInPercent, pgm_read_byte_near(&defaultColors[a_color].blue)));
+//      colorNew = _strip->Color(_brightnessScaleColor(brightnessNew, pgm_read_byte_near(&defaultColors[a_color].red)), _brightnessScaleColor(brightnessNew, pgm_read_byte_near(&defaultColors[a_color].green)), _brightnessScaleColor(brightnessNew, pgm_read_byte_near(&defaultColors[a_color].blue)));
+//      colorOld = _strip->Color(_brightnessScaleColor(brightnessOld, pgm_read_byte_near(&defaultColors[a_color].red)), _brightnessScaleColor(brightnessOld, pgm_read_byte_near(&defaultColors[a_color].green)), _brightnessScaleColor(brightnessOld, pgm_read_byte_near(&defaultColors[a_color].blue)));
     }
     else if ((a_color == color_rgb_continuous || a_color == color_rgb_step)) {
       if (updateWheelColor) {
@@ -221,16 +199,16 @@ void LedDriverLPD8806::writeScreenBufferToMatrix(word matrix[16], boolean onChan
     }
 
     if ((settings.getTransitionMode() == Settings::TRANSITION_MODE_MATRIX) && !_transitionCompleted) {
-      colorOverlay1 = _strip->Color(_brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 255));
-      colorOverlay2 = _strip->Color(_brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 255 * 0.5));
-      colorOld = _strip->Color(_brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 255 * 0.1));
+//      colorOverlay1 = _strip->Color(_brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 255), _brightnessScaleColor(_brightnessInPercent, 0));
+//      colorOverlay2 = _strip->Color(_brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 255 * 0.5), _brightnessScaleColor(_brightnessInPercent, 0));
+//      colorOld = _strip->Color(_brightnessScaleColor(_brightnessInPercent, 0), _brightnessScaleColor(_brightnessInPercent, 255 * 0.1), _brightnessScaleColor(_brightnessInPercent, 0));
     }
 
     /*************
        WRITE OUT
     **************/
-    _clear();
-    _lastLEDsOn = 0;
+
+//    _strip->clear();
 
     for (byte y = 0; y < 10; y++) {
       for (byte x = 5; x < 16; x++) {
@@ -241,19 +219,15 @@ void LedDriverLPD8806::writeScreenBufferToMatrix(word matrix[16], boolean onChan
         else {
           if ((_matrixOverlay[y] & t) == t) {
             _setPixel(15 - x, y, colorOverlay1);
-            _lastLEDsOn++;
           }
           else if ((_matrixOverlay[y + 1] & t) == t) {
             _setPixel(15 - x, y, colorOverlay2);
-            _lastLEDsOn++;
           }
           else if ((_matrixOld[y] & t) == t) {
             _setPixel(15 - x, y, colorOld);
-            _lastLEDsOn++;
           }
           else if ((_matrixNew[y] & t) == t) {
             _setPixel(15 - x, y, colorNew);
-            _lastLEDsOn++;
           }
         }
       }
@@ -283,7 +257,7 @@ void LedDriverLPD8806::writeScreenBufferToMatrix(word matrix[16], boolean onChan
 
    @param brightnessInPercent Die Helligkeit.
 */
-void LedDriverLPD8806::setBrightness(byte brightnessInPercent) {
+void LedDriverWS2801::setBrightness(byte brightnessInPercent) {
   if ((brightnessInPercent != _brightnessInPercent) && _transitionCompleted) {
     _brightnessInPercent = brightnessInPercent;
     _dirty = true;
@@ -293,7 +267,7 @@ void LedDriverLPD8806::setBrightness(byte brightnessInPercent) {
 /**
    Die aktuelle Helligkeit bekommen.
 */
-byte LedDriverLPD8806::getBrightness() {
+byte LedDriverWS2801::getBrightness() {
   return _brightnessInPercent;
 }
 
@@ -303,49 +277,43 @@ byte LedDriverLPD8806::getBrightness() {
    @param linesToWrite Wieviel Zeilen aus dem Bildspeicher sollen
                        geschrieben werden?
 */
-void LedDriverLPD8806::setLinesToWrite(byte linesToWrite) {
-}
-
-/**
-   Das Display ausschalten.
-*/
-void LedDriverLPD8806::shutDown() {
-  _clear();
-  _strip->show();
-  _transitionCompleted = true;
+void LedDriverWS2801::setLinesToWrite(byte linesToWrite) {
 }
 
 /**
    Das Display einschalten.
 */
-void LedDriverLPD8806::wakeUp() {
+void LedDriverWS2801::wakeUp() {
+}
+
+/**
+   Das Display ausschalten.
+*/
+void LedDriverWS2801::shutDown() {
+//  _strip->clear();
+  _strip->show();
+  _transitionCompleted = true;
 }
 
 /**
    Den Dateninhalt des LED-Treibers loeschen.
 */
-void LedDriverLPD8806::clearData() {
-  _clear();
+void LedDriverWS2801::clearData() {
+//  _strip->clear();
   _strip->show();
 }
 
 /**
    Einen X/Y-koordinierten Pixel in der Matrix setzen.
 */
-void LedDriverLPD8806::_setPixel(byte x, byte y, uint32_t c) {
-#ifdef RGBW_LEDS_CLT2
-  _setPixel(y + (x * 10), c);
-#else
+void LedDriverWS2801::_setPixel(byte x, byte y, uint32_t c) {
   _setPixel(x + (y * 11), c);
-#endif
 }
 
 /**
-   Einen Pixel im Streifen setzten.
+   Einen Pixel im Streifen setzten (die Eck-LEDs sind am Ende).
 */
-void LedDriverLPD8806::_setPixel(byte num, uint32_t c) {
-
-#if defined(MATRIX_XXL) || defined(RGBW_LEDS)
+void LedDriverWS2801::_setPixel(byte num, uint32_t c) {
   if (num < 110) {
     if ((num / 11) % 2 == 0) {
       _strip->setPixelColor(num, c);
@@ -373,116 +341,28 @@ void LedDriverLPD8806::_setPixel(byte num, uint32_t c) {
         ;
     }
   }
-#endif
-
-#ifdef RGB_LEDS
-  if (num < 110) {
-    if ((num / 11) % 2 == 0) {
-      _strip->setPixelColor(num + (num / 11), c);
-    } else {
-      _strip->setPixelColor(((num / 11) * 12) + 11 - (num % 11), c);
-    }
-  } else {
-    switch (num) {
-      case 110:
-        _strip->setPixelColor(111 + 11, c);
-        break;
-      case 111:
-        _strip->setPixelColor(112 + 12, c);
-        break;
-      case 112:
-        _strip->setPixelColor(113 + 13, c);
-        break;
-      case 113:
-        _strip->setPixelColor(110 + 10, c);
-        break;
-      case 114:
-        _strip->setPixelColor(114 + 14, c);
-        break;
-      default:
-        ;
-    }
-  }
-#endif
-
-#ifdef RGBW_LEDS_CLT2
-  byte ledNum;
-  if (num < 110) {
-    if ((num / 10) % 2 == 0) {
-      ledNum = num;
-    } else {
-      ledNum = ((num / 10) * 10) + 9 - (num % 10);
-    }
-    if (ledNum < 10)
-    {
-      _strip->setPixelColor(ledNum + 1, c);
-    }
-    else if (ledNum < 100)
-    {
-      _strip->setPixelColor(ledNum + 2, c);
-    }
-    else
-    {
-      _strip->setPixelColor(ledNum + 3, c);
-    }
-  } else {
-    switch (num) {
-      case 110:
-        _strip->setPixelColor(0, c);
-        break;
-      case 111:
-        _strip->setPixelColor(102, c);
-        break;
-      case 112:
-        _strip->setPixelColor(113, c);
-        break;
-      case 113:
-        _strip->setPixelColor(11, c);
-        break;
-      case 114:
-        _strip->setPixelColor(114, c);
-        break;
-      default:
-        ;
-    }
-  }
-#endif
-
-  delay(1);
 }
 
 /**
    Funktion fuer saubere 'Regenbogen'-Farben.
    Kopiert aus den Adafruit-Beispielen (strand).
 */
-uint32_t LedDriverLPD8806::_wheel(byte brightness, byte wheelPos) {
-  if (wheelPos < 85) {
-    return _strip->Color(_brightnessScaleColor(brightness, wheelPos * 3), _brightnessScaleColor(brightness, 255 - wheelPos * 3), _brightnessScaleColor(brightness, 0));
-  } else if (wheelPos < 170) {
-    wheelPos -= 85;
-    return _strip->Color(_brightnessScaleColor(brightness, 255 - wheelPos * 3), _brightnessScaleColor(brightness, 0), _brightnessScaleColor(brightness, wheelPos * 3));
-  } else {
-    wheelPos -= 170;
-    return _strip->Color(_brightnessScaleColor(brightness, 0), _brightnessScaleColor(brightness, wheelPos * 3), _brightnessScaleColor(brightness, 255 - wheelPos * 3));
-  }
+uint32_t LedDriverWS2801::_wheel(byte brightness, byte wheelPos) {
+//  if (wheelPos < 85) {
+//    return _strip->Color(_brightnessScaleColor(brightness, wheelPos * 3), _brightnessScaleColor(brightness, 255 - wheelPos * 3), _brightnessScaleColor(brightness, 0));
+//  } else if (wheelPos < 170) {
+//    wheelPos -= 85;
+//    return _strip->Color(_brightnessScaleColor(brightness, 255 - wheelPos * 3), _brightnessScaleColor(brightness, 0), _brightnessScaleColor(brightness, wheelPos * 3));
+//  } else {
+//    wheelPos -= 170;
+//    return _strip->Color(_brightnessScaleColor(brightness, 0), _brightnessScaleColor(brightness, wheelPos * 3), _brightnessScaleColor(brightness, 255 - wheelPos * 3));
+//  }
 }
 
 /**
    Hilfsfunktion fuer das Skalieren der Farben.
 */
-byte LedDriverLPD8806::_brightnessScaleColor(byte brightness, byte colorPart) {
-  return map(brightness, 0, 100, 0, colorPart / 2); // LPD8806 kann nur 7 bit Farben! (also 0..127, nicht 0..255)
+byte LedDriverWS2801::_brightnessScaleColor(byte brightness, byte colorPart) {
+  return map(brightness, 0, 100, 0, colorPart);
 }
-
-/**
-   Streifen loeschen.
-*/
-
-void LedDriverLPD8806::_clear() {
-  for (byte i = 0; i < NUM_PIXEL; i++) {
-    _strip->setPixelColor(i, 0);
-  }
-}
-
-#endif
 

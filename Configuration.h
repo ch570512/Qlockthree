@@ -90,6 +90,7 @@
   LED_DRIVER_DOTSTAR: RGB-LED-Streifen.
   LED_DRIVER_NEOPIXEL: WS2812B-RGB-LED-Streifen.
   LED_DRIVER_LPD8806: LPD8806-RGBW-LED-Streifen.
+  LED_DRIVER_WS2801:  WS2801-RGB-LED-Streifen. Nicht wirklich unterstuetzt da in der Adafroit Library Funktionen fehlen. Color und clear().
 
   RGB_LEDS:           RGB-LEDs mit waagerechtem Streifen-Layout wie dem Moodlight von Christian.
   RGBW_LEDS:          RGBW-LEDs mit waagerechtem Streifen-Layout wie dem Moodlight von Christian.
@@ -177,6 +178,7 @@
   https://github.com/wayoda/LedControl
   https://github.com/adafruit/Adafruit_NeoPixel
   https://github.com/adafruit/Adafruit_DotStar
+  https://github.com/adafruit/Adafruit-WS2801-Library
   https://github.com/ch570512/LPD8806
   https://github.com/ch570512/LPD8806RGBW
 
@@ -269,6 +271,7 @@
 //#define LED_DRIVER_DOTSTAR
 //#define LED_DRIVER_NEOPIXEL
 //#define LED_DRIVER_LPD8806
+//#define LED_DRIVER_WS2801
 
 // Type of LEDs (LED_DRIVER_DOTSTAR or LED_DRIVER_NEOPIXEL or LED_DRIVER_LPD8806)
 //#define RGB_LEDS
@@ -360,7 +363,7 @@
 //#define RENDER_CORNERS_CCW
 //#define OPTIMIZED_FOR_DARKNESS
 //#define SKIP_BLANK_LINES
-#define FIRMWARE_VERSION "yaqtfw_20170123"
+#define FIRMWARE_VERSION "yaqtfw_20170124"
 
 /******************************************************************************
   Debug to serial console.

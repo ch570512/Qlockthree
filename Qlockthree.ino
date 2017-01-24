@@ -20,6 +20,7 @@
 #include "LedDriverNeoPixel.h"
 #include "LedDriverDotStar.h"
 #include "LedDriverLPD8806.h"
+#include "LedDriverWS2801.h"
 #include "IRTranslator.h"
 #include "IRTranslatorSparkfun.h"
 #include "IRTranslatorMooncandles.h"
