@@ -1,11 +1,5 @@
-/**
+/*
    LedDriverLPD8806
-   Implementierung auf der Basis von LPD8806-Streifen.
-
-   @mc       Arduino/RBBB
-   @autor    Christian Aschoff / caschoff _AT_ mac _DOT_ com
-   @version  1.1
-   @created  9.2.2015
 */
 
 #ifndef LED_DRIVER_LPD8806_H
@@ -14,13 +8,10 @@
 #include "Arduino.h"
 #include "LedDriver.h"
 
-#ifdef RGBW_LEDS
-#include <LPD8806RGBW.h>
-#endif
 #ifdef RGB_LEDS
 #include <LPD8806.h>
 #endif
-#ifdef RGBW_LEDS_CLT2
+#if defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
 #include <LPD8806RGBW.h>
 #endif
 
@@ -60,20 +51,10 @@ class LedDriverLPD8806 : public LedDriver {
 
     unsigned int _lastLEDsOn;
 
-#ifdef MATRIX_XXL
-#ifdef RGBW_LEDS
-    LPD8806RGBW_DBL *_strip;
-#else
-    LPD8806DBL *_strip;
-#endif
-#endif
-#ifdef RGBW_LEDS
-    LPD8806RGBW *_strip;
-#endif
 #ifdef RGB_LEDS
     LPD8806 *_strip;
 #endif
-#ifdef RGBW_LEDS_CLT2
+#if defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
     LPD8806RGBW *_strip;
 #endif
 

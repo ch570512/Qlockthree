@@ -43,6 +43,7 @@
 #include "Boards.h"
 #include "MyDCF77.h"
 #include "DCF77Helper.h"
+#include "Boards.h"
 #ifdef EVENTS
 #include "Events.h"
 #endif
@@ -50,6 +51,28 @@
 /******************************************************************************
    Declaration
 ******************************************************************************/
+
+#if defined(LED_DRIVER_DEFAULT) && defined (BOARD_DEFAULT)
+LedDriverDefault ledDriver(PIN_LEDS_DATA, PIN_LEDS_LOAD, PIN_LEDS_CLOCK, PIN_LEDS_OUTPUT_ENABLE, 10);
+#endif
+#if defined(LED_DRIVER_POWER_SHIFT_REGISTER) && defined (BOARD_DEFAULT)
+LedDriverPowerShiftRegister ledDriver(PIN_LEDS_DATA, PIN_LEDS_LOAD, PIN_LEDS_CLOCK, PIN_LEDS_OUTPUT_ENABLE);
+#endif
+#ifdef LED_DRIVER_UEBERPIXEL
+LedDriverUeberPixel ledDriver(PIN_LEDS_DATA, PIN_LEDS_CLOCK, PIN_LEDS_LOAD);
+#endif
+#ifdef LED_DRIVER_DOTSTAR
+LedDriverDotStar ledDriver(PIN_LEDS_DATA, PIN_LEDS_CLOCK);
+#endif
+#ifdef LED_DRIVER_NEOPIXEL
+LedDriverNeoPixel ledDriver(PIN_LEDS_DATA);
+#endif
+#ifdef LED_DRIVER_LPD8806
+LedDriverLPD8806 ledDriver(PIN_LEDS_DATA, PIN_LEDS_CLOCK);
+#endif
+#ifdef LED_DRIVER_WS2801
+LedDriverWS2801 ledDriver(PIN_LEDS_DATA, PIN_LEDS_CLOCK);
+#endif
 
 // Settings from EEPROM.
 Settings settings;

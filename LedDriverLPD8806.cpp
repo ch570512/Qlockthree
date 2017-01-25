@@ -329,36 +329,6 @@ void LedDriverLPD8806::_setPixel(byte x, byte y, uint32_t c) {
 */
 void LedDriverLPD8806::_setPixel(byte num, uint32_t c) {
 
-#if defined(MATRIX_XXL) || defined(RGBW_LEDS)
-  if (num < 110) {
-    if ((num / 11) % 2 == 0) {
-      _strip->setPixelColor(num, c);
-    } else {
-      _strip->setPixelColor(((num / 11) * 11) + 10 - (num % 11), c);
-    }
-  } else {
-    switch (num) {
-      case 110:
-        _strip->setPixelColor(111, c);
-        break;
-      case 111:
-        _strip->setPixelColor(112, c);
-        break;
-      case 112:
-        _strip->setPixelColor(113, c);
-        break;
-      case 113:
-        _strip->setPixelColor(110, c);
-        break;
-      case 114:                         // die Alarm-LED
-        _strip->setPixelColor(114, c);
-        break;
-      default:
-        ;
-    }
-  }
-#endif
-
 #ifdef RGB_LEDS
   if (num < 110) {
     if ((num / 11) % 2 == 0) {
@@ -382,6 +352,36 @@ void LedDriverLPD8806::_setPixel(byte num, uint32_t c) {
         break;
       case 114:
         _strip->setPixelColor(114 + 14, c);
+        break;
+      default:
+        ;
+    }
+  }
+#endif
+
+#if defined(RGBW_LEDS)
+  if (num < 110) {
+    if ((num / 11) % 2 == 0) {
+      _strip->setPixelColor(num, c);
+    } else {
+      _strip->setPixelColor(((num / 11) * 11) + 10 - (num % 11), c);
+    }
+  } else {
+    switch (num) {
+      case 110:
+        _strip->setPixelColor(111, c);
+        break;
+      case 111:
+        _strip->setPixelColor(112, c);
+        break;
+      case 112:
+        _strip->setPixelColor(113, c);
+        break;
+      case 113:
+        _strip->setPixelColor(110, c);
+        break;
+      case 114:                         // die Alarm-LED
+        _strip->setPixelColor(114, c);
         break;
       default:
         ;

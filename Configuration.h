@@ -23,7 +23,7 @@
 
   Bei LED-Streifen wird grundsaetzlich vom Moodlight-LED-Layout ausgegangen. Die Eck-LEDs also am Ende des Stripe.
   Der LED-Typ wird durch den Treiber selber bestimmt.
-  Die Ausnahme ist der LED_DRIVER_LPD8806. Hier muss man LED-Layout und LED-Typ entsprechend waehlen.
+  Die Ausnahme ist der Treiber für LPD8806. Hier muss man LED-Layout und LED-Typ entsprechend waehlen.
 
   Generell blinkt das Display bei der Moeglichkeit eine Zeit einzustellen. Ausserdem wird der Vormittag durch AM, der
   Nachmittag durch PM in der originalen Front angezeigt. Bei Sprachen die AM und PM nicht enthalten, leuchtet der erste
@@ -93,13 +93,13 @@
   LED_DRIVER_POWER_SHIFT_REGISTER:
   LED_DRIVER_DOTSTAR: RGB-LED-Streifen.
   LED_DRIVER_NEOPIXEL: WS2812B-RGB-LED-Streifen.
-  LED_DRIVER_LPD8806: LPD8806-RGBW-LED-Streifen.
+  LED_DRIVER_LPD8806: LPD8806-RGB(W)-LED-Streifen.
   LED_DRIVER_WS2801:  WS2801-RGB-LED-Streifen. Nicht 100% unterstuetzt da in der Adafroit Library Funktionen fehlen.
                       Color und clear().
 
   RGB_LEDS:           RGB-LED mit LPD8806
   RGBW_LEDS:          RGBW-LEDs mit LPD8806
-  RGBW_LEDS_CLT2:     RGBW-LEDs mit senkrechtem Streifen-Layout der CLT2.
+  RGBW_LEDS_CLT2:     RGBW-LEDs mit LPD8806 und senkrechtem Streifen-Layout der CLT2.
 
   MOS_DRIVER:
   ENABLE_DCF_LED:     Zeigt mit Hilfe der gelben LED auf dem Board die Funktion des DCF77 Empfaengers an. Bei gutem
@@ -368,7 +368,7 @@
 //#define RENDER_CORNERS_CCW
 //#define OPTIMIZED_FOR_DARKNESS
 //#define SKIP_BLANK_LINES
-#define FIRMWARE_VERSION "yaqtfw_20170124"
+#define FIRMWARE_VERSION "yaqtfw_20170125"
 
 /******************************************************************************
   Debug to serial console.
