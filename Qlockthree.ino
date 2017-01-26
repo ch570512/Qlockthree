@@ -28,6 +28,7 @@
 #include "IRTranslatorCLT.h"
 #include "IRTranslatorApple.h"
 #include "IRTranslatorPhilips.h"
+#include "IRTranslatorHX1838.h"
 #include "MyIRremote.h"
 #include "MyRTC.h"
 #include "Button.h"
@@ -96,6 +97,8 @@ IRTranslatorCLT irTranslator;
 IRTranslatorApple irTranslator;
 #elif defined (REMOTE_PHILIPS)
 IRTranslatorPhilips irTranslator;
+#elif defined (REMOTE_HX1838)
+IRTranslatorHX1838 irTranslator;
 #endif
 #endif
 

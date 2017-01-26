@@ -311,6 +311,7 @@
 //#define REMOTE_CLT
 //#define REMOTE_APPLE // Apple Remote Control for iPod
 //#define REMOTE_PHILIPS // Philips SRP1 101/10 - Code 0815
+//#define REMOTE_HX1838
 
 // Bluetooth-Remote
 //#define REMOTE_BLUETOOTH
@@ -368,7 +369,7 @@
 //#define RENDER_CORNERS_CCW
 //#define OPTIMIZED_FOR_DARKNESS
 //#define SKIP_BLANK_LINES
-#define FIRMWARE_VERSION "yaqtfw_20170125"
+#define FIRMWARE_VERSION "yaqtfw_20170126"
 
 /******************************************************************************
   Debug to serial console.
