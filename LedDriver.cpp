@@ -16,6 +16,12 @@ void LedDriver::setPixelInScreenBuffer(byte x, byte y, word matrix[16]) {
   matrix[y] |= 0b1000000000000000 >> x;
 }
 
+void LedDriver::unsetPixelInScreenBuffer(byte x, byte y, word matrix[16]) {
+  matrix[y] = ~matrix[y];
+  matrix[y] |= 0b1000000000000000 >> x;
+  matrix[y] = ~matrix[y];
+}
+
 boolean LedDriver::getPixelFromScreenBuffer(byte x, byte y, word matrix[16]) {
   return (matrix[y] & (0b1000000000000000 >> x)) == (0b1000000000000000 >> x);
 }

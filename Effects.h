@@ -50,12 +50,6 @@ extern LedDriverLPD8806 ledDriver;
 #define RGB_SPEED_CORRECTION 11
 #endif
 
-#ifdef LED_DRIVER_WS2801
-#include "LedDriverWS2801.h"
-extern LedDriverWS2801 ledDriver;
-#define RGB_SPEED_CORRECTION 13
-#endif
-
 class Effects {
   public:
     enum eEffects : byte

@@ -50,7 +50,7 @@ typedef enum eMode : byte
   EXT_MODE_LDR_MODE = EXT_MODE_START,
 #endif
   EXT_MODE_TRANSITION,
-#if defined(RGB_LEDS) || defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
+#ifndef LED_DRIVER_DEFAULT
   EXT_MODE_COLOR,
   EXT_MODE_COLOR_CHANGE,
 #endif

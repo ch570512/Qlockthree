@@ -59,7 +59,7 @@ class Renderer {
       TEXT_POS_MIDDLE = 2,
       TEXT_POS_BOTTOM = 5
     };
-  public:
+	
     Renderer();
 
     void setMinutes(char hours, byte minutes, byte language, word matrix[16]);

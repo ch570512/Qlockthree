@@ -199,7 +199,7 @@ void Effects::showAnimatedBitmap(byte animatedBitmap, byte duration, eColors col
 
 void Effects::writeToBuffer(word aMatrix[], unsigned int aDuration, eColors color)
 {
-#if defined(RGB_LEDS) || defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
+#ifndef LED_DRIVER_DEFAULT
   ledDriver.writeScreenBufferToMatrix(aMatrix, true, color);
   delay(aDuration * RGB_SPEED_CORRECTION);
 #ifdef DEBUG_EVENT_MATRIX

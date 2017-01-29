@@ -89,29 +89,31 @@
                       Computers wegen der hohen LED-Last durchbrennt.
 
   LED_DRIVER_DEFAULT: LED-Matrix nach Christian.
+    MOS_DRIVER:
+
   LED_DRIVER_UEBERPIXEL:
   LED_DRIVER_POWER_SHIFT_REGISTER:
   LED_DRIVER_DOTSTAR: RGB-LED-Streifen.
   LED_DRIVER_NEOPIXEL: WS2812B-RGB-LED-Streifen.
+
   LED_DRIVER_LPD8806: LPD8806-RGB(W)-LED-Streifen.
-  LED_DRIVER_WS2801:  WS2801-RGB-LED-Streifen. Nicht 100% unterstuetzt da in der Adafroit Library Funktionen fehlen.
-                      Color und clear().
+    RGB_LEDS:         RGB-LED mit LPD8806.
+    RGBW_LEDS:        RGBW-LEDs mit LPD8806.
+    RGBW_LEDS_CLT2:   RGBW-LEDs mit LPD8806 und senkrechtem Streifen-Layout der CLT2.
 
-  RGB_LEDS:           RGB-LED mit LPD8806
-  RGBW_LEDS:          RGBW-LEDs mit LPD8806
-  RGBW_LEDS_CLT2:     RGBW-LEDs mit LPD8806 und senkrechtem Streifen-Layout der CLT2.
-
-  MOS_DRIVER:
   ENABLE_DCF_LED:     Zeigt mit Hilfe der gelben LED auf dem Board die Funktion des DCF77 Empfaengers an. Bei gutem
                       Empfang blinkt sie regelmaessig. Kann abgeschaltet werden, wenn kein DCF77 Empfaenger verbaut ist.
   ENABLE_SQW_LED:     Zeigt mit Hilfe der gruenen LED auf dem Board die Funktion der RTC an. Sie blinkt einmal pro
                       Sekunde.
+
   DS1307:             Real Time Clock.
   DS3231:             Moderne und sehr genaue Real Time Clock. Dadurch koennte man auf den DCF77 Empfaenger verzichten.
+
   TEMP_SENS_LM35:     Einschalten, wenn ein Temperatursensor vom Typ LM35 verbaut ist.
   TEMP_SENS_LM335:    Einschalten, wenn ein Temperatursensor vom Typ LM335 verbaut ist.
   TEMP_SENS_DS3231:   Nutzt den eingebauten Temperatursensor der DS3231 RTC.
   TEMP_OFFSET:        Gibt an, um wieviel Grad die gemessene Temperatur (+ oder -) korrigiert werden soll.
+
   DCF77:              Einschalten, wenn ein DCF77 Empfaenger verbaut ist. Der PON-Pin wird von dieser Firmware geschaltet.
 
   REMOTE_NO_REMOTE:   Einschalten, wenn _kein_ IR-Sensor verbaut ist.
@@ -145,13 +147,16 @@
                       A/V:   Helligkeit-
                       -/--:  Helligkeit+
                       0:     LDR ein/aus
+  REMOTE_HX1838:      Fernbedienung HX1838.
+  
+  IR_LETTER_OFF_:     Schaltet die LED hinter dem IR-Sensor dauerhaft ab. Das verbessert den IR-Empfang.
+                      Hier das K vor Uhr: Zehnte Zeile, achter Buchstabe. Wir fangen mit 1 an zu zaehlen.
+
   REMOTE_BLUETOOTH:   Bluetooth App fuer Android oder iPhone. (Kostenpflichtig.)
 
   LED_TEST_INTRO:     Laesst alle LEDs nach dem Start der Uhr fuer 3 Sekunden leuchten.
   NONE_TECHNICAL_ZERO: Zeigt die Null ohne den diagonalen Strich.
   AUTO_JUMP_BLANK:    Nach einem erfolgreichen DCF77 Sync bei ausgeschalteter Anzeige, geht sie automatisch wieder an.
-  IR_LETTER_OFF:      Schaltet die LED hinter dem IR-Sensor dauerhaft ab. Das verbessert den IR-Empfang.
-                      Hier das K vor Uhr: letzte Zeile (matrix[9]), achter Buchstabe (0b1111111011111111).
   MAX_BUZZ_TIME_IN_MINUTES: Wie lange soll der Alarm laufen wenn er nicht abgeschaltet wird.
   SPEAKER_IS_BUZZER:  Setzen, wenn ein Buzzer statt eines Lautsprechers verbaut ist.
   SPEAKER_FREQUENCY:  Frequenz des Wechtons fuer einen Lautsprecher.
@@ -183,7 +188,6 @@
   https://github.com/wayoda/LedControl
   https://github.com/adafruit/Adafruit_NeoPixel
   https://github.com/adafruit/Adafruit_DotStar
-  https://github.com/adafruit/Adafruit-WS2801-Library
   https://github.com/ch570512/LPD8806
   https://github.com/ch570512/LPD8806RGBW
 
@@ -271,20 +275,19 @@
 
 // LED-Driver
 #define LED_DRIVER_DEFAULT
+// MOS-FETs for LED_DRIVER_DEFAULT
+//#define MOS_DRIVER
+
 //#define LED_DRIVER_UEBERPIXEL
 //#define LED_DRIVER_POWER_SHIFT_REGISTER
 //#define LED_DRIVER_DOTSTAR
 //#define LED_DRIVER_NEOPIXEL
-//#define LED_DRIVER_LPD8806
-//#define LED_DRIVER_WS2801
 
-// Type and layout of LEDs (LED_DRIVER_LPD8806)
+//#define LED_DRIVER_LPD8806
+// Type and layout of LEDs for LED_DRIVER_LPD8806
 //#define RGB_LEDS
 //#define RGBW_LEDS
 //#define RGBW_LEDS_CLT2
-
-// MOS-FETs (LED_DRIVER_DEFAULT)
-//#define MOS_DRIVER
 
 // LEDs on board
 #define ENABLE_DCF_LED
@@ -313,6 +316,10 @@
 //#define REMOTE_PHILIPS // Philips SRP1 101/10 - Code 0815
 //#define REMOTE_HX1838
 
+// Turn off the LED behind the IR-Sensor.
+//#define IR_LETTER_OFF_X 8
+//#define IR_LETTER_OFF_Y 10
+
 // Bluetooth-Remote
 //#define REMOTE_BLUETOOTH
 
@@ -320,17 +327,11 @@
   Software settings
 ******************************************************************************/
 
-// Turn on all LEDs for 3s on power-up
-#define LED_TEST_INTRO
-
 // None technical zero
 //#define NONE_TECHNICAL_ZERO
 
 // Turn on clock after successfull DCF77-sync
 #define AUTO_JUMP_BLANK
-
-// Turn off the letter containing the IR-Sensor (here: 10, 8)
-//#define IR_LETTER_OFF matrix[9] &= 0b1111111011111111
 
 // Alarm
 #define MAX_BUZZ_TIME_IN_MINUTES 5
@@ -369,7 +370,7 @@
 //#define RENDER_CORNERS_CCW
 //#define OPTIMIZED_FOR_DARKNESS
 //#define SKIP_BLANK_LINES
-#define FIRMWARE_VERSION "yaqtfw_20170126"
+#define FIRMWARE_VERSION "yaqtfw_20170129"
 
 /******************************************************************************
   Debug to serial console.

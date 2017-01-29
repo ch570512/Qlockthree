@@ -20,7 +20,6 @@
 #include "LedDriverNeoPixel.h"
 #include "LedDriverDotStar.h"
 #include "LedDriverLPD8806.h"
-#include "LedDriverWS2801.h"
 #include "IRTranslator.h"
 #include "IRTranslatorSparkfun.h"
 #include "IRTranslatorMooncandles.h"
@@ -70,9 +69,6 @@ LedDriverNeoPixel ledDriver(PIN_LEDS_DATA);
 #endif
 #ifdef LED_DRIVER_LPD8806
 LedDriverLPD8806 ledDriver(PIN_LEDS_DATA, PIN_LEDS_CLOCK);
-#endif
-#ifdef LED_DRIVER_WS2801
-LedDriverWS2801 ledDriver(PIN_LEDS_DATA, PIN_LEDS_CLOCK);
 #endif
 
 // Settings from EEPROM.
@@ -285,15 +281,6 @@ void setup() {
   DEBUG_PRINT(F("Free RAM: "));
   DEBUG_PRINT(freeRam());
   DEBUG_PRINTLN(F(" bytes."));
-
-#ifdef LED_TEST_INTRO
-  DEBUG_PRINTLN(F("LEDs on."));
-  unsigned long initMillis = millis();
-  while ((millis() - initMillis) < 3000) {
-    renderer.setAllScreenBuffer(matrix);
-    ledDriver.writeScreenBufferToMatrix(matrix, true, eColors::color_white);
-  }
-#endif
 
 }
 
@@ -557,7 +544,7 @@ void loop() {
             break;
         }
         break;
-#if defined(RGB_LEDS) || defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
+#ifndef LED_DRIVER_DEFAULT
       case EXT_MODE_COLOR:
         renderer.clearScreenBuffer(matrix);
         if (settings.getColor() <= color_single_max) {
@@ -715,9 +702,13 @@ void loop() {
       case EXT_MODE_JUMP_TIMEOUT:
         renderer.clearScreenBuffer(matrix);
         renderer.setMenuText("FB", Renderer::TEXT_POS_TOP, matrix);
-        for (byte i = 0; i < 7; i++) {
-          matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[settings.getJumpToNormalTimeout() / 10][i])) << 10;
-          matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[settings.getJumpToNormalTimeout() % 10][i])) << 5;
+        if (helperSeconds % 2 == 0) {
+          for (byte i = 0; i < 5; i++) matrix[5 + i] = 0;
+        } else {
+          for (byte i = 0; i < 7; i++) {
+            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[settings.getJumpToNormalTimeout() / 10][i])) << 10;
+            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[settings.getJumpToNormalTimeout() % 10][i])) << 5;
+          }
         }
         DEBUG_PRINT(F("FB "));
         DEBUG_PRINTLN(settings.getJumpToNormalTimeout());
@@ -787,9 +778,13 @@ void loop() {
       case EXT_MODE_YEARSET: // Einstellung Jahr
         renderer.clearScreenBuffer(matrix);
         renderer.setMenuText("YY", Renderer::TEXT_POS_TOP, matrix);
-        for (byte i = 0; i < 5; i++) {
-          matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getYear() / 10][i])) << 10;
-          matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getYear() % 10][i])) << 5;
+        if (helperSeconds % 2 == 0) {
+          for (byte i = 0; i < 5; i++) matrix[5 + i] = 0;
+        } else {
+          for (byte i = 0; i < 5; i++) {
+            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getYear() / 10][i])) << 10;
+            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getYear() % 10][i])) << 5;
+          }
         }
         DEBUG_PRINT(F("YY "));
         DEBUG_PRINTLN(rtc.getYear());
@@ -797,14 +792,18 @@ void loop() {
       case EXT_MODE_MONTHSET: // Einstellung Monat
         renderer.clearScreenBuffer(matrix);
         renderer.setMenuText("MM", Renderer::TEXT_POS_TOP, matrix);
-        if (rtc.getMonth() > 9) {
-          for (byte i = 0; i < 5; i++) {
-            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getMonth() / 10][i])) << 10;
-            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getMonth() % 10][i])) << 5;
-          }
+        if (helperSeconds % 2 == 0) {
+          for (byte i = 0; i < 5; i++) matrix[5 + i] = 0;
         } else {
-          for (byte i = 0; i < 5; i++) {
-            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getMonth() % 10][i])) << 8;
+          if (rtc.getMonth() > 9) {
+            for (byte i = 0; i < 5; i++) {
+              matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getMonth() / 10][i])) << 10;
+              matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getMonth() % 10][i])) << 5;
+            }
+          } else {
+            for (byte i = 0; i < 5; i++) {
+              matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getMonth() % 10][i])) << 8;
+            }
           }
         }
         DEBUG_PRINT(F("MM "));
@@ -813,14 +812,18 @@ void loop() {
       case EXT_MODE_DAYSET: // Einstellung Tag
         renderer.clearScreenBuffer(matrix);
         renderer.setMenuText("DD", Renderer::TEXT_POS_TOP, matrix);
-        if (rtc.getDate() > 9) {
-          for (byte i = 0; i < 5; i++) {
-            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getDate() / 10][i])) << 10;
-            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getDate() % 10][i])) << 5;
-          }
+        if (helperSeconds % 2 == 0) {
+          for (byte i = 0; i < 5; i++) matrix[5 + i] = 0;
         } else {
-          for (byte i = 0; i < 5; i++) {
-            matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getDate() % 10][i])) << 8;
+          if (rtc.getDate() > 9) {
+            for (byte i = 0; i < 5; i++) {
+              matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getDate() / 10][i])) << 10;
+              matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getDate() % 10][i])) << 5;
+            }
+          } else {
+            for (byte i = 0; i < 5; i++) {
+              matrix[5 + i] |= pgm_read_byte_near(&(ziffernB[rtc.getDate() % 10][i])) << 8;
+            }
           }
         }
         DEBUG_PRINT(F("DD "));
@@ -923,24 +926,24 @@ void loop() {
         break;
     }
 
-#ifdef IR_LETTER_OFF
-    IR_LETTER_OFF;
+#if defined(IR_LETTER_OFF_X) && defined(IR_LETTER_OFF_Y)
+    // Die LED hinter dem IR-Sensor abschalten.
+    ledDriver.unsetPixelInScreenBuffer(IR_LETTER_OFF_X - 1, IR_LETTER_OFF_Y - 1, matrix);
 #endif
 
+    /******************************************************************************
+       Matrix gerendert.
+    ******************************************************************************/
+
 #ifdef DEBUG_MATRIX
+    // Matrix auf der Konsole ausgeben.
     debug_matrix(matrix);
 #endif
 
-    //
     // Die Matrix auf die LEDs multiplexen mit neuem Inhalt.
-    //
     ledDriver.writeScreenBufferToMatrix(matrix, true, settings.getColor());
 
   }
-
-  /******************************************************************************
-     ENDE Render the Matrix.
-  ******************************************************************************/
 
   /******************************************************************************
      Button pressed.
@@ -1070,9 +1073,7 @@ void loop() {
   }
 #endif
 
-  //
   // Die Matrix auf die LEDs multiplexen. Nur 'Refresh' des Inhalts.
-  //
   if ((mode != STD_MODE_BLANK) && (mode != STD_MODE_NIGHT)) {
     ledDriver.writeScreenBufferToMatrix(matrix, false, settings.getColor());
   }
@@ -1139,29 +1140,14 @@ void doubleEvtModePressed() {
 
 void modePressed() {
   needsUpdateFromRtc = true;
+
   // Displaytreiber einschalten, wenn BLANK verlassen wird
   if (mode == STD_MODE_BLANK) {
     DEBUG_PRINTLN(F("LED-Driver: WakeUp"));
     ledDriver.wakeUp();
   }
-#ifdef USE_STD_MODE_ALARM
-  if (alarm.isActive()) {
-    alarm.deactivate();
-    setMode(STD_MODE_NORMAL);
-  } else {
-    switch (mode) {
-      // Durch Drücken der MODE-Taste den Nachtmodus verlassen
-      case STD_MODE_NIGHT:
-        setDisplayToToggle();
-        break;
-      default:
-        mode++;
-        break;
-    }
-  }
-#else
+
   switch (mode) {
-    // Durch Drücken der MODE-Taste den Nachtmodus verlassen
     case STD_MODE_NIGHT:
       setDisplayToToggle();
       break;
@@ -1169,7 +1155,6 @@ void modePressed() {
       mode++;
       break;
   }
-#endif
 
   // Brightness ueberspringen, wenn automatische Helligkeit verwendet wird.
   if (settings.getUseLdr() && (mode == STD_MODE_BRIGHTNESS)) {
@@ -1177,13 +1162,19 @@ void modePressed() {
   }
 
 #ifdef USE_STD_MODE_ALARM
-  // Set an alarm.
+  // Alarm einstellen.
   if (mode == STD_MODE_ALARM) {
     alarm.setShowAlarmTimeTimer(settings.getJumpToNormalTimeout());
   }
+
+  // Alarm abschalten wenn aktiv.
+  if (alarm.isActive()) {
+    alarm.deactivate();
+    setMode(STD_MODE_NORMAL);
+  }
 #endif
 
-  // End of menu. Return to time.
+  // Ende. Zurueck zur Zeit.
   if ((mode == STD_MODE_COUNT) || (mode == EXT_MODE_COUNT)) {
     setMode(STD_MODE_NORMAL);
   }
@@ -1290,14 +1281,14 @@ void hourPlusPressed() {
         settings.setTransitionMode(0);
       } else {
         settings.setTransitionMode(settings.getTransitionMode() + 1);
-#if !defined(RGB_LEDS) && !defined(RGBW_LEDS) && !defined(RGBW_LEDS_CLT2)
+#ifndef LED_DRIVER_DEFAULT
         if (settings.getTransitionMode() == Settings::TRANSITION_MODE_MATRIX) {
           settings.setTransitionMode(settings.getTransitionMode() + 1);
         }
 #endif
       }
       break;
-#if defined(RGB_LEDS) || defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
+#ifndef LED_DRIVER_DEFAULT
     case EXT_MODE_COLOR:
       if (settings.getColor() == color_max) {
         settings.setColor((eColors)0);
@@ -1423,14 +1414,14 @@ void minutePlusPressed() {
         settings.setTransitionMode(Settings::TRANSITION_MODE_MAX - 1);
       } else {
         settings.setTransitionMode(settings.getTransitionMode() - 1);
-#if !defined(RGB_LEDS) && !defined(RGBW_LEDS) && !defined(RGBW_LEDS_CLT2)
+#ifndef LED_DRIVER_DEFAULT
         if (settings.getTransitionMode() == Settings::TRANSITION_MODE_MATRIX) {
           settings.setTransitionMode(settings.getTransitionMode() - 1);
         }
 #endif
       }
       break;
-#if defined(RGB_LEDS) || defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
+#ifndef LED_DRIVER_DEFAULT
     case EXT_MODE_COLOR:
       if (settings.getColor() == 0)
       {
@@ -1571,7 +1562,7 @@ void remoteAction(unsigned int irCode, IRTranslator * irTranslatorGeneric) {
         } else {
           settings.setColor(irTranslatorGeneric->getColor());
         }
-#if defined(RGB_LEDS) || defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
+#ifndef LED_DRIVER_DEFAULT
         if (settings.getColor() > color_single_max) {
           setMode(EXT_MODE_COLOR);
         }
@@ -1621,8 +1612,7 @@ void remoteAction(unsigned int irCode, IRTranslator * irTranslatorGeneric) {
     }
   }
 
-  // Fallback für Funktionen welche eine eigene Taste auf der Fernbedienung haben.
-  // Im Menue diesen Fallback jedoch verhindern.
+  // Fallback stellen fuer Funktionen welche eine eigene Taste auf der Fernbedienung haben.
   if ((irCode != REMOTE_BUTTON_TIME_H_PLUS)  &&
       (irCode != REMOTE_BUTTON_TIME_M_PLUS)  &&
       (irCode != REMOTE_BUTTON_TIME_H_MINUS) &&
@@ -1651,7 +1641,7 @@ void remoteAction(unsigned int irCode, IRTranslator * irTranslatorGeneric) {
       case EXT_MODE_LDR_MODE:
         enableFallBackCounter(settings.getJumpToNormalTimeout());
         break;
-#if defined(RGB_LEDS) || defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
+#ifndef LED_DRIVER_DEFAULT
       case EXT_MODE_COLOR:
         enableFallBackCounter(2);
         break;

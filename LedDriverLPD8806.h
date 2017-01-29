@@ -8,11 +8,10 @@
 #include "Arduino.h"
 #include "LedDriver.h"
 
-#ifdef RGB_LEDS
-#include <LPD8806.h>
-#endif
 #if defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
 #include <LPD8806RGBW.h>
+#else
+#include <LPD8806.h>
 #endif
 
 class LedDriverLPD8806 : public LedDriver {
@@ -51,11 +50,10 @@ class LedDriverLPD8806 : public LedDriver {
 
     unsigned int _lastLEDsOn;
 
-#ifdef RGB_LEDS
-    LPD8806 *_strip;
-#endif
 #if defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
     LPD8806RGBW *_strip;
+#else
+    LPD8806 *_strip;
 #endif
 
 };

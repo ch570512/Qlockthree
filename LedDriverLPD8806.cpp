@@ -1,15 +1,13 @@
-/**
+/*
    LedDriverLPD8806
 */
 
 #include "LedDriverLPD8806.h"
 #include "Debug.h"
 
-#if defined(RGB_LEDS) || defined(RGBW_LEDS) || defined(RGBW_LEDS_CLT2)
-
 #define NUM_PIXEL 115
 
-/**
+/*
    Initialisierung.
 */
 LedDriverLPD8806::LedDriverLPD8806(byte dataPin, byte clockPin) {
@@ -29,7 +27,7 @@ LedDriverLPD8806::LedDriverLPD8806(byte dataPin, byte clockPin) {
   _lastLEDsOn = 0;
 }
 
-/**
+/*
    init() wird im Hauptprogramm in init() aufgerufen.
    Hier sollten die LED-Treiber in eine definierten
    Ausgangszustand gebracht werden.
@@ -44,7 +42,7 @@ void LedDriverLPD8806::printSignature() {
   DEBUG_PRINT(F("LPD8806"));
 }
 
-/**
+/*
    Den Bildschirm-Puffer auf die LED-Matrix schreiben.
 
    @param onChange: TRUE, wenn es Aenderungen in dem Bildschirm-Puffer gab,
@@ -262,7 +260,7 @@ void LedDriverLPD8806::writeScreenBufferToMatrix(word matrix[16], boolean onChan
   }
 }
 
-/**
+/*
    Die Helligkeit des Displays anpassen.
 
    @param brightnessInPercent Die Helligkeit.
@@ -274,14 +272,14 @@ void LedDriverLPD8806::setBrightness(byte brightnessInPercent) {
   }
 }
 
-/**
+/*
    Die aktuelle Helligkeit bekommen.
 */
 byte LedDriverLPD8806::getBrightness() {
   return _brightnessInPercent;
 }
 
-/**
+/*
    Anpassung der Groesse des Bildspeichers.
 
    @param linesToWrite Wieviel Zeilen aus dem Bildspeicher sollen
@@ -290,7 +288,7 @@ byte LedDriverLPD8806::getBrightness() {
 void LedDriverLPD8806::setLinesToWrite(byte linesToWrite) {
 }
 
-/**
+/*
    Das Display ausschalten.
 */
 void LedDriverLPD8806::shutDown() {
@@ -299,13 +297,13 @@ void LedDriverLPD8806::shutDown() {
   _transitionCompleted = true;
 }
 
-/**
+/*
    Das Display einschalten.
 */
 void LedDriverLPD8806::wakeUp() {
 }
 
-/**
+/*
    Den Dateninhalt des LED-Treibers loeschen.
 */
 void LedDriverLPD8806::clearData() {
@@ -313,7 +311,7 @@ void LedDriverLPD8806::clearData() {
   _strip->show();
 }
 
-/**
+/*
    Einen X/Y-koordinierten Pixel in der Matrix setzen.
 */
 void LedDriverLPD8806::_setPixel(byte x, byte y, uint32_t c) {
@@ -324,7 +322,7 @@ void LedDriverLPD8806::_setPixel(byte x, byte y, uint32_t c) {
 #endif
 }
 
-/**
+/*
    Einen Pixel im Streifen setzten.
 */
 void LedDriverLPD8806::_setPixel(byte num, uint32_t c) {
@@ -435,7 +433,7 @@ void LedDriverLPD8806::_setPixel(byte num, uint32_t c) {
   delay(1);
 }
 
-/**
+/*
    Funktion fuer saubere 'Regenbogen'-Farben.
    Kopiert aus den Adafruit-Beispielen (strand).
 */
@@ -451,22 +449,19 @@ uint32_t LedDriverLPD8806::_wheel(byte brightness, byte wheelPos) {
   }
 }
 
-/**
+/*
    Hilfsfunktion fuer das Skalieren der Farben.
 */
 byte LedDriverLPD8806::_brightnessScaleColor(byte brightness, byte colorPart) {
   return map(brightness, 0, 100, 0, colorPart / 2); // LPD8806 kann nur 7 bit Farben! (also 0..127, nicht 0..255)
 }
 
-/**
+/*
    Streifen loeschen.
 */
-
 void LedDriverLPD8806::_clear() {
   for (byte i = 0; i < NUM_PIXEL; i++) {
     _strip->setPixelColor(i, 0);
   }
 }
-
-#endif
 
