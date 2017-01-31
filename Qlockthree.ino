@@ -49,7 +49,7 @@
 #endif
 
 /******************************************************************************
-   Declaration
+   Init.
 ******************************************************************************/
 
 #if defined(LED_DRIVER_DEFAULT) && defined (BOARD_DEFAULT)
@@ -937,7 +937,7 @@ void loop() {
 
 #ifdef DEBUG_MATRIX
     // Matrix auf der Konsole ausgeben.
-    debug_matrix(matrix);
+    debugScreenBuffer(matrix);
 #endif
 
     // Die Matrix auf die LEDs multiplexen mit neuem Inhalt.
@@ -1883,23 +1883,23 @@ void factoryReset() {
 ******************************************************************************/
 
 #ifdef DEBUG_MATRIX
-void debug_matrix(word debugMatrix[]) {
-  const char buchstabensalat[][12] PROGMEM = {
-    {'E', 'S', 'K', 'I', 'S', 'T', 'A', 'F', 'U', 'N', 'F', '2'},
-    {'Z', 'E', 'H', 'N', 'Z', 'W', 'A', 'N', 'Z', 'I', 'G', '1'},
-    {'D', 'R', 'E', 'I', 'V', 'I', 'E', 'R', 'T', 'E', 'L', '4'},
-    {'V', 'O', 'R', 'F', 'U', 'N', 'K', 'N', 'A', 'C', 'H', '3'},
-    {'H', 'A', 'L', 'B', 'A', 'E', 'L', 'F', 'U', 'N', 'F', 'A'},
-    {'E', 'I', 'N', 'S', 'X', 'A', 'M', 'Z', 'W', 'E', 'I', '_'},
-    {'D', 'R', 'E', 'I', 'P', 'M', 'J', 'V', 'I', 'E', 'R', '_'},
-    {'S', 'E', 'C', 'H', 'S', 'N', 'L', 'A', 'C', 'H', 'T', '_'},
-    {'S', 'I', 'E', 'B', 'E', 'N', 'Z', 'W', 'O', 'L', 'F', '_'},
-    {'Z', 'E', 'H', 'N', 'E', 'U', 'N', 'K', 'U', 'H', 'R', '_'}
+void debugScreenBuffer(word ScreenBuffer[]) {
+  const char buchstabensalat[][17] PROGMEM = {
+    {"ESKISTAFUNF2"},
+    {"ZEHNZWANZIG1"},
+    {"DREIVIERTEL4"},
+    {"VORFUNKNACH3"},
+    {"HALBAELFUNFA"},
+    {"EINSXAMZWEI_"},
+    {"DREIPMJVIER_"},
+    {"SECHSNLACHT_"},
+    {"SIEBENZWOLF_"},
+    {"ZEHNEUNKUHR_"}
   };
   Serial.println(F("\033[0;0H")); // Set cursor to 0, 0 position in console.
   Serial.println(F(" -----------"));
   for (byte zeile = 0; zeile < 10; zeile++) {
-    word leds = debugMatrix[zeile];
+    word leds = ScreenBuffer[zeile];
     char spalte[16];
     for (int i = 15; i >= 0; i--) {
       spalte[i] = ((leds & 1) ? buchstabensalat[zeile][i] : ' ');

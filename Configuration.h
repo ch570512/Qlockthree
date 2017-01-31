@@ -154,7 +154,6 @@
 
   REMOTE_BLUETOOTH:   Bluetooth App fuer Android oder iPhone. (Kostenpflichtig.)
 
-  LED_TEST_INTRO:     Laesst alle LEDs nach dem Start der Uhr fuer 3 Sekunden leuchten.
   NONE_TECHNICAL_ZERO: Zeigt die Null ohne den diagonalen Strich.
   AUTO_JUMP_BLANK:    Nach einem erfolgreichen DCF77 Sync bei ausgeschalteter Anzeige, geht sie automatisch wieder an.
   MAX_BUZZ_TIME_IN_MINUTES: Wie lange soll der Alarm laufen wenn er nicht abgeschaltet wird.
@@ -214,10 +213,10 @@
 #define USE_STD_MODE_DATE
 
 // Show temperature
-//#define USE_STD_MODE_TEMP
+#define USE_STD_MODE_TEMP
 
 // Set an alarm
-//#define USE_STD_MODE_ALARM
+#define USE_STD_MODE_ALARM
 
 /******************************************************************************
   Extended Menu
@@ -252,10 +251,10 @@
 // Show setup for night on/off
 #define USE_EXT_MODE_NIGHT_OFF
 
-// Show LED test
+//Show LED test
 #define USE_EXT_MODE_TEST
 
-// Show time since last sync with DCF77
+//Show time since last sync with DCF77
 #define USE_EXT_MODE_DCF_SYNC
 
 // Show DCF77 debug
@@ -266,22 +265,22 @@
 ******************************************************************************/
 
 // Board
-#define BOARD_DEFAULT
+//#define BOARD_DEFAULT
 //#define BOARD_AMBBRTCAD
 //#define BOARD_BBRTCAD
 //#define BOARD_303UNIVERSAL
 //#define BOARD_CLT2
-//#define BOARD_NANO
+#define BOARD_NANO
 
 // LED-Driver
-#define LED_DRIVER_DEFAULT
+//#define LED_DRIVER_DEFAULT
 // MOS-FETs for LED_DRIVER_DEFAULT
 //#define MOS_DRIVER
 
 //#define LED_DRIVER_UEBERPIXEL
 //#define LED_DRIVER_POWER_SHIFT_REGISTER
 //#define LED_DRIVER_DOTSTAR
-//#define LED_DRIVER_NEOPIXEL
+#define LED_DRIVER_NEOPIXEL
 
 //#define LED_DRIVER_LPD8806
 // Type and layout of LEDs for LED_DRIVER_LPD8806
@@ -294,8 +293,8 @@
 #define ENABLE_SQW_LED
 
 // RTC
-#define DS1307
-//#define DS3231
+//#define DS1307
+#define DS3231
 
 // DCF77
 #define DCF77
@@ -303,17 +302,17 @@
 // Temperature-Sensor
 //#define TEMP_SENS_LM35
 //#define TEMP_SENS_LM335
-//#define TEMP_SENS_DS3231
+#define TEMP_SENS_DS3231
 #define TEMP_OFFSET 5
 
 // IR-Remote
-#define REMOTE_NO_REMOTE
+//#define REMOTE_NO_REMOTE
 //#define REMOTE_SPARKFUN
 //#define REMOTE_MOONCANDLES
 //#define REMOTE_LUNARTEC
 //#define REMOTE_CLT
 //#define REMOTE_APPLE // Apple Remote Control for iPod
-//#define REMOTE_PHILIPS // Philips SRP1 101/10 - Code 0815
+#define REMOTE_PHILIPS // Philips SRP1 101/10 - Code 0815
 //#define REMOTE_HX1838
 
 // Turn off the LED behind the IR-Sensor.
@@ -370,7 +369,7 @@
 //#define RENDER_CORNERS_CCW
 //#define OPTIMIZED_FOR_DARKNESS
 //#define SKIP_BLANK_LINES
-#define FIRMWARE_VERSION "yaqtfw_20170129"
+#define FIRMWARE_VERSION "yaqtfw_20170131"
 
 /******************************************************************************
   Debug to serial console.
@@ -378,7 +377,7 @@
 
 //#define DEBUG                 // Switch on debug
 //#define DEBUG_TIME            // Shows the time every secound
-//#define DEBUG_MATRIX          // Renders the matrix to console - German front - Works best with Putty
+#define DEBUG_MATRIX          // Renders the matrix to console - German front - Works best with Putty
 //#define DEBUG_EVENT_MATRIX    // Renders events to console - Works best with Putty
 //#define DEBUG_FPS             // Shows the FPS
 //#define DEBUG_DCF77           // Info for DCF77
