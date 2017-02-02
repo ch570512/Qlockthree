@@ -369,7 +369,7 @@
 //#define RENDER_CORNERS_CCW
 //#define OPTIMIZED_FOR_DARKNESS
 //#define SKIP_BLANK_LINES
-#define FIRMWARE_VERSION "yaqtfw_20170131"
+#define FIRMWARE_VERSION "yaqtfw_20170202"
 
 /******************************************************************************
   Debug to serial console.
@@ -377,7 +377,7 @@
 
 //#define DEBUG                 // Switch on debug
 //#define DEBUG_TIME            // Shows the time every secound
-#define DEBUG_MATRIX          // Renders the matrix to console - German front - Works best with Putty
+//#define DEBUG_MATRIX          // Renders the matrix to console - German front - Works best with Putty
 //#define DEBUG_EVENT_MATRIX    // Renders events to console - Works best with Putty
 //#define DEBUG_FPS             // Shows the FPS
 //#define DEBUG_DCF77           // Info for DCF77
