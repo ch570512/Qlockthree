@@ -195,7 +195,7 @@
 #define PIN_SQW_SIGNAL   2
 #define PIN_DCF77_SIGNAL 3
 #define PIN_DCF77_PON 4
-#define PIN_SQW_LED LED_BUILTIN
+#define PIN_SQW_LED 13
 #define PIN_DCF77_LED 12
 #define PIN_SPEAKER 11
 #define PIN_TEMP_SENS A2

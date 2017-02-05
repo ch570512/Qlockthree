@@ -82,7 +82,6 @@ class Effects {
 
   public:
     static void showTickerString(const char* str2disp, byte tickerSpeed, eColors color);
-    static void showIntro(eColors color);
 
     static void showFireWork(byte posX, eColors color);
     static void showHeart(byte duration, eColors color);

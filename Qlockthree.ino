@@ -8,8 +8,8 @@
    @created  1.11.2011
 ******************************************************************************/
 
-#include <Wire.h>
 #include <avr/pgmspace.h>
+#include <Wire.h>
 #include <EEPROM.h>
 #include <SPI.h>
 #include "Configuration.h"

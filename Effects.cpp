@@ -54,36 +54,6 @@ void Effects::showTickerString(const char* str2disp, byte tickerSpeed, eColors c
 }
 
 /**
-   Intro
-*/
-void Effects::showIntro(eColors color) {
-  word matrix [16];
-
-  renderer.clearScreenBuffer(matrix);
-  for (int j = 0; j < 11; j++) {
-    for (byte i = 0; i < 10; i++) {
-      matrix[i] |= 0b1 << (15 - j);
-    }
-    writeToBuffer(matrix, 5, color);
-  }
-  for (int j = 0; j < 11; j++) {
-    for (int i = 0; i < 10; i++) {
-      matrix[i] ^= 0b1 << (5 + j);
-    }
-    writeToBuffer(matrix, 5, color);
-  }
-  renderer.clearScreenBuffer(matrix);
-  for (int i = 9; i >= 0; i--) {
-    matrix[i] |= 0b1111111111100000;
-    writeToBuffer(matrix, 5, color);
-  }
-  for (int i = 0; i < 10; i++) {
-    matrix[i] ^= 0b1111111111100000;
-    writeToBuffer(matrix, 5, color);
-  }
-}
-
-/**
    Pulsierender Herz-Effekt
 */
 void Effects::showHeart(byte duration, eColors color) {
