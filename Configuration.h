@@ -326,6 +326,9 @@
   Software settings
 ******************************************************************************/
 
+// Turn on all LEDs for 3s on power-up.
+#define LED_TEST_INTRO
+
 // None technical zero
 //#define NONE_TECHNICAL_ZERO
 
@@ -349,6 +352,7 @@
 
 // LDR
 #define LDR_AUTOSCALE
+#define LDR_INVERTED true
 #define LDR_MANUAL_MIN 0
 #define LDR_MANUAL_MAX 1023
 #define LDR_MIN_PERCENT 5
@@ -368,8 +372,6 @@
 //#define UPSIDE_DOWN
 //#define RENDER_CORNERS_CCW
 //#define OPTIMIZED_FOR_DARKNESS
-//#define SKIP_BLANK_LINES
-#define FIRMWARE_VERSION "yaqtfw_20170205"
 
 /******************************************************************************
   Debug to serial console.

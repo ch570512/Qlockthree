@@ -43,22 +43,22 @@
 #define REMOTE_BUTTON_SECONDS      109
 
 class IRTranslator {
-  public:
-    virtual void printSignature();
-    virtual byte buttonForCode(unsigned long code);
-    eColors getColor();
-    Mode getMode();
-    byte getTransition();
+public:
+	virtual void printSignature();
+	virtual byte buttonForCode(unsigned long code);
+	eColors getColor();
+	Mode getMode();
+	byte getTransition();
 
-  protected:
-    void setColor(eColors);
-    void setMode(Mode mode);
-    void setTransition(byte transition);
+protected:
+	void setColor(eColors);
+	void setMode(Mode mode);
+	void setTransition(byte transition);
 
-  private:
-    byte _transition;
-    eColors _color;
-    Mode _mode;
+private:
+	byte _transition;
+	eColors _color;
+	Mode _mode;
 };
 
 #endif
